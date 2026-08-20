@@ -1,5 +1,7 @@
+import java.util.Scanner;
+
 /**
- * Greets the user as Crystal and exits.
+ * Greets the user, echoes commands, and exits when the user enters {@code bye}.
  */
 public class Crystal {
     public static void main(String[] args) {
@@ -14,6 +16,17 @@ public class Crystal {
         System.out.print(banner);
         System.out.println("\nHello!!! I'm Crystal.");
         System.out.println("What can I do for you?");
+        System.out.println(horizontalLine);
+
+        Scanner scanner = new Scanner(System.in);
+        String command = scanner.nextLine();
+        while (!command.equals("bye")) {
+            System.out.println(horizontalLine);
+            System.out.println(command);
+            System.out.println(horizontalLine);
+            command = scanner.nextLine();
+        }
+
         System.out.println(horizontalLine);
         System.out.println("Bye!!! Hope to see you again soon!");
         System.out.println(horizontalLine);
