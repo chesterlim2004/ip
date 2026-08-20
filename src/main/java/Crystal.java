@@ -16,14 +16,14 @@ public class Crystal {
                 + "| |   | |_) \\ V /\\___ \\ | | / _ \\ | |\n"
                 + "| |___|  _ < | |  ___) || |/ ___ \\| |___\n"
                 + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n";
-        String instructions = "[Commands:\n"
+        String commands = "[Commands:\n"
                 + "- To exit, enter 'bye'\n"
                 + "- To view your list, enter 'list']";
 
         System.out.println(horizontalLine);
         System.out.print(banner);
         System.out.println("\nHello!!! I'm Crystal.");
-        System.out.println(instructions);
+        System.out.println(commands);
         System.out.println(horizontalLine);
 
         Scanner scanner = new Scanner(System.in);
@@ -38,13 +38,14 @@ public class Crystal {
 
             System.out.println(horizontalLine);
             if (command.equals("list")) {
+                System.out.println("Crystal: Here is your list of items!");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("Crystal: " + (i + 1) + ". " + tasks[i]);
+                    System.out.println("         " + (i + 1) + ". " + tasks[i]);
                 }
             } else {
                 tasks[taskCount] = command;
                 taskCount++;
-                System.out.println("Crystal: added: " + command);
+                System.out.println("Crystal: I have added '" + command + "' to your list!");
             }
             System.out.println(horizontalLine);
         }
