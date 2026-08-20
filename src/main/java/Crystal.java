@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Stores tasks entered by the user, lists them on request, and exits on {@code bye}.
+ * Stores tasks, tracks whether they are done, lists them, and exits on {@code bye}.
  */
 public class Crystal {
     /**
@@ -17,8 +17,11 @@ public class Crystal {
                 + "| |___|  _ < | |  ___) || |/ ___ \\| |___\n"
                 + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n";
         String commands = "[Commands:\n"
-                + "- To exit, enter 'bye'\n"
-                + "- To view your list, enter 'list']";
+                + "- To add a task to the list, simply enter your task\n"
+                + "- To view your list, enter 'list'\n"
+                + "- To mark a task as done, enter 'mark [task number]'\n"
+                + "- To mark a task as not done, enter 'unmark [task number]'\n"
+                + "- To exit, enter 'bye'\n";
 
         System.out.println(horizontalLine);
         System.out.print(banner);
@@ -27,7 +30,7 @@ public class Crystal {
         System.out.println(horizontalLine);
 
         Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
         while (true) {
             System.out.print("You: ");
@@ -38,12 +41,22 @@ public class Crystal {
 
             System.out.println(horizontalLine);
             if (command.equals("list")) {
-                System.out.println("Crystal: Here is your list of items!");
+                System.out.println("Crystal: Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("         " + (i + 1) + ". " + tasks[i]);
+                    System.out.println("         " + (i + 1) + "." + tasks[i]);
                 }
+            } else if (command.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(command.substring(5)) - 1;
+                tasks[taskIndex].markAsDone();
+                System.out.println("Crystal: Nice! I've marked this task as done:");
+                System.out.println("         " + tasks[taskIndex]);
+            } else if (command.startsWith("unmark ")) {
+                int taskIndex = Integer.parseInt(command.substring(7)) - 1;
+                tasks[taskIndex].markAsNotDone();
+                System.out.println("Crystal: OK, I've marked this task as not done yet:");
+                System.out.println("         " + tasks[taskIndex]);
             } else {
-                tasks[taskCount] = command;
+                tasks[taskCount] = new Task(command);
                 taskCount++;
                 System.out.println("Crystal: I have added '" + command + "' to your list!");
             }
