@@ -150,7 +150,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Your task list is empty!",
             "{{LINE}}"
           ]
         },
@@ -167,8 +167,16 @@ Each test case below specifies its aim, command inputs, and expected output. An 
     },
     {
       "id": "UI-04",
-      "aim": "Report malformed task commands and invalid task numbers as Crystal exceptions",
+      "aim": "Report malformed list and task commands and invalid task numbers as Crystal exceptions",
       "exchanges": [
+        {
+          "input": "list ",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! To view your task list, simply enter 'list'!",
+            "{{LINE}}"
+          ]
+        },
         {
           "input": "todo",
           "expected_output": [

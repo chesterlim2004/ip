@@ -132,7 +132,7 @@ Crystal: Oopsies!!! I don't know what that means :-(
 ____________________________________________________________
 You: list
 ____________________________________________________________
-Crystal: Here are the tasks in your list:
+Crystal: Your task list is empty!
 ____________________________________________________________
 You: bye
 ____________________________________________________________
@@ -140,7 +140,7 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-## UI-04: Report malformed task commands and invalid task numbers as Crystal exceptions
+## UI-04: Report malformed list and task commands and invalid task numbers as Crystal exceptions
 
 ```text
 ____________________________________________________________
@@ -160,6 +160,10 @@ Hello!!! I'm Crystal.
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
 - To exit, enter 'bye']
+____________________________________________________________
+You: list 
+____________________________________________________________
+Crystal: Oopsies!!! To view your task list, simply enter 'list'!
 ____________________________________________________________
 You: todo
 ____________________________________________________________

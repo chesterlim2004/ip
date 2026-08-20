@@ -45,10 +45,16 @@ public class Crystal {
             System.out.println(horizontalLine);
             try {
                 if (command.equals("list")) {
-                    System.out.println("Crystal: Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println("         " + (i + 1) + "." + tasks.get(i));
+                    if (tasks.isEmpty()) {
+                        System.out.println("Crystal: Your task list is empty!");
+                    } else {
+                        System.out.println("Crystal: Here are the tasks in your list:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println("         " + (i + 1) + "." + tasks.get(i));
+                        }
                     }
+                } else if (command.startsWith("list")) {
+                    throw new CrystalException("To view your task list, simply enter 'list'!");
                 } else if (command.startsWith("mark")) {
                     int taskIndex = getTaskIndex(command, "mark ", tasks.size());
                     Task task = tasks.get(taskIndex);
