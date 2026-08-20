@@ -82,15 +82,18 @@ public class Crystal {
                     String[] eventToParts = eventFromParts[1].split(" /to ", 2);
                     newTask = new Event(eventFromParts[0], eventToParts[0], eventToParts[1]);
                 } else {
-                    newTask = new Todo(command);
+                    newTask = null;
+                    System.out.println("Crystal: Please specify if the task is a todo, deadline or event!");
                 }
 
-                tasks[taskCount] = newTask;
-                taskCount++;
-                String taskWord = taskCount == 1 ? "task" : "tasks";
-                System.out.println("Crystal: Got it. I've added this task:");
-                System.out.println("         " + newTask);
-                System.out.println("         Now you have " + taskCount + " " + taskWord + " in the list.");
+                if (newTask != null) {
+                    tasks[taskCount] = newTask;
+                    taskCount++;
+                    String taskWord = taskCount == 1 ? "task" : "tasks";
+                    System.out.println("Crystal: Got it. I've added this task:");
+                    System.out.println("         " + newTask);
+                    System.out.println("         Now you have " + taskCount + " " + taskWord + " in the list.");
+                }
             }
             System.out.println(horizontalLine);
         }
