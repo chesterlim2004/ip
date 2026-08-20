@@ -10,4 +10,13 @@ public class CrystalException extends Exception {
     public CrystalException(String message) {
         super(message);
     }
+
+    /**
+     * Returns this error in Crystal's user-facing message format.
+     *
+     * @return error message prefixed with Crystal's name and reaction
+     */
+    public String getUserMessage() {
+        return "Crystal: Oopsies!!! " + getMessage();
+    }
 }

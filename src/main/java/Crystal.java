@@ -70,7 +70,7 @@ public class Crystal {
                     }
                 } else {
                     if (taskCount >= tasks.length) {
-                        throw new CrystalException(" Your task list is full!");
+                        throw new CrystalException("Your task list is full!");
                     }
                     Task newTask = createTask(command);
                     tasks[taskCount] = newTask;
@@ -81,7 +81,7 @@ public class Crystal {
                     System.out.println("         Now you have " + taskCount + " " + taskWord + " in the list.");
                 }
             } catch (CrystalException exception) {
-                System.out.println("Crystal: Oopsies!!!" + exception.getMessage());
+                System.out.println(exception.getUserMessage());
             }
             System.out.println(horizontalLine);
         }
@@ -106,12 +106,12 @@ public class Crystal {
         try {
             taskNumber = Integer.parseInt(command.substring(prefix.length()));
         } catch (NumberFormatException exception) {
-            throw new CrystalException(" Please enter a valid task number!");
+            throw new CrystalException("Please enter a valid task number!");
         }
 
         int taskIndex = taskNumber - 1;
         if (taskIndex < 0 || taskIndex >= taskCount) {
-            throw new CrystalException(" That task number does not exist!");
+            throw new CrystalException("That task number does not exist!");
         }
         return taskIndex;
     }
@@ -126,23 +126,23 @@ public class Crystal {
     private static Task createTask(String command) throws CrystalException {
         if (command.startsWith("todo")) {
             if (!command.startsWith("todo ")) {
-                throw new CrystalException(" A todo must have a description!");
+                throw new CrystalException("A todo must have a description!");
             }
             String description = command.substring("todo ".length());
             if (description.isBlank()) {
-                throw new CrystalException(" A todo must have a description!");
+                throw new CrystalException("A todo must have a description!");
             }
             return new Todo(description);
         }
 
         if (command.startsWith("deadline")) {
             if (!command.startsWith("deadline ")) {
-                throw new CrystalException(" A deadline must have a description and a /by time!");
+                throw new CrystalException("A deadline must have a description and a /by time!");
             }
             String details = command.substring("deadline ".length());
             int byIndex = details.indexOf(" /by ");
             if (byIndex <= 0 || byIndex + " /by ".length() >= details.length()) {
-                throw new CrystalException(" A deadline must have a description and a /by time!");
+                throw new CrystalException("A deadline must have a description and a /by time!");
             }
             String description = details.substring(0, byIndex);
             String by = details.substring(byIndex + " /by ".length());
@@ -152,7 +152,7 @@ public class Crystal {
         if (command.startsWith("event")) {
             if (!command.startsWith("event ")) {
                 throw new CrystalException(
-                        " An event must have a description, a /from time and a /to time!");
+                        "An event must have a description, a /from time and a /to time!");
             }
             String details = command.substring("event ".length());
             int fromIndex = details.indexOf(" /from ");
@@ -160,7 +160,7 @@ public class Crystal {
             if (fromIndex <= 0 || toIndex <= fromIndex + " /from ".length()
                     || toIndex + " /to ".length() >= details.length()) {
                 throw new CrystalException(
-                        " An event must have a description, a /from time and a /to time!");
+                        "An event must have a description, a /from time and a /to time!");
             }
             String description = details.substring(0, fromIndex);
             String from = details.substring(fromIndex + " /from ".length(), toIndex);
@@ -168,6 +168,6 @@ public class Crystal {
             return new Event(description, from, to);
         }
 
-        throw new CrystalException(" I don't know what that means :-(");
+        throw new CrystalException("I don't know what that means :-(");
     }
 }
