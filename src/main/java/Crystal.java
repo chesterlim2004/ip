@@ -49,7 +49,7 @@ public class Crystal {
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println("         " + (i + 1) + "." + tasks.get(i));
                     }
-                } else if (command.startsWith("mark ")) {
+                } else if (command.startsWith("mark")) {
                     int taskIndex = getTaskIndex(command, "mark ", tasks.size());
                     Task task = tasks.get(taskIndex);
                     if (task.isDone()) {
@@ -60,7 +60,7 @@ public class Crystal {
                         System.out.println("Crystal: Nice! I've marked this task as done:");
                         System.out.println("         " + task);
                     }
-                } else if (command.startsWith("unmark ")) {
+                } else if (command.startsWith("unmark")) {
                     int taskIndex = getTaskIndex(command, "unmark ", tasks.size());
                     Task task = tasks.get(taskIndex);
                     if (!task.isDone()) {
@@ -71,7 +71,7 @@ public class Crystal {
                         System.out.println("Crystal: OK, I've marked this task as not done yet:");
                         System.out.println("         " + task);
                     }
-                } else if (command.startsWith("delete ")) {
+                } else if (command.startsWith("delete")) {
                     int taskIndex = getTaskIndex(command, "delete ", tasks.size());
                     Task removedTask = tasks.remove(taskIndex);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
@@ -104,15 +104,20 @@ public class Crystal {
      * @param prefix command prefix before the task number
      * @param taskCount number of tasks currently stored
      * @return zero-based index of the selected task
-     * @throws CrystalException if the task number is not numeric or does not exist
+     * @throws CrystalException if the command is malformed or the task does not exist
      */
     private static int getTaskIndex(String command, String prefix, int taskCount)
             throws CrystalException {
+        String action = prefix.trim();
+        if (!command.startsWith(prefix)) {
+            throw new CrystalException("You have to " + action + " a task number!");
+        }
+
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(command.substring(prefix.length()));
         } catch (NumberFormatException exception) {
-            throw new CrystalException("Please enter a valid task number!");
+            throw new CrystalException("You have to " + action + " a task number!");
         }
 
         int taskIndex = taskNumber - 1;

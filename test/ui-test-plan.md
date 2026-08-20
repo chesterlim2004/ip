@@ -194,10 +194,34 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           ]
         },
         {
+          "input": "mark",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! You have to mark a task number!",
+            "{{LINE}}"
+          ]
+        },
+        {
           "input": "mark abc",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Oopsies!!! Please enter a valid task number!",
+            "Crystal: Oopsies!!! You have to mark a task number!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "unmark",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! You have to unmark a task number!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "delete abc",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! You have to delete a task number!",
             "{{LINE}}"
           ]
         },
