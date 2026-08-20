@@ -219,6 +219,71 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           ]
         }
       ]
+    },
+    {
+      "id": "UI-05",
+      "aim": "Delete a task and shift the remaining tasks forward in the list",
+      "exchanges": [
+        {
+          "input": "todo read book",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [T][ ] read book",
+            "         Now you have 1 task in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "event project meeting /from Aug 6th 2pm /to 4pm",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         Now you have 2 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "todo borrow book",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [T][ ] borrow book",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "delete 2",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Noted. I've removed this task:",
+            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         Now you have 2 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the tasks in your list:",
+            "         1.[T][ ] read book",
+            "         2.[T][ ] borrow book",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -23,6 +24,7 @@ public class Crystal {
                 + "- To view your list, enter 'list'\n"
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
+                + "- To delete a task, enter 'delete [task number]'\n"
                 + "- To exit, enter 'bye']";
 
         System.out.println(horizontalLine);
@@ -32,8 +34,7 @@ public class Crystal {
         System.out.println(horizontalLine);
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         while (true) {
             System.out.print("You: ");
             String command = scanner.nextLine();
@@ -45,40 +46,45 @@ public class Crystal {
             try {
                 if (command.equals("list")) {
                     System.out.println("Crystal: Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println("         " + (i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println("         " + (i + 1) + "." + tasks.get(i));
                     }
                 } else if (command.startsWith("mark ")) {
-                    int taskIndex = getTaskIndex(command, "mark ", taskCount);
-                    if (tasks[taskIndex].isDone()) {
+                    int taskIndex = getTaskIndex(command, "mark ", tasks.size());
+                    Task task = tasks.get(taskIndex);
+                    if (task.isDone()) {
                         System.out.println("Crystal: You have already completed this task!");
-                        System.out.println("         " + tasks[taskIndex]);
+                        System.out.println("         " + task);
                     } else {
-                        tasks[taskIndex].markAsDone();
+                        task.markAsDone();
                         System.out.println("Crystal: Nice! I've marked this task as done:");
-                        System.out.println("         " + tasks[taskIndex]);
+                        System.out.println("         " + task);
                     }
                 } else if (command.startsWith("unmark ")) {
-                    int taskIndex = getTaskIndex(command, "unmark ", taskCount);
-                    if (!tasks[taskIndex].isDone()) {
+                    int taskIndex = getTaskIndex(command, "unmark ", tasks.size());
+                    Task task = tasks.get(taskIndex);
+                    if (!task.isDone()) {
                         System.out.println("Crystal: You have not completed this task in the first place!");
-                        System.out.println("         " + tasks[taskIndex]);
+                        System.out.println("         " + task);
                     } else {
-                        tasks[taskIndex].markAsNotDone();
+                        task.markAsNotDone();
                         System.out.println("Crystal: OK, I've marked this task as not done yet:");
-                        System.out.println("         " + tasks[taskIndex]);
+                        System.out.println("         " + task);
                     }
+                } else if (command.startsWith("delete ")) {
+                    int taskIndex = getTaskIndex(command, "delete ", tasks.size());
+                    Task removedTask = tasks.remove(taskIndex);
+                    String taskWord = tasks.size() == 1 ? "task" : "tasks";
+                    System.out.println("Crystal: Noted. I've removed this task:");
+                    System.out.println("         " + removedTask);
+                    System.out.println("         Now you have " + tasks.size() + " " + taskWord + " in the list.");
                 } else {
-                    if (taskCount >= tasks.length) {
-                        throw new CrystalException("Your task list is full!");
-                    }
                     Task newTask = createTask(command);
-                    tasks[taskCount] = newTask;
-                    taskCount++;
-                    String taskWord = taskCount == 1 ? "task" : "tasks";
+                    tasks.add(newTask);
+                    String taskWord = tasks.size() == 1 ? "task" : "tasks";
                     System.out.println("Crystal: Got it! I've added this task:");
                     System.out.println("         " + newTask);
-                    System.out.println("         Now you have " + taskCount + " " + taskWord + " in the list.");
+                    System.out.println("         Now you have " + tasks.size() + " " + taskWord + " in the list.");
                 }
             } catch (CrystalException exception) {
                 System.out.println(exception.getUserMessage());
@@ -92,9 +98,9 @@ public class Crystal {
     }
 
     /**
-     * Converts the task number in a command into a valid array index.
+     * Converts the task number in a command into a valid list index.
      *
-     * @param command full mark or unmark command
+     * @param command full mark, unmark, or delete command
      * @param prefix command prefix before the task number
      * @param taskCount number of tasks currently stored
      * @return zero-based index of the selected task

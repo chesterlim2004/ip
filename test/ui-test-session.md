@@ -18,6 +18,7 @@ Hello!!! I'm Crystal.
 - To view your list, enter 'list'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
@@ -69,6 +70,7 @@ Hello!!! I'm Crystal.
 - To view your list, enter 'list'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
@@ -121,6 +123,7 @@ Hello!!! I'm Crystal.
 - To view your list, enter 'list'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: read book
@@ -155,6 +158,7 @@ Hello!!! I'm Crystal.
 - To view your list, enter 'list'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: todo
@@ -183,4 +187,61 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (4 test cases)
+## UI-05: Delete a task and shift the remaining tasks forward in the list
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your list, enter 'list'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+You: todo read book
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [T][ ] read book
+         Now you have 1 task in the list.
+____________________________________________________________
+You: event project meeting /from Aug 6th 2pm /to 4pm
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+         Now you have 2 tasks in the list.
+____________________________________________________________
+You: todo borrow book
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [T][ ] borrow book
+         Now you have 3 tasks in the list.
+____________________________________________________________
+You: delete 2
+____________________________________________________________
+Crystal: Noted. I've removed this task:
+         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+         Now you have 2 tasks in the list.
+____________________________________________________________
+You: list
+____________________________________________________________
+Crystal: Here are the tasks in your list:
+         1.[T][ ] read book
+         2.[T][ ] borrow book
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (5 test cases)

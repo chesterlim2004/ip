@@ -34,6 +34,9 @@ Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
 
+## Exceptions and Errors
+Always throw a new CrystalException with the message that the user should see as the parameter, and print .getUserMessage() unless otherwise stated.
+
 ## Console UI regression testing
 
 After every application code update:
