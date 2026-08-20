@@ -47,14 +47,24 @@ public class Crystal {
                 }
             } else if (command.startsWith("mark ")) {
                 int taskIndex = Integer.parseInt(command.substring(5)) - 1;
-                tasks[taskIndex].markAsDone();
-                System.out.println("Crystal: Nice! I've marked this task as done:");
-                System.out.println("         " + tasks[taskIndex]);
+                if (tasks[taskIndex].isDone()) {
+                    System.out.println("Crystal: You have already completed this task!");
+                    System.out.println("         " + tasks[taskIndex]);
+                } else {
+                    tasks[taskIndex].markAsDone();
+                    System.out.println("Crystal: Nice! I've marked this task as done:");
+                    System.out.println("         " + tasks[taskIndex]);
+                }
             } else if (command.startsWith("unmark ")) {
                 int taskIndex = Integer.parseInt(command.substring(7)) - 1;
-                tasks[taskIndex].markAsNotDone();
-                System.out.println("Crystal: OK, I've marked this task as not done yet:");
-                System.out.println("         " + tasks[taskIndex]);
+                if (!tasks[taskIndex].isDone()) {
+                    System.out.println("Crystal: You have not completed this task in the first place!");
+                    System.out.println("         " + tasks[taskIndex]);
+                } else {
+                    tasks[taskIndex].markAsNotDone();
+                    System.out.println("Crystal: OK, I've marked this task as not done yet:");
+                    System.out.println("         " + tasks[taskIndex]);
+                }
             } else {
                 tasks[taskCount] = new Task(command);
                 taskCount++;
