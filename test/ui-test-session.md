@@ -18,8 +18,7 @@ Hello!!! I'm Crystal.
 - To view your list, enter 'list'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
-- To exit, enter 'bye'
-
+- To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
 ____________________________________________________________
@@ -70,8 +69,7 @@ Hello!!! I'm Crystal.
 - To view your list, enter 'list'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
-- To exit, enter 'bye'
-
+- To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
 ____________________________________________________________
@@ -123,12 +121,11 @@ Hello!!! I'm Crystal.
 - To view your list, enter 'list'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
-- To exit, enter 'bye'
-
+- To exit, enter 'bye']
 ____________________________________________________________
 You: read book
 ____________________________________________________________
-Crystal: Please specify if the task is a todo, deadline or event!
+Crystal: Oopsies!!! Please specify if the task is a todo, deadline or event!
 ____________________________________________________________
 You: list
 ____________________________________________________________
@@ -140,4 +137,50 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (3 test cases)
+## UI-04: Report malformed task commands and invalid task numbers as Crystal exceptions
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your list, enter 'list'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+You: todo
+____________________________________________________________
+Crystal: Oopsies!!! A todo must have a description!
+____________________________________________________________
+You: deadline do homework
+____________________________________________________________
+Crystal: Oopsies!!! A deadline must have a description and a /by time!
+____________________________________________________________
+You: event project meeting /from Mon 2pm
+____________________________________________________________
+Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!
+____________________________________________________________
+You: mark abc
+____________________________________________________________
+Crystal: Oopsies!!! Please enter a valid task number!
+____________________________________________________________
+You: mark 1
+____________________________________________________________
+Crystal: Oopsies!!! That task number does not exist!
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (4 test cases)

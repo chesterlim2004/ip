@@ -142,7 +142,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Please specify if the task is a todo, deadline or event!",
+            "Crystal: Oopsies!!! Please specify if the task is a todo, deadline or event!",
             "{{LINE}}"
           ]
         },
@@ -151,6 +151,61 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: Here are the tasks in your list:",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-04",
+      "aim": "Report malformed task commands and invalid task numbers as Crystal exceptions",
+      "exchanges": [
+        {
+          "input": "todo",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! A todo must have a description!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline do homework",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! A deadline must have a description and a /by time!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "event project meeting /from Mon 2pm",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "mark abc",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! Please enter a valid task number!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "mark 1",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! That task number does not exist!",
             "{{LINE}}"
           ]
         },
