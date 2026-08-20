@@ -38,13 +38,18 @@ public class Crystal {
         while (true) {
             System.out.print("You: ");
             String command = scanner.nextLine();
-            if (command.equals("bye")) {
+            CommandType commandType = CommandType.fromCommand(command);
+            if (commandType == CommandType.BYE) {
                 break;
             }
 
             System.out.println(horizontalLine);
             try {
-                if (command.equals("list")) {
+                switch (commandType) {
+                case LIST -> {
+                    if (!command.equals(commandType.getKeyword())) {
+                        throw new CrystalException("To view your task list, simply enter 'list'!");
+                    }
                     if (tasks.isEmpty()) {
                         System.out.println("Crystal: Your task list is empty!");
                     } else {
@@ -53,10 +58,10 @@ public class Crystal {
                             System.out.println("         " + (i + 1) + "." + tasks.get(i));
                         }
                     }
-                } else if (command.startsWith("list")) {
-                    throw new CrystalException("To view your task list, simply enter 'list'!");
-                } else if (command.startsWith("mark")) {
-                    int taskIndex = getTaskIndex(command, "mark ", tasks.size());
+                }
+                case MARK -> {
+                    int taskIndex = getTaskIndex(
+                            command, commandType.getKeyword() + " ", tasks.size());
                     Task task = tasks.get(taskIndex);
                     if (task.isDone()) {
                         System.out.println("Crystal: You have already completed this task!");
@@ -66,8 +71,10 @@ public class Crystal {
                         System.out.println("Crystal: Nice! I've marked this task as done:");
                         System.out.println("         " + task);
                     }
-                } else if (command.startsWith("unmark")) {
-                    int taskIndex = getTaskIndex(command, "unmark ", tasks.size());
+                }
+                case UNMARK -> {
+                    int taskIndex = getTaskIndex(
+                            command, commandType.getKeyword() + " ", tasks.size());
                     Task task = tasks.get(taskIndex);
                     if (!task.isDone()) {
                         System.out.println("Crystal: You have not completed this task in the first place!");
@@ -77,20 +84,25 @@ public class Crystal {
                         System.out.println("Crystal: OK, I've marked this task as not done yet:");
                         System.out.println("         " + task);
                     }
-                } else if (command.startsWith("delete")) {
-                    int taskIndex = getTaskIndex(command, "delete ", tasks.size());
+                }
+                case DELETE -> {
+                    int taskIndex = getTaskIndex(
+                            command, commandType.getKeyword() + " ", tasks.size());
                     Task removedTask = tasks.remove(taskIndex);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
                     System.out.println("Crystal: Noted. I've removed this task:");
                     System.out.println("         " + removedTask);
                     System.out.println("         Now you have " + tasks.size() + " " + taskWord + " in the list.");
-                } else {
-                    Task newTask = createTask(command);
+                }
+                case TODO, DEADLINE, EVENT -> {
+                    Task newTask = createTask(command, commandType);
                     tasks.add(newTask);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
                     System.out.println("Crystal: Got it! I've added this task:");
                     System.out.println("         " + newTask);
                     System.out.println("         Now you have " + tasks.size() + " " + taskWord + " in the list.");
+                }
+                case UNKNOWN, BYE -> throw new CrystalException("I don't know what that means :-(");
                 }
             } catch (CrystalException exception) {
                 System.out.println(exception.getUserMessage());
@@ -137,26 +149,29 @@ public class Crystal {
      * Creates the task described by a todo, deadline, or event command.
      *
      * @param command task creation command
+     * @param commandType type of task to create
      * @return task represented by the command
-     * @throws CrystalException if the task type or required details are missing
+     * @throws CrystalException if required task details are missing
      */
-    private static Task createTask(String command) throws CrystalException {
-        if (command.startsWith("todo")) {
-            if (!command.startsWith("todo ")) {
+    private static Task createTask(String command, CommandType commandType)
+            throws CrystalException {
+        String prefix = commandType.getKeyword() + " ";
+        switch (commandType) {
+        case TODO -> {
+            if (!command.startsWith(prefix)) {
                 throw new CrystalException("A todo must have a description!");
             }
-            String description = command.substring("todo ".length());
+            String description = command.substring(prefix.length());
             if (description.isBlank()) {
                 throw new CrystalException("A todo must have a description!");
             }
             return new Todo(description);
         }
-
-        if (command.startsWith("deadline")) {
-            if (!command.startsWith("deadline ")) {
+        case DEADLINE -> {
+            if (!command.startsWith(prefix)) {
                 throw new CrystalException("A deadline must have a description and a /by time!");
             }
-            String details = command.substring("deadline ".length());
+            String details = command.substring(prefix.length());
             int byIndex = details.indexOf(" /by ");
             if (byIndex <= 0 || byIndex + " /by ".length() >= details.length()) {
                 throw new CrystalException("A deadline must have a description and a /by time!");
@@ -165,13 +180,12 @@ public class Crystal {
             String by = details.substring(byIndex + " /by ".length());
             return new Deadline(description, by);
         }
-
-        if (command.startsWith("event")) {
-            if (!command.startsWith("event ")) {
+        case EVENT -> {
+            if (!command.startsWith(prefix)) {
                 throw new CrystalException(
                         "An event must have a description, a /from time and a /to time!");
             }
-            String details = command.substring("event ".length());
+            String details = command.substring(prefix.length());
             int fromIndex = details.indexOf(" /from ");
             int toIndex = details.indexOf(" /to ", fromIndex + " /from ".length());
             if (fromIndex <= 0 || toIndex <= fromIndex + " /from ".length()
@@ -184,7 +198,7 @@ public class Crystal {
             String to = details.substring(toIndex + " /to ".length());
             return new Event(description, from, to);
         }
-
-        throw new CrystalException("I don't know what that means :-(");
+        default -> throw new CrystalException("I don't know what that means :-(");
+        }
     }
 }
