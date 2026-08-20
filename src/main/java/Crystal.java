@@ -15,20 +15,24 @@ public class Crystal {
         System.out.println(horizontalLine);
         System.out.print(banner);
         System.out.println("\nHello!!! I'm Crystal.");
-        System.out.println("What can I do for you?");
+        System.out.println("What can I do for you? (To exit, enter 'bye')");
         System.out.println(horizontalLine);
 
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-        while (!command.equals("bye")) {
+        while (true) {
+            System.out.print("You: ");
+            String command = scanner.nextLine();
+            if (command.equals("bye")) {
+                break;
+            }
+
             System.out.println(horizontalLine);
-            System.out.println(command);
+            System.out.println("Crystal: " + command);
             System.out.println(horizontalLine);
-            command = scanner.nextLine();
         }
 
         System.out.println(horizontalLine);
-        System.out.println("Bye!!! Hope to see you again soon!");
+        System.out.println("Crystal: Bye!!! Hope to see you again soon!");
         System.out.println(horizontalLine);
     }
 }
