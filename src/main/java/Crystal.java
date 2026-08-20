@@ -17,7 +17,9 @@ public class Crystal {
                 + "| |___|  _ < | |  ___) || |/ ___ \\| |___\n"
                 + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n";
         String commands = "[Commands:\n"
-                + "- To add a task to the list, simply enter your task\n"
+                + "- To add a todo, enter 'todo [description]'\n"
+                + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
+                + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
                 + "- To view your list, enter 'list'\n"
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
@@ -66,9 +68,29 @@ public class Crystal {
                     System.out.println("         " + tasks[taskIndex]);
                 }
             } else {
-                tasks[taskCount] = new Task(command);
+                Task newTask;
+                if (command.startsWith("todo ")) {
+                    String description = command.substring("todo ".length());
+                    newTask = new Todo(description);
+                } else if (command.startsWith("deadline ")) {
+                    String details = command.substring("deadline ".length());
+                    String[] deadlineParts = details.split(" /by ", 2);
+                    newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+                } else if (command.startsWith("event ")) {
+                    String details = command.substring("event ".length());
+                    String[] eventFromParts = details.split(" /from ", 2);
+                    String[] eventToParts = eventFromParts[1].split(" /to ", 2);
+                    newTask = new Event(eventFromParts[0], eventToParts[0], eventToParts[1]);
+                } else {
+                    newTask = new Todo(command);
+                }
+
+                tasks[taskCount] = newTask;
                 taskCount++;
-                System.out.println("Crystal: I have added '" + command + "' to your list!");
+                String taskWord = taskCount == 1 ? "task" : "tasks";
+                System.out.println("Crystal: Got it. I've added this task:");
+                System.out.println("         " + newTask);
+                System.out.println("         Now you have " + taskCount + " " + taskWord + " in the list.");
             }
             System.out.println(horizontalLine);
         }
