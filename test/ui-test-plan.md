@@ -25,7 +25,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it. I've added this task:",
+            "Crystal: Got it! I've added this task:",
             "         [T][ ] read book",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -35,7 +35,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline do homework /by no idea :-p",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it. I've added this task:",
+            "Crystal: Got it! I've added this task:",
             "         [D][ ] do homework (by: no idea :-p)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -45,7 +45,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "event project meeting /from Mon 2pm /to 4pm",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it. I've added this task:",
+            "Crystal: Got it! I've added this task:",
             "         [E][ ] project meeting (from: Mon 2pm to: 4pm)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -81,7 +81,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it. I've added this task:",
+            "Crystal: Got it! I've added this task:",
             "         [T][ ] read book",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -136,13 +136,13 @@ Each test case below specifies its aim, command inputs, and expected output. An 
     },
     {
       "id": "UI-03",
-      "aim": "Reject task descriptions that do not specify a task type",
+      "aim": "Reject commands that do not begin with a recognized task type",
       "exchanges": [
         {
           "input": "read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Oopsies!!! Please specify if the task is a todo, deadline or event!",
+            "Crystal: Oopsies!!! I don't know what that means :-(",
             "{{LINE}}"
           ]
         },
@@ -178,7 +178,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           ]
         },
         {
-          "input": "deadline do homework",
+          "input": "deadline",
           "expected_output": [
             "{{LINE}}",
             "Crystal: Oopsies!!! A deadline must have a description and a /by time!",
@@ -186,7 +186,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           ]
         },
         {
-          "input": "event project meeting /from Mon 2pm",
+          "input": "event",
           "expected_output": [
             "{{LINE}}",
             "Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!",

@@ -124,11 +124,10 @@ public class Crystal {
      * @throws CrystalException if the task type or required details are missing
      */
     private static Task createTask(String command) throws CrystalException {
-        if (command.equals("todo")) {
-            throw new CrystalException(" A todo must have a description!");
-        }
-
-        if (command.startsWith("todo ")) {
+        if (command.startsWith("todo")) {
+            if (!command.startsWith("todo ")) {
+                throw new CrystalException(" A todo must have a description!");
+            }
             String description = command.substring("todo ".length());
             if (description.isBlank()) {
                 throw new CrystalException(" A todo must have a description!");
@@ -136,7 +135,10 @@ public class Crystal {
             return new Todo(description);
         }
 
-        if (command.startsWith("deadline ")) {
+        if (command.startsWith("deadline")) {
+            if (!command.startsWith("deadline ")) {
+                throw new CrystalException(" A deadline must have a description and a /by time!");
+            }
             String details = command.substring("deadline ".length());
             int byIndex = details.indexOf(" /by ");
             if (byIndex <= 0 || byIndex + " /by ".length() >= details.length()) {
@@ -147,7 +149,11 @@ public class Crystal {
             return new Deadline(description, by);
         }
 
-        if (command.startsWith("event ")) {
+        if (command.startsWith("event")) {
+            if (!command.startsWith("event ")) {
+                throw new CrystalException(
+                        " An event must have a description, a /from time and a /to time!");
+            }
             String details = command.substring("event ".length());
             int fromIndex = details.indexOf(" /from ");
             int toIndex = details.indexOf(" /to ", fromIndex + " /from ".length());
@@ -162,6 +168,6 @@ public class Crystal {
             return new Event(description, from, to);
         }
 
-        throw new CrystalException(" Please specify if the task is a todo, deadline or event!");
+        throw new CrystalException(" I don't know what that means :-(");
     }
 }

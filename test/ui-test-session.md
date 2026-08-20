@@ -22,19 +22,19 @@ Hello!!! I'm Crystal.
 ____________________________________________________________
 You: todo read book
 ____________________________________________________________
-Crystal: Got it. I've added this task:
+Crystal: Got it! I've added this task:
          [T][ ] read book
          Now you have 1 task in the list.
 ____________________________________________________________
 You: deadline do homework /by no idea :-p
 ____________________________________________________________
-Crystal: Got it. I've added this task:
+Crystal: Got it! I've added this task:
          [D][ ] do homework (by: no idea :-p)
          Now you have 2 tasks in the list.
 ____________________________________________________________
 You: event project meeting /from Mon 2pm /to 4pm
 ____________________________________________________________
-Crystal: Got it. I've added this task:
+Crystal: Got it! I've added this task:
          [E][ ] project meeting (from: Mon 2pm to: 4pm)
          Now you have 3 tasks in the list.
 ____________________________________________________________
@@ -73,7 +73,7 @@ Hello!!! I'm Crystal.
 ____________________________________________________________
 You: todo read book
 ____________________________________________________________
-Crystal: Got it. I've added this task:
+Crystal: Got it! I've added this task:
          [T][ ] read book
          Now you have 1 task in the list.
 ____________________________________________________________
@@ -103,7 +103,7 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-## UI-03: Reject task descriptions that do not specify a task type
+## UI-03: Reject commands that do not begin with a recognized task type
 
 ```text
 ____________________________________________________________
@@ -125,7 +125,7 @@ Hello!!! I'm Crystal.
 ____________________________________________________________
 You: read book
 ____________________________________________________________
-Crystal: Oopsies!!! Please specify if the task is a todo, deadline or event!
+Crystal: Oopsies!!! I don't know what that means :-(
 ____________________________________________________________
 You: list
 ____________________________________________________________
@@ -161,11 +161,11 @@ You: todo
 ____________________________________________________________
 Crystal: Oopsies!!! A todo must have a description!
 ____________________________________________________________
-You: deadline do homework
+You: deadline
 ____________________________________________________________
 Crystal: Oopsies!!! A deadline must have a description and a /by time!
 ____________________________________________________________
-You: event project meeting /from Mon 2pm
+You: event
 ____________________________________________________________
 Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!
 ____________________________________________________________
