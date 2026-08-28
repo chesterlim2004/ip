@@ -22,6 +22,7 @@ abstract class CommandTestBase {
     private PrintStream originalOutput;
     private ByteArrayOutputStream capturedOutput;
 
+    /** Redirects standard output so command responses can be asserted in isolation. */
     @BeforeEach
     public void redirectStandardOutput() {
         originalOutput = System.out;
@@ -29,6 +30,7 @@ abstract class CommandTestBase {
         System.setOut(new PrintStream(capturedOutput, true, StandardCharsets.UTF_8));
     }
 
+    /** Restores the process output stream after each command test. */
     @AfterEach
     public void restoreStandardOutput() {
         System.setOut(originalOutput);

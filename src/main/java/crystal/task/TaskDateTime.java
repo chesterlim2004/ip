@@ -142,7 +142,7 @@ public final class TaskDateTime {
     /**
      * Parses a date using each supported command and storage format.
      *
-     * @param value possible date
+     * @param input possible date
      * @return parsed date, or {@code null} when the value is not a supported date
      */
     public static LocalDate parseDate(String input) {

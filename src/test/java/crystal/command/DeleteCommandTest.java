@@ -18,6 +18,7 @@ import crystal.task.Todo;
  * Tests task removal, persistence, output, and index validation.
  */
 public class DeleteCommandTest extends CommandTestBase {
+    /** Verifies successful deletion, persistence, list shifting, and feedback. */
     @Test
     public void execute_validIndex_deletesPersistsAndDisplaysTask() throws Exception {
         TaskList tasks = new TaskList(List.of(new Todo("read book"), new Todo("return book")));
@@ -35,6 +36,7 @@ public class DeleteCommandTest extends CommandTestBase {
                 + "         Now you have 1 task in the list.\n", getOutput());
     }
 
+    /** Verifies rejection of negative and out-of-range task indexes. */
     @Test
     public void execute_indexOutsideTaskList_throwsCrystalException() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));

@@ -9,6 +9,12 @@ import crystal.ui.Ui;
  */
 public final class ExitCommand extends Command {
     /**
+     * Creates a command that ends the current chatbot session.
+     */
+    public ExitCommand() {
+    }
+
+    /**
      * Displays the farewell without changing tasks or storage.
      *
      * @param tasks task list; not used by this command
