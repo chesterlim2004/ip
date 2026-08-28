@@ -1,6 +1,6 @@
 # Console UI Test Plan
 
-The runner compiles every Java source under `src/main/java`, starts a fresh `Crystal` process for each test case, and checks each response before sending the next command. Console output is compared exactly after normalizing line endings. The shared `LINE` variable represents the application's horizontal divider.
+The runner compiles every Java source under `src/main/java`, starts a fresh `Crystal` process in an isolated working directory for each test case, and checks each response before sending the next command. It supports case-specific starting files and compares expected saved files exactly without touching the developer's real data file. Console output is compared exactly after normalizing line endings. The shared `LINE` variable represents the application's horizontal divider.
 
 Each test case below specifies its aim, command inputs, and expected output. An exchange with `expect_exit` must cause the program to terminate successfully.
 
@@ -14,6 +14,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
   "program": {
     "source_dir": "src/main/java",
     "classes_dir": "_temp/ui-test-classes",
+    "working_dir": "_temp/ui-test-work",
     "main_class": "Crystal"
   },
   "test_cases": [
@@ -316,7 +317,239 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           ]
         }
       ]
+    },
+    {
+      "id": "UI-06",
+      "aim": "Exercise every task format and mutation that must be reflected in the saved data file",
+      "exchanges": [
+        {
+          "input": "todo read book",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [T][ ] read book",
+            "         Now you have 1 task in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline return book /by June 6th",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] return book (by: June 6th)",
+            "         Now you have 2 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "event project meeting /from Aug 6th 2pm /to 4pm",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "mark 2",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Nice! I've marked this task as done:",
+            "         [D][X] return book (by: June 6th)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "todo join sports club",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [T][ ] join sports club",
+            "         Now you have 4 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "delete 4",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Noted. I've removed this task:",
+            "         [T][ ] join sports club",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "T | 0 | read book",
+          "D | 1 | return book | June 6th",
+          "E | 0 | project meeting | Aug 6th 2pm | 4pm"
+        ]
+      }
+    },
+    {
+      "id": "UI-07",
+      "aim": "Load saved tasks on restart and persist every mutation against that existing list",
+      "initial_files": {
+        "data/crystal.txt": [
+          "T | 0 | read book",
+          "D | 1 | return book | June 6th",
+          "E | 0 | project meeting | Aug 6th 2pm | 4pm"
+        ]
+      },
+      "exchanges": [
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the tasks in your list:",
+            "         1.[T][ ] read book",
+            "         2.[D][X] return book (by: June 6th)",
+            "         3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "mark 1",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Nice! I've marked this task as done:",
+            "         [T][X] read book",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "unmark 2",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: OK, I've marked this task as not done yet:",
+            "         [D][ ] return book (by: June 6th)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "todo join sports club",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [T][ ] join sports club",
+            "         Now you have 4 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "delete 3",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Noted. I've removed this task:",
+            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the tasks in your list:",
+            "         1.[T][X] read book",
+            "         2.[D][ ] return book (by: June 6th)",
+            "         3.[T][ ] join sports club",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "T | 1 | read book",
+          "D | 0 | return book | June 6th",
+          "T | 0 | join sports club"
+        ]
+      }
+    },
+    {
+      "id": "UI-08",
+      "aim": "Report corrupted saved data and continue with a safe empty task list",
+      "initial_files": {
+        "data/crystal.txt": [
+          "this is not valid task data"
+        ]
+      },
+      "expected_startup_output": [
+        "{{LINE}}",
+        "  ____ ______   ______ _____  _    _",
+        " / ___|  _ \\ \\ / / ___|_   _|/ \\  | |",
+        "| |   | |_) \\ V /\\___ \\ | | / _ \\ | |",
+        "| |___|  _ < | |  ___) || |/ ___ \\| |___",
+        " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|",
+        "",
+        "Hello!!! I'm Crystal.",
+        "[Commands:",
+        "- To add a todo, enter 'todo [description]'",
+        "- To add a deadline, enter 'deadline [description] /by [deadline]'",
+        "- To add an event, enter 'event [description] /from [start] /to [end]'",
+        "- To view your list, enter 'list'",
+        "- To mark a task as done, enter 'mark [task number]'",
+        "- To mark a task as not done, enter 'unmark [task number]'",
+        "- To delete a task, enter 'delete [task number]'",
+        "- To exit, enter 'bye']",
+        "{{LINE}}",
+        "Crystal: Oopsies!!! Your saved task data is invalid."
+      ],
+      "exchanges": [
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Your task list is empty!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "this is not valid task data"
+        ]
+      }
     }
   ]
 }
+```
+
+After `UI-07`, the runner verifies that `data/crystal.txt` contains exactly:
+
+```text
+T | 1 | read book
+D | 0 | return book | June 6th
+T | 0 | join sports club
 ```

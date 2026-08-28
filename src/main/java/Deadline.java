@@ -16,6 +16,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns this deadline in the format stored on disk.
+     *
+     * @return pipe-separated deadline data
+     */
+    @Override
+    public String toDataString() {
+        return "D | " + super.toDataString() + " | " + by;
+    }
+
+    /**
      * Returns this task with its deadline type icon and deadline.
      *
      * @return formatted deadline details

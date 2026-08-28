@@ -48,6 +48,15 @@ public class Task {
     }
 
     /**
+     * Returns the common fields used to store this task on disk.
+     *
+     * @return pipe-separated completion status and description
+     */
+    public String toDataString() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
+    /**
      * Returns the task's status icon followed by its description.
      *
      * @return formatted task details

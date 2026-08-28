@@ -12,6 +12,16 @@ public class Todo extends Task {
     }
 
     /**
+     * Returns this todo in the format stored on disk.
+     *
+     * @return pipe-separated todo data
+     */
+    @Override
+    public String toDataString() {
+        return "T | " + super.toDataString();
+    }
+
+    /**
      * Returns this task with its todo type icon.
      *
      * @return formatted todo details
