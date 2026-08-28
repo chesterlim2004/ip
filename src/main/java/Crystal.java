@@ -1,4 +1,6 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -21,7 +23,9 @@ public class Crystal {
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
-                + "- To view your list, enter 'list'\n"
+                + "- To view your task list, enter 'list'\n"
+                + "- To view deadlines and events on a date, "
+                + "enter 'list /on [date]'\n"
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
                 + "- To delete a task, enter 'delete [task number]'\n"
@@ -53,16 +57,12 @@ public class Crystal {
             try {
                 switch (commandType) {
                 case LIST -> {
-                    if (!command.equals(commandType.getKeyword())) {
-                        throw new CrystalException("To view your task list, simply enter 'list'!");
-                    }
-                    if (tasks.isEmpty()) {
-                        System.out.println("Crystal: Your task list is empty!");
+                    if (command.equals(commandType.getKeyword())) {
+                        listTasks(tasks);
+                    } else if (command.equals("list /on") || command.startsWith("list /on ")) {
+                        listTasksOnDate(command, tasks);
                     } else {
-                        System.out.println("Crystal: Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println("         " + (i + 1) + "." + tasks.get(i));
-                        }
+                        throw new CrystalException("To view your task list, simply enter 'list'!");
                     }
                 }
                 case MARK -> {
@@ -123,6 +123,61 @@ public class Crystal {
         System.out.println(horizontalLine);
         System.out.println("Crystal: Bye!!! Hope to see you again soon!");
         System.out.println(horizontalLine);
+    }
+
+    /**
+     * Prints the complete task list with its persistent task numbers.
+     *
+     * @param tasks complete task list
+     */
+    private static void listTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("Crystal: Your task list is empty!");
+            return;
+        }
+
+        System.out.println("Crystal: Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("         " + (i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    /**
+     * Prints an unnumbered temporary view of deadlines and events on a date.
+     *
+     * @param command full {@code list /on} command
+     * @param tasks complete task list
+     * @throws CrystalException if the command is missing a valid calendar date
+     */
+    private static void listTasksOnDate(String command, List<Task> tasks)
+            throws CrystalException {
+        String prefix = "list /on ";
+        if (!command.startsWith(prefix) || command.substring(prefix.length()).isBlank()) {
+            throw new CrystalException(
+                    "To list tasks on a date, enter 'list /on [date]'!");
+        }
+
+        String dateInput = command.substring(prefix.length());
+        LocalDate date = TaskDateTime.parseDate(dateInput);
+        if (date == null) {
+            throw new CrystalException("I couldn't understand that date!");
+        }
+
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.occursOn(date))
+                .toList();
+        String formattedDate = TaskDateTime.formatDate(date);
+        if (matchingTasks.isEmpty()) {
+            System.out.println(
+                    "Crystal: There are no deadlines or events on " + formattedDate + "!");
+            return;
+        }
+
+        System.out.println("Crystal: Here are the deadlines and events on "
+                + formattedDate + ":");
+        for (Task task : matchingTasks) {
+            System.out.println("         - " + task);
+        }
     }
 
     /**

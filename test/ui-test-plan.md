@@ -510,6 +510,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         "- To add a deadline, enter 'deadline [description] /by [deadline]'",
         "- To add an event, enter 'event [description] /from [start] /to [end]'",
         "- To view your list, enter 'list'",
+        "- To view unnumbered deadlines and events on a date, enter 'list /on [date]'",
         "- To mark a task as done, enter 'mark [task number]'",
         "- To mark a task as not done, enter 'unmark [task number]'",
         "- To delete a task, enter 'delete [task number]'",
@@ -754,16 +755,115 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "D | 0 | spaced date | 02 Nov 2026"
         ]
       }
+    },
+    {
+      "id": "UI-12",
+      "aim": "List unnumbered deadlines and events on a date without mutating their stored indexes",
+      "initial_files": {
+        "data/crystal.txt": [
+          "T | 0 | mention 02 Dec 2026",
+          "D | 0 | submit report | 02 Dec 2026 0900",
+          "D | 0 | later deadline | 03 Dec 2026",
+          "E | 0 | workshop | 02 Dec 2026 0800 | 02 Dec 2026 1000",
+          "E | 0 | conference | 01 Dec 2026 | 03 Dec 2026",
+          "E | 0 | overnight trip | 01 Dec 2026 | 02 Dec 2026",
+          "E | 0 | weekly call | Monday 0600 | Tuesday 0700"
+        ]
+      },
+      "exchanges": [
+        {
+          "input": "list /on 2Dec26",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the deadlines and events on 02 Dec 2026 (without task numbers):",
+            "         - [D][ ] submit report (by: 02 Dec 2026 0900)",
+            "         - [E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)",
+            "         - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)",
+            "         - [E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list /on 4/12/26",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: There are no deadlines or events on 04 Dec 2026!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list /on",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! To list tasks on a date, enter 'list /on [date]'!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list /on nonsense",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! I couldn't understand that date!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list /on 31/02/26",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! I couldn't understand that date!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the tasks in your list:",
+            "         1.[T][ ] mention 02 Dec 2026",
+            "         2.[D][ ] submit report (by: 02 Dec 2026 0900)",
+            "         3.[D][ ] later deadline (by: 03 Dec 2026)",
+            "         4.[E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)",
+            "         5.[E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)",
+            "         6.[E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)",
+            "         7.[E][ ] weekly call (from: Monday 0600 to: Tuesday 0700)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "T | 0 | mention 02 Dec 2026",
+          "D | 0 | submit report | 02 Dec 2026 0900",
+          "D | 0 | later deadline | 03 Dec 2026",
+          "E | 0 | workshop | 02 Dec 2026 0800 | 02 Dec 2026 1000",
+          "E | 0 | conference | 01 Dec 2026 | 03 Dec 2026",
+          "E | 0 | overnight trip | 01 Dec 2026 | 02 Dec 2026",
+          "E | 0 | weekly call | Monday 0600 | Tuesday 0700"
+        ]
+      }
     }
   ]
 }
 ```
 
-After `UI-11`, the runner verifies that `data/crystal.txt` contains exactly:
+After `UI-12`, the runner verifies that filtered listing did not change `data/crystal.txt`:
 
 ```text
-D | 0 | numeric date | 02 Dec 2026
-D | 0 | compact date | 02 Oct 2026
-D | 0 | partial spacing | 02 Dec 2026 1830
-D | 0 | spaced date | 02 Nov 2026
+T | 0 | mention 02 Dec 2026
+D | 0 | submit report | 02 Dec 2026 0900
+D | 0 | later deadline | 03 Dec 2026
+E | 0 | workshop | 02 Dec 2026 0800 | 02 Dec 2026 1000
+E | 0 | conference | 01 Dec 2026 | 03 Dec 2026
+E | 0 | overnight trip | 01 Dec 2026 | 02 Dec 2026
+E | 0 | weekly call | Monday 0600 | Tuesday 0700
 ```

@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Represents a task that must be completed by a specific time.
  */
@@ -24,6 +26,17 @@ public class Deadline extends Task {
     @Override
     public String toDataString() {
         return "D | " + super.toDataString() + " | " + by;
+    }
+
+    /**
+     * Returns whether this deadline is due on the specified date.
+     *
+     * @param date date to check
+     * @return {@code true} if the deadline is due on the date
+     */
+    @Override
+    public boolean occursOn(LocalDate date) {
+        return by.occursOn(date);
     }
 
     /**

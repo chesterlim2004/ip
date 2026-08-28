@@ -143,7 +143,8 @@ public final class TaskDateTime {
      * @param value possible date
      * @return parsed date, or {@code null} when the value is not a supported date
      */
-    private static LocalDate parseDate(String value) {
+    public static LocalDate parseDate(String input) {
+        String value = input.trim();
         for (DateTimeFormatter formatter : DATE_FORMATTERS) {
             try {
                 return LocalDate.parse(value, formatter);
@@ -177,6 +178,35 @@ public final class TaskDateTime {
             }
         }
         return null;
+    }
+
+    /**
+     * Returns whether this value contains the specified calendar date.
+     *
+     * @param targetDate date to compare
+     * @return {@code true} if this value contains the target date
+     */
+    public boolean occursOn(LocalDate targetDate) {
+        return date != null && date.equals(targetDate);
+    }
+
+    /**
+     * Returns the parsed calendar date, if this value contains one.
+     *
+     * @return parsed date, or {@code null} when this value has no calendar date
+     */
+    public LocalDate getDate() {
+        return date;
+    }
+
+    /**
+     * Formats a calendar date using Crystal's display and storage format.
+     *
+     * @param date date to format
+     * @return date formatted as {@code dd MMM yyyy}
+     */
+    public static String formatDate(LocalDate date) {
+        return date.format(DISPLAY_DATE_FORMATTER);
     }
 
     /**

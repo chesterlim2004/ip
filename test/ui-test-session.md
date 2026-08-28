@@ -16,6 +16,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -68,6 +69,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -121,6 +123,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -156,6 +159,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -219,6 +223,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -276,6 +281,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -338,6 +344,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -401,6 +408,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -433,6 +441,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -499,6 +508,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -550,6 +560,7 @@ Hello!!! I'm Crystal.
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -585,4 +596,67 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (11 test cases)
+## UI-12: List unnumbered deadlines and events on a date without mutating their stored indexes
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your list, enter 'list'
+- To view unnumbered deadlines and events on a date, enter 'list /on [date]'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+You: list /on 2Dec26
+____________________________________________________________
+Crystal: Here are the deadlines and events on 02 Dec 2026 (without task numbers):
+         - [D][ ] submit report (by: 02 Dec 2026 0900)
+         - [E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)
+         - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)
+         - [E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)
+____________________________________________________________
+You: list /on 4/12/26
+____________________________________________________________
+Crystal: There are no deadlines or events on 04 Dec 2026!
+____________________________________________________________
+You: list /on
+____________________________________________________________
+Crystal: Oopsies!!! To list tasks on a date, enter 'list /on [date]'!
+____________________________________________________________
+You: list /on nonsense
+____________________________________________________________
+Crystal: Oopsies!!! I couldn't understand that date!
+____________________________________________________________
+You: list /on 31/02/26
+____________________________________________________________
+Crystal: Oopsies!!! I couldn't understand that date!
+____________________________________________________________
+You: list
+____________________________________________________________
+Crystal: Here are the tasks in your list:
+         1.[T][ ] mention 02 Dec 2026
+         2.[D][ ] submit report (by: 02 Dec 2026 0900)
+         3.[D][ ] later deadline (by: 03 Dec 2026)
+         4.[E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)
+         5.[E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)
+         6.[E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)
+         7.[E][ ] weekly call (from: Monday 0600 to: Tuesday 0700)
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (12 test cases)
