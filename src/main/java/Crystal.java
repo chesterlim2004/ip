@@ -34,7 +34,13 @@ public class Crystal {
         System.out.println(horizontalLine);
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks;
+        try {
+            tasks = Storage.loadTasks();
+        } catch (CrystalException exception) {
+            System.out.println(exception.getUserMessage());
+            tasks = new ArrayList<>();
+        }
         while (true) {
             System.out.print("You: ");
             String command = scanner.nextLine();
@@ -68,6 +74,7 @@ public class Crystal {
                         System.out.println("         " + task);
                     } else {
                         task.markAsDone();
+                        Storage.saveTasks(tasks);
                         System.out.println("Crystal: Nice! I've marked this task as done:");
                         System.out.println("         " + task);
                     }
@@ -81,6 +88,7 @@ public class Crystal {
                         System.out.println("         " + task);
                     } else {
                         task.markAsNotDone();
+                        Storage.saveTasks(tasks);
                         System.out.println("Crystal: OK, I've marked this task as not done yet:");
                         System.out.println("         " + task);
                     }
@@ -89,6 +97,7 @@ public class Crystal {
                     int taskIndex = getTaskIndex(
                             command, commandType.getKeyword() + " ", tasks.size());
                     Task removedTask = tasks.remove(taskIndex);
+                    Storage.saveTasks(tasks);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
                     System.out.println("Crystal: Noted. I've removed this task:");
                     System.out.println("         " + removedTask);
@@ -97,6 +106,7 @@ public class Crystal {
                 case TODO, DEADLINE, EVENT -> {
                     Task newTask = createTask(command, commandType);
                     tasks.add(newTask);
+                    Storage.saveTasks(tasks);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
                     System.out.println("Crystal: Got it! I've added this task:");
                     System.out.println("         " + newTask);

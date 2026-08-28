@@ -98,6 +98,44 @@ def expand_expected(lines: list[str] | str, variables: dict[str, str]) -> str:
     return normalize(expected)
 
 
+def expand_file_content(lines: list[str] | str, variables: dict[str, str]) -> str:
+    """Build exact fixture or expected file content from plan lines."""
+    content = "\n".join(lines) + ("\n" if lines else "") if isinstance(lines, list) else lines
+    for name, value in variables.items():
+        content = content.replace("{{" + name + "}}", value)
+    return content
+
+
+def prepare_case_directory(project_root: Path, plan: dict, case: dict,
+                           variables: dict[str, str]) -> Path:
+    """Create an isolated working directory and its fixtures for one test case."""
+    working_root = project_root / plan["program"]["working_dir"]
+    case_directory = working_root / case["id"]
+    if case_directory.exists():
+        shutil.rmtree(case_directory)
+    case_directory.mkdir(parents=True)
+    for relative_path, content in case.get("initial_files", {}).items():
+        path = case_directory / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(expand_file_content(content, variables), encoding="utf-8")
+    return case_directory
+
+
+def verify_expected_files(project_root: Path, case: dict, variables: dict[str, str],
+                          transcript: str) -> None:
+    """Compare files produced by a test case with their exact expected content."""
+    for relative_path, content in case.get("expected_files", {}).items():
+        path = project_root / relative_path
+        expected = expand_file_content(content, variables)
+        actual = path.read_text(encoding="utf-8") if path.exists() else "<missing file>"
+        if actual != expected:
+            raise TestFailure(
+                case["id"], len(case["exchanges"]) + 1,
+                f"<saved file: {relative_path}>", expected, actual,
+                "saved file did not match expected content", transcript,
+            )
+
+
 def ensure_java_25() -> None:
     """Fail clearly when the active compiler is not Java 25."""
     result = subprocess.run(["javac", "-version"], capture_output=True, text=True)
@@ -143,7 +181,8 @@ def stop_process(process: subprocess.Popen[str]) -> None:
 
 
 def run_case(case: dict, prompt: str, variables: dict[str, str],
-             java_command: list[str], timeout_seconds: float) -> str:
+             java_command: list[str], timeout_seconds: float,
+             working_directory: Path) -> str:
     """Run one stateful test case and compare each response before continuing."""
     process = subprocess.Popen(
         java_command,
@@ -152,6 +191,7 @@ def run_case(case: dict, prompt: str, variables: dict[str, str],
         stderr=subprocess.PIPE,
         text=True,
         bufsize=1,
+        cwd=working_directory,
     )
     assert process.stdin is not None
     assert process.stdout is not None
@@ -266,7 +306,11 @@ def main(argv: list[str]) -> int:
 
     for case in plan["test_cases"]:
         try:
-            transcript = run_case(case, prompt, variables, java_command, timeout_seconds)
+            case_directory = prepare_case_directory(project_root, plan, case, variables)
+            transcript = run_case(
+                case, prompt, variables, java_command, timeout_seconds, case_directory
+            )
+            verify_expected_files(case_directory, case, variables, transcript)
             records.append((case, transcript))
         except TestFailure as failure:
             records.append((case, failure.transcript.rstrip()))

@@ -19,6 +19,16 @@ public class Event extends Task {
     }
 
     /**
+     * Returns this event in the format stored on disk.
+     *
+     * @return pipe-separated event data
+     */
+    @Override
+    public String toDataString() {
+        return "E | " + super.toDataString() + " | " + from + " | " + to;
+    }
+
+    /**
      * Returns this task with its event type icon and time period.
      *
      * @return formatted event details
