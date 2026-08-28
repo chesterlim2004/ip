@@ -88,12 +88,11 @@ public class Crystal {
                     ui.showTaskDeleted(removedTask, tasks.getTaskCount());
                 }
                 case TODO, DEADLINE, EVENT -> {
-                    Task newTask = Parser.parseTask(command, commandType);
-                    tasks.addTask(newTask);
-                    storage.saveTasks(tasks.getTasks());
-                    ui.showTaskAdded(newTask, tasks.getTaskCount());
+                    Command addCommand = Parser.parseAddCommand(command, commandType);
+                    addCommand.execute(tasks, ui, storage);
                 }
-                case UNKNOWN, EXIT -> throw new CrystalException("I don't know what that means :-(");
+                case UNKNOWN, EXIT -> throw new CrystalException(
+                        "I don't know what that means :-(");
                 }
             } catch (CrystalException exception) {
                 ui.showError(exception);

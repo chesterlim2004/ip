@@ -110,14 +110,14 @@ public class Parser {
     }
 
     /**
-     * Creates the task described by a todo, deadline, or event command.
+     * Creates an add command containing the described todo, deadline, or event.
      *
      * @param command task creation command
      * @param commandType type of task to create
-     * @return task represented by the command
+     * @return add command containing the parsed task
      * @throws CrystalException if required task details are missing
      */
-    public static Task parseTask(String command, CommandType commandType)
+    public static Command parseAddCommand(String command, CommandType commandType)
             throws CrystalException {
         String prefix = commandType.getKeyword() + " ";
         switch (commandType) {
@@ -129,7 +129,7 @@ public class Parser {
             if (description.isBlank()) {
                 throw new CrystalException("A todo must have a description!");
             }
-            return new Todo(description);
+            return new AddCommand(new Todo(description));
         }
         case DEADLINE -> {
             if (!command.startsWith(prefix)) {
@@ -142,7 +142,7 @@ public class Parser {
             }
             String description = details.substring(0, byIndex);
             String by = details.substring(byIndex + BY_SEPARATOR.length());
-            return new Deadline(description, by);
+            return new AddCommand(new Deadline(description, by));
         }
         case EVENT -> {
             if (!command.startsWith(prefix)) {
@@ -160,7 +160,7 @@ public class Parser {
             String description = details.substring(0, fromIndex);
             String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
             String to = details.substring(toIndex + TO_SEPARATOR.length());
-            return new Event(description, from, to);
+            return new AddCommand(new Event(description, from, to));
         }
         default -> throw new CrystalException("I don't know what that means :-(");
         }
