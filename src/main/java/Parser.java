@@ -32,12 +32,12 @@ public class Parser {
      * @return matching command type, or {@link CommandType#UNKNOWN} if none matches
      */
     public static CommandType parseCommandType(String command) {
-        if (command.equals(CommandType.BYE.getKeyword())) {
-            return CommandType.BYE;
+        if (command.equals(CommandType.EXIT.getKeyword())) {
+            return CommandType.EXIT;
         }
 
         for (CommandType commandType : CommandType.values()) {
-            if (commandType == CommandType.BYE || commandType == CommandType.UNKNOWN) {
+            if (commandType == CommandType.EXIT || commandType == CommandType.UNKNOWN) {
                 continue;
             }
             if (command.startsWith(commandType.getKeyword())) {

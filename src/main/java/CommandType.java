@@ -9,7 +9,7 @@ public enum CommandType {
     MARK("mark"),
     UNMARK("unmark"),
     DELETE("delete"),
-    BYE("bye"),
+    EXIT("bye"),
     UNKNOWN("");
 
     /** Keyword that identifies this command at the start of user input. */

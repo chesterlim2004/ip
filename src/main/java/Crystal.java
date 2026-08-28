@@ -25,7 +25,7 @@ public class Crystal {
         while (true) {
             String command = ui.readCommand();
             CommandType commandType = Parser.parseCommandType(command);
-            if (commandType == CommandType.BYE) {
+            if (commandType == CommandType.EXIT) {
                 break;
             }
 
@@ -77,7 +77,7 @@ public class Crystal {
                     Storage.saveTasks(tasks.getTasks());
                     ui.showTaskAdded(newTask, tasks.getTaskCount());
                 }
-                case UNKNOWN, BYE -> throw new CrystalException("I don't know what that means :-(");
+                case UNKNOWN, EXIT -> throw new CrystalException("I don't know what that means :-(");
                 }
             } catch (CrystalException exception) {
                 ui.showError(exception);
