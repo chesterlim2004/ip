@@ -2,17 +2,18 @@
  * Represents a task that must be completed by a specific time.
  */
 public class Deadline extends Task {
-    protected String by;
+    /** Deadline date, time, or unrestricted scheduling text. */
+    protected TaskDateTime by;
 
     /**
      * Creates an incomplete deadline.
      *
      * @param description description of the deadline
-     * @param by deadline stored as text
+     * @param by deadline date, time, or unrestricted text
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = TaskDateTime.parse(by);
     }
 
     /**

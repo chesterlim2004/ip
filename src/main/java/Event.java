@@ -2,20 +2,23 @@
  * Represents a task that takes place over a period of time.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    /** Event start date, time, or unrestricted scheduling text. */
+    protected TaskDateTime from;
+
+    /** Event end date, time, or unrestricted scheduling text. */
+    protected TaskDateTime to;
 
     /**
      * Creates an incomplete event.
      *
      * @param description description of the event
-     * @param from event start stored as text
-     * @param to event end stored as text
+     * @param from event start date, time, or unrestricted text
+     * @param to event end date, time, or unrestricted text
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = TaskDateTime.parse(from);
+        this.to = TaskDateTime.parse(to);
     }
 
     /**

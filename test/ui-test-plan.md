@@ -47,7 +47,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: Got it! I've added this task:",
-            "         [E][ ] project meeting (from: Mon 2pm to: 4pm)",
+            "         [E][ ] project meeting (from: Mon 1400 to: 1600)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
           ]
@@ -59,7 +59,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
             "Crystal: Here are the tasks in your list:",
             "         1.[T][ ] read book",
             "         2.[D][ ] do homework (by: no idea :-p)",
-            "         3.[E][ ] project meeting (from: Mon 2pm to: 4pm)",
+            "         3.[E][ ] project meeting (from: Mon 1400 to: 1600)",
             "{{LINE}}"
           ]
         },
@@ -272,7 +272,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: Got it! I've added this task:",
-            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
           ]
@@ -292,7 +292,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: Noted. I've removed this task:",
-            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
           ]
@@ -347,7 +347,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: Got it! I've added this task:",
-            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
           ]
@@ -395,7 +395,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         "data/crystal.txt": [
           "T | 0 | read book",
           "D | 1 | return book | June 6th",
-          "E | 0 | project meeting | Aug 6th 2pm | 4pm"
+          "E | 0 | project meeting | Aug 6th 1400 | 1600"
         ]
       }
     },
@@ -405,8 +405,8 @@ Each test case below specifies its aim, command inputs, and expected output. An 
       "initial_files": {
         "data/crystal.txt": [
           "T | 0 | read book",
-          "D | 1 | return book | June 6th",
-          "E | 0 | project meeting | Aug 6th 2pm | 4pm"
+          "D | 1 | return book | 02 Dec 2019 1800",
+          "E | 0 | project meeting | Monday 0600 | 1830"
         ]
       },
       "exchanges": [
@@ -416,8 +416,8 @@ Each test case below specifies its aim, command inputs, and expected output. An 
             "{{LINE}}",
             "Crystal: Here are the tasks in your list:",
             "         1.[T][ ] read book",
-            "         2.[D][X] return book (by: June 6th)",
-            "         3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         2.[D][X] return book (by: 02 Dec 2019 1800)",
+            "         3.[E][ ] project meeting (from: Monday 0600 to: 1830)",
             "{{LINE}}"
           ]
         },
@@ -435,7 +435,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: OK, I've marked this task as not done yet:",
-            "         [D][ ] return book (by: June 6th)",
+            "         [D][ ] return book (by: 02 Dec 2019 1800)",
             "{{LINE}}"
           ]
         },
@@ -454,7 +454,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: Noted. I've removed this task:",
-            "         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+            "         [E][ ] project meeting (from: Monday 0600 to: 1830)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
           ]
@@ -465,7 +465,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
             "{{LINE}}",
             "Crystal: Here are the tasks in your list:",
             "         1.[T][X] read book",
-            "         2.[D][ ] return book (by: June 6th)",
+            "         2.[D][ ] return book (by: 02 Dec 2019 1800)",
             "         3.[T][ ] join sports club",
             "{{LINE}}"
           ]
@@ -483,7 +483,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
       "expected_files": {
         "data/crystal.txt": [
           "T | 1 | read book",
-          "D | 0 | return book | June 6th",
+          "D | 0 | return book | 02 Dec 2019 1800",
           "T | 0 | join sports club"
         ]
       }
@@ -541,15 +541,104 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "this is not valid task data"
         ]
       }
+    },
+    {
+      "id": "UI-09",
+      "aim": "Parse and normalize supported calendar dates and 12-hour and 24-hour times",
+      "exchanges": [
+        {
+          "input": "deadline return book /by 2/12/2019 1800",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] return book (by: 02 Dec 2019 1800)",
+            "         Now you have 1 task in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline submit report /by 2019-10-15",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] submit report (by: 15 Oct 2019)",
+            "         Now you have 2 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "event breakfast /from 6am /to 6.30pm",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [E][ ] breakfast (from: 0600 to: 1830)",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "event workshop /from 630pm /to Monday",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [E][ ] workshop (from: 1830 to: Monday)",
+            "         Now you have 4 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline call client /by 18:45",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] call client (by: 1845)",
+            "         Now you have 5 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the tasks in your list:",
+            "         1.[D][ ] return book (by: 02 Dec 2019 1800)",
+            "         2.[D][ ] submit report (by: 15 Oct 2019)",
+            "         3.[E][ ] breakfast (from: 0600 to: 1830)",
+            "         4.[E][ ] workshop (from: 1830 to: Monday)",
+            "         5.[D][ ] call client (by: 1845)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "D | 0 | return book | 02 Dec 2019 1800",
+          "D | 0 | submit report | 15 Oct 2019",
+          "E | 0 | breakfast | 0600 | 1830",
+          "E | 0 | workshop | 1830 | Monday",
+          "D | 0 | call client | 1845"
+        ]
+      }
     }
   ]
 }
 ```
 
-After `UI-07`, the runner verifies that `data/crystal.txt` contains exactly:
+After `UI-09`, the runner verifies that `data/crystal.txt` contains exactly:
 
 ```text
-T | 1 | read book
-D | 0 | return book | June 6th
-T | 0 | join sports club
+D | 0 | return book | 02 Dec 2019 1800
+D | 0 | submit report | 15 Oct 2019
+E | 0 | breakfast | 0600 | 1830
+E | 0 | workshop | 1830 | Monday
+D | 0 | call client | 1845
 ```

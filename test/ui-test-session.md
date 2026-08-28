@@ -36,7 +36,7 @@ ____________________________________________________________
 You: event project meeting /from Mon 2pm /to 4pm
 ____________________________________________________________
 Crystal: Got it! I've added this task:
-         [E][ ] project meeting (from: Mon 2pm to: 4pm)
+         [E][ ] project meeting (from: Mon 1400 to: 1600)
          Now you have 3 tasks in the list.
 ____________________________________________________________
 You: list
@@ -44,7 +44,7 @@ ____________________________________________________________
 Crystal: Here are the tasks in your list:
          1.[T][ ] read book
          2.[D][ ] do homework (by: no idea :-p)
-         3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+         3.[E][ ] project meeting (from: Mon 1400 to: 1600)
 ____________________________________________________________
 You: bye
 ____________________________________________________________
@@ -233,7 +233,7 @@ ____________________________________________________________
 You: event project meeting /from Aug 6th 2pm /to 4pm
 ____________________________________________________________
 Crystal: Got it! I've added this task:
-         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)
          Now you have 2 tasks in the list.
 ____________________________________________________________
 You: todo borrow book
@@ -245,7 +245,7 @@ ____________________________________________________________
 You: delete 2
 ____________________________________________________________
 Crystal: Noted. I've removed this task:
-         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)
          Now you have 2 tasks in the list.
 ____________________________________________________________
 You: list
@@ -296,7 +296,7 @@ ____________________________________________________________
 You: event project meeting /from Aug 6th 2pm /to 4pm
 ____________________________________________________________
 Crystal: Got it! I've added this task:
-         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)
          Now you have 3 tasks in the list.
 ____________________________________________________________
 You: mark 2
@@ -347,8 +347,8 @@ You: list
 ____________________________________________________________
 Crystal: Here are the tasks in your list:
          1.[T][ ] read book
-         2.[D][X] return book (by: June 6th)
-         3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+         2.[D][X] return book (by: 02 Dec 2019 1800)
+         3.[E][ ] project meeting (from: Monday 0600 to: 1830)
 ____________________________________________________________
 You: mark 1
 ____________________________________________________________
@@ -358,7 +358,7 @@ ____________________________________________________________
 You: unmark 2
 ____________________________________________________________
 Crystal: OK, I've marked this task as not done yet:
-         [D][ ] return book (by: June 6th)
+         [D][ ] return book (by: 02 Dec 2019 1800)
 ____________________________________________________________
 You: todo join sports club
 ____________________________________________________________
@@ -369,14 +369,14 @@ ____________________________________________________________
 You: delete 3
 ____________________________________________________________
 Crystal: Noted. I've removed this task:
-         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+         [E][ ] project meeting (from: Monday 0600 to: 1830)
          Now you have 3 tasks in the list.
 ____________________________________________________________
 You: list
 ____________________________________________________________
 Crystal: Here are the tasks in your list:
          1.[T][X] read book
-         2.[D][ ] return book (by: June 6th)
+         2.[D][ ] return book (by: 02 Dec 2019 1800)
          3.[T][ ] join sports club
 ____________________________________________________________
 You: bye
@@ -417,4 +417,70 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (8 test cases)
+## UI-09: Parse and normalize supported calendar dates and 12-hour and 24-hour times
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your list, enter 'list'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+You: deadline return book /by 2/12/2019 1800
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] return book (by: 02 Dec 2019 1800)
+         Now you have 1 task in the list.
+____________________________________________________________
+You: deadline submit report /by 2019-10-15
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] submit report (by: 15 Oct 2019)
+         Now you have 2 tasks in the list.
+____________________________________________________________
+You: event breakfast /from 6am /to 6.30pm
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [E][ ] breakfast (from: 0600 to: 1830)
+         Now you have 3 tasks in the list.
+____________________________________________________________
+You: event workshop /from 630pm /to Monday
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [E][ ] workshop (from: 1830 to: Monday)
+         Now you have 4 tasks in the list.
+____________________________________________________________
+You: deadline call client /by 18:45
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] call client (by: 1845)
+         Now you have 5 tasks in the list.
+____________________________________________________________
+You: list
+____________________________________________________________
+Crystal: Here are the tasks in your list:
+         1.[D][ ] return book (by: 02 Dec 2019 1800)
+         2.[D][ ] submit report (by: 15 Oct 2019)
+         3.[E][ ] breakfast (from: 0600 to: 1830)
+         4.[E][ ] workshop (from: 1830 to: Monday)
+         5.[D][ ] call client (by: 1845)
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (9 test cases)
