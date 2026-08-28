@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Represents a task that takes place over a period of time.
  */
@@ -29,6 +31,23 @@ public class Event extends Task {
     @Override
     public String toDataString() {
         return "E | " + super.toDataString() + " | " + from + " | " + to;
+    }
+
+    /**
+     * Returns whether this event occurs on the specified date. A dated event
+     * with both a start and end date covers the inclusive range between them.
+     *
+     * @param date date to check
+     * @return {@code true} if the event occurs on the date
+     */
+    @Override
+    public boolean occursOn(LocalDate date) {
+        LocalDate fromDate = from.getDate();
+        LocalDate toDate = to.getDate();
+        if (fromDate != null && toDate != null && !toDate.isBefore(fromDate)) {
+            return !date.isBefore(fromDate) && !date.isAfter(toDate);
+        }
+        return from.occursOn(date) || to.occursOn(date);
     }
 
     /**
