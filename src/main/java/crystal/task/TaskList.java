@@ -95,4 +95,17 @@ public class TaskList {
                 .filter(task -> task.occursOn(date))
                 .toList();
     }
+
+    /**
+     * Returns an immutable temporary view of tasks matching a description keyword.
+     * Matching is case-insensitive and preserves task-list order.
+     *
+     * @param keyword keyword to find in task descriptions.
+     * @return matching tasks in task-list order.
+     */
+    public List<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.hasDescriptionContaining(keyword))
+                .toList();
+    }
 }

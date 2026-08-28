@@ -16,6 +16,7 @@ import crystal.command.AddCommand;
 import crystal.command.Command;
 import crystal.command.DeleteCommand;
 import crystal.command.ExitCommand;
+import crystal.command.FindCommand;
 import crystal.command.ListCommand;
 import crystal.command.MarkCommand;
 import crystal.command.UnmarkCommand;
@@ -44,6 +45,7 @@ public class ParserTest {
                 Parser.parse("event workshop /from 6am /to 630pm"));
         assertInstanceOf(ListCommand.class, Parser.parse("list"));
         assertInstanceOf(ListCommand.class, Parser.parse("list /on 2Dec26"));
+        assertInstanceOf(FindCommand.class, Parser.parse("find book"));
         assertInstanceOf(MarkCommand.class, Parser.parse("mark 1"));
         assertInstanceOf(UnmarkCommand.class, Parser.parse("unmark 1"));
         assertInstanceOf(DeleteCommand.class, Parser.parse("delete 1"));
@@ -137,6 +139,16 @@ public class ParserTest {
     }
 
     /** Verifies action-specific errors for malformed task mutation commands. */
+    @Test
+    public void parse_malformedFindCommands_throwFindUsageError() {
+        String expected = "To find tasks, enter 'find [keyword]'!";
+
+        assertParseError("find", expected);
+        assertParseError("find ", expected);
+        assertParseError("find    ", expected);
+        assertParseError("finder", expected);
+    }
+
     @Test
     public void parse_malformedMutationCommands_throwActionSpecificErrors() {
         assertParseError("mark", "You have to mark a task number!");

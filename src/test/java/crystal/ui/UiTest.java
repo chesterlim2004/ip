@@ -77,6 +77,7 @@ public class UiTest {
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
                 + "- To view your task list, enter 'list'\n"
                 + "- To view deadlines and events on a date, enter 'list /on [date]'\n"
+                + "- To find tasks by description, enter 'find [keyword]'\n"
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
                 + "- To delete a task, enter 'delete [task number]'\n"
@@ -141,6 +142,26 @@ public class UiTest {
     }
 
     /** Verifies all status-change and repeated-status response variants. */
+    @Test
+    public void showMatchingTasks_noMatches_printsEmptySearchMessage() {
+        new Ui().showMatchingTasks(List.of());
+
+        assertEquals("Crystal: There are no matching tasks in your list!\n", getOutput());
+    }
+
+    @Test
+    public void showMatchingTasks_matches_printsTemporaryOneBasedIndexes() {
+        Todo completedTodo = new Todo("read book");
+        completedTodo.markAsDone();
+
+        new Ui().showMatchingTasks(List.of(
+                completedTodo, new Deadline("return book", "June 6th")));
+
+        assertEquals("Crystal: Here are the matching tasks in your list:\n"
+                + "         1.[T][X] read book\n"
+                + "         2.[D][ ] return book (by: June 6th)\n", getOutput());
+    }
+
     @Test
     public void showTaskStatusResponses_allVariants_printExpectedHeadingsAndTask() {
         Todo doneTask = new Todo("read book");

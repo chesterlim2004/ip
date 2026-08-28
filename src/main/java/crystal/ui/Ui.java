@@ -29,6 +29,7 @@ public class Ui {
             + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
             + "- To view your task list, enter 'list'\n"
             + "- To view deadlines and events on a date, enter 'list /on [date]'\n"
+            + "- To find tasks by description, enter 'find [keyword]'\n"
             + "- To mark a task as done, enter 'mark [task number]'\n"
             + "- To mark a task as not done, enter 'unmark [task number]'\n"
             + "- To delete a task, enter 'delete [task number]'\n"
@@ -122,6 +123,23 @@ public class Ui {
                 + formattedDate + ":");
         for (Task task : matchingTasks) {
             System.out.println("         - " + task);
+        }
+    }
+
+    /**
+     * Shows a temporary numbered view of tasks matching a search keyword.
+     *
+     * @param matchingTasks tasks whose descriptions contain the keyword.
+     */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("Crystal: There are no matching tasks in your list!");
+            return;
+        }
+
+        System.out.println("Crystal: Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println("         " + (i + 1) + "." + matchingTasks.get(i));
         }
     }
 

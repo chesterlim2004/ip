@@ -18,6 +18,7 @@ public class CommandTypeTest {
                 Map.entry(CommandType.DEADLINE, "deadline"),
                 Map.entry(CommandType.EVENT, "event"),
                 Map.entry(CommandType.LIST, "list"),
+                Map.entry(CommandType.FIND, "find"),
                 Map.entry(CommandType.MARK, "mark"),
                 Map.entry(CommandType.UNMARK, "unmark"),
                 Map.entry(CommandType.DELETE, "delete"),

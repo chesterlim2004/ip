@@ -94,4 +94,18 @@ public class TaskListTest {
         assertThrows(UnsupportedOperationException.class,
                 () -> matches.add(new Todo("another")));
     }
+
+    @Test
+    public void findTasks_mixedTasks_matchesDescriptionsCaseInsensitivelyInOriginalOrder() {
+        Task firstMatch = new Todo("READ book");
+        Task dateOnlyMatch = new Deadline("submit report", "book collection day");
+        Task secondMatch = new Event("book club", "Monday", "Tuesday");
+        TaskList tasks = new TaskList(List.of(firstMatch, dateOnlyMatch, secondMatch));
+
+        List<Task> matches = tasks.findTasks("BoOk");
+
+        assertEquals(List.of(firstMatch, secondMatch), matches);
+        assertThrows(UnsupportedOperationException.class,
+                () -> matches.add(new Todo("book review")));
+    }
 }
