@@ -37,7 +37,7 @@ abstract class CommandTestBase {
     /**
      * Creates a UI writing into this test's captured output.
      *
-     * @return isolated console UI
+     * @return isolated console UI.
      */
     protected Ui createUi() {
         return new Ui();
@@ -46,7 +46,7 @@ abstract class CommandTestBase {
     /**
      * Creates storage backed by a temporary data file.
      *
-     * @return isolated task storage
+     * @return isolated task storage.
      */
     protected Storage createStorage() {
         return new Storage(tempDirectory.resolve("data").resolve("crystal.txt"));
@@ -55,7 +55,7 @@ abstract class CommandTestBase {
     /**
      * Returns all console text emitted since the test began.
      *
-     * @return normalized captured output
+     * @return normalized captured output.
      */
     protected String getOutput() {
         return capturedOutput.toString(StandardCharsets.UTF_8)

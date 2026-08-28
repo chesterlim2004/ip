@@ -142,9 +142,9 @@ public class ParserTest {
     /**
      * Parses and executes an add command, then compares its persisted representation.
      *
-     * @param input complete add command
-     * @param expectedData expected data representation of the parsed task
-     * @throws CrystalException if parsing or execution unexpectedly fails
+     * @param input complete add command.
+     * @param expectedData expected data representation of the parsed task.
+     * @throws CrystalException if parsing or execution unexpectedly fails.
      */
     private void assertParsedTaskData(String input, String expectedData) throws CrystalException {
         Command command = Parser.parse(input);
@@ -159,8 +159,8 @@ public class ParserTest {
     /**
      * Verifies that parsing fails with Crystal's exact internal error message.
      *
-     * @param input malformed command
-     * @param expectedMessage expected exception message
+     * @param input malformed command.
+     * @param expectedMessage expected exception message.
      */
     private static void assertParseError(String input, String expectedMessage) {
         CrystalException exception = assertThrows(

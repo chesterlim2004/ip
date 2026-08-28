@@ -25,7 +25,7 @@ public class Crystal {
     /**
      * Creates a Crystal chatbot backed by the supplied data file.
      *
-     * @param dataFilePath relative path to the task data file
+     * @param dataFilePath relative path to the task data file.
      */
     public Crystal(Path dataFilePath) {
         ui = new Ui();
@@ -63,7 +63,7 @@ public class Crystal {
     /**
      * Starts Crystal using its OS-independent relative data path.
      *
-     * @param args command-line arguments; not used
+     * @param args command-line arguments; not used.
      */
     public static void main(String[] args) {
         new Crystal(Path.of("data", "crystal.txt")).run();

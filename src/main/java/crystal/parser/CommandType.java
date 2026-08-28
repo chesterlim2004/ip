@@ -4,14 +4,23 @@ package crystal.parser;
  * Represents the commands understood by the Crystal chatbot.
  */
 public enum CommandType {
+    /** Adds a task without a date or time. */
     TODO("todo"),
+    /** Adds a task with a deadline. */
     DEADLINE("deadline"),
+    /** Adds an event with a start and end. */
     EVENT("event"),
+    /** Lists stored tasks. */
     LIST("list"),
+    /** Marks a task as completed. */
     MARK("mark"),
+    /** Marks a task as incomplete. */
     UNMARK("unmark"),
+    /** Deletes a task. */
     DELETE("delete"),
+    /** Exits the chatbot. */
     EXIT("bye"),
+    /** Represents input that does not match a supported command. */
     UNKNOWN("");
 
     /** Keyword that identifies this command at the start of user input. */
@@ -20,7 +29,7 @@ public enum CommandType {
     /**
      * Creates a command type with its identifying keyword.
      *
-     * @param keyword text that identifies the command
+     * @param keyword text that identifies the command.
      */
     CommandType(String keyword) {
         this.keyword = keyword;
@@ -29,7 +38,7 @@ public enum CommandType {
     /**
      * Returns the keyword used to identify this command.
      *
-     * @return command keyword
+     * @return command keyword.
      */
     public String getKeyword() {
         return keyword;

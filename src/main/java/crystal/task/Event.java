@@ -15,9 +15,9 @@ public class Event extends Task {
     /**
      * Creates an incomplete event.
      *
-     * @param description description of the event
-     * @param from event start date, time, or unrestricted text
-     * @param to event end date, time, or unrestricted text
+     * @param description description of the event.
+     * @param from event start date, time, or unrestricted text.
+     * @param to event end date, time, or unrestricted text.
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -28,7 +28,7 @@ public class Event extends Task {
     /**
      * Returns this event in the format stored on disk.
      *
-     * @return pipe-separated event data
+     * @return pipe-separated event data.
      */
     @Override
     public String toDataString() {
@@ -39,8 +39,8 @@ public class Event extends Task {
      * Returns whether this event occurs on the specified date. A dated event
      * with both a start and end date covers the inclusive range between them.
      *
-     * @param date date to check
-     * @return {@code true} if the event occurs on the date
+     * @param date date to check.
+     * @return {@code true} if the event occurs on the date.
      */
     @Override
     public boolean occursOn(LocalDate date) {
@@ -55,7 +55,7 @@ public class Event extends Task {
     /**
      * Returns this task with its event type icon and time period.
      *
-     * @return formatted event details
+     * @return formatted event details.
      */
     @Override
     public String toString() {

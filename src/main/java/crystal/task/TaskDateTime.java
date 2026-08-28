@@ -74,9 +74,9 @@ public final class TaskDateTime {
     /**
      * Creates a date/time value from its parsed components.
      *
-     * @param text unrestricted text to preserve
-     * @param date parsed calendar date
-     * @param time parsed clock time
+     * @param text unrestricted text to preserve.
+     * @param date parsed calendar date.
+     * @param time parsed clock time.
      */
     private TaskDateTime(String text, LocalDate date, LocalTime time) {
         this.text = text;
@@ -89,8 +89,8 @@ public final class TaskDateTime {
      * A final time token is still recognized after text, so {@code Monday 6am}
      * becomes {@code Monday 0600}.
      *
-     * @param input date, time, or unrestricted scheduling text
-     * @return parsed task date/time value
+     * @param input date, time, or unrestricted scheduling text.
+     * @return parsed task date/time value.
      */
     public static TaskDateTime parse(String input) {
         String value = input.trim();
@@ -122,7 +122,7 @@ public final class TaskDateTime {
     /**
      * Returns a normalized date/time while retaining any unrestricted text.
      *
-     * @return date as {@code dd MMM yyyy}, time as {@code HHmm}, or original text
+     * @return date as {@code dd MMM yyyy}, time as {@code HHmm}, or original text.
      */
     @Override
     public String toString() {
@@ -142,8 +142,8 @@ public final class TaskDateTime {
     /**
      * Parses a date using each supported command and storage format.
      *
-     * @param value possible date
-     * @return parsed date, or {@code null} when the value is not a supported date
+     * @param input possible date.
+     * @return parsed date, or {@code null} when the value is not a supported date.
      */
     public static LocalDate parseDate(String input) {
         String value = input.trim();
@@ -185,8 +185,8 @@ public final class TaskDateTime {
     /**
      * Returns whether this value contains the specified calendar date.
      *
-     * @param targetDate date to compare
-     * @return {@code true} if this value contains the target date
+     * @param targetDate date to compare.
+     * @return {@code true} if this value contains the target date.
      */
     public boolean occursOn(LocalDate targetDate) {
         return date != null && date.equals(targetDate);
@@ -195,7 +195,7 @@ public final class TaskDateTime {
     /**
      * Returns the parsed calendar date, if this value contains one.
      *
-     * @return parsed date, or {@code null} when this value has no calendar date
+     * @return parsed date, or {@code null} when this value has no calendar date.
      */
     public LocalDate getDate() {
         return date;
@@ -204,8 +204,8 @@ public final class TaskDateTime {
     /**
      * Formats a calendar date using Crystal's display and storage format.
      *
-     * @param date date to format
-     * @return date formatted as {@code dd MMM yyyy}
+     * @param date date to format.
+     * @return date formatted as {@code dd MMM yyyy}.
      */
     public static String formatDate(LocalDate date) {
         return date.format(DISPLAY_DATE_FORMATTER);
@@ -214,8 +214,8 @@ public final class TaskDateTime {
     /**
      * Expands a two-digit year into the 2000s while retaining a four-digit year.
      *
-     * @param year two-digit or four-digit year
-     * @return four-digit year
+     * @param year two-digit or four-digit year.
+     * @return four-digit year.
      */
     private static String expandYear(String year) {
         return year.length() == 2 ? "20" + year : year;
@@ -224,8 +224,8 @@ public final class TaskDateTime {
     /**
      * Parses supported 12-hour and 24-hour clock formats.
      *
-     * @param value possible time
-     * @return parsed time, or {@code null} when the value is not a supported time
+     * @param value possible time.
+     * @return parsed time, or {@code null} when the value is not a supported time.
      */
     private static LocalTime parseTime(String value) {
         Matcher twelveHourMatcher = TWELVE_HOUR_TIME_PATTERN.matcher(value);
@@ -262,9 +262,9 @@ public final class TaskDateTime {
     /**
      * Creates a time after validating its 24-hour clock fields.
      *
-     * @param hourText hour digits
-     * @param minuteText minute digits
-     * @return parsed time, or {@code null} when either field is out of range
+     * @param hourText hour digits.
+     * @param minuteText minute digits.
+     * @return parsed time, or {@code null} when either field is out of range.
      */
     private static LocalTime createTwentyFourHourTime(String hourText, String minuteText) {
         int hour = Integer.parseInt(hourText);
@@ -278,8 +278,8 @@ public final class TaskDateTime {
     /**
      * Creates a strict, case-insensitive date formatter.
      *
-     * @param pattern date pattern
-     * @return configured date formatter
+     * @param pattern date pattern.
+     * @return configured date formatter.
      */
     private static DateTimeFormatter createDateFormatter(String pattern) {
         return new DateTimeFormatterBuilder()
@@ -292,8 +292,8 @@ public final class TaskDateTime {
     /**
      * Appends a formatted component with one separating space when needed.
      *
-     * @param result destination text
-     * @param part formatted date or time
+     * @param result destination text.
+     * @param part formatted date or time.
      */
     private static void appendPart(StringBuilder result, String part) {
         if (!result.isEmpty()) {

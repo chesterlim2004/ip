@@ -23,7 +23,7 @@ public final class Storage {
     /**
      * Creates storage backed by the supplied file path.
      *
-     * @param dataFilePath relative path to Crystal's task data
+     * @param dataFilePath relative path to Crystal's task data.
      */
     public Storage(Path dataFilePath) {
         this.dataFilePath = dataFilePath;
@@ -32,8 +32,8 @@ public final class Storage {
     /**
      * Loads the task list from disk, or returns an empty list when no data file exists yet.
      *
-     * @return tasks reconstructed from the data file
-     * @throws CrystalException if the task data cannot be read or is invalid
+     * @return tasks reconstructed from the data file.
+     * @throws CrystalException if the task data cannot be read or is invalid.
      */
     public ArrayList<Task> loadTasks() throws CrystalException {
         if (Files.notExists(dataFilePath)) {
@@ -54,8 +54,8 @@ public final class Storage {
     /**
      * Rewrites the data file with the current task list, creating its directory if needed.
      *
-     * @param tasks tasks to save
-     * @throws CrystalException if the task data cannot be written
+     * @param tasks tasks to save.
+     * @throws CrystalException if the task data cannot be written.
      */
     public void saveTasks(List<Task> tasks) throws CrystalException {
         try {
@@ -75,9 +75,9 @@ public final class Storage {
     /**
      * Reconstructs one task from its pipe-separated storage representation.
      *
-     * @param taskLine one line from the data file
-     * @return reconstructed task
-     * @throws CrystalException if the line does not use Crystal's storage format
+     * @param taskLine one line from the data file.
+     * @return reconstructed task.
+     * @throws CrystalException if the line does not use Crystal's storage format.
      */
     private static Task parseTask(String taskLine) throws CrystalException {
         String[] fields = taskLine.split(" \\| ", -1);
@@ -103,7 +103,7 @@ public final class Storage {
     /**
      * Creates the consistent user-facing exception used for malformed saved data.
      *
-     * @return invalid-data exception
+     * @return invalid-data exception.
      */
     private static CrystalException invalidDataException() {
         return new CrystalException("Your saved task data is invalid.");

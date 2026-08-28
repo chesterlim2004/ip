@@ -22,7 +22,7 @@ public class TaskList {
      * Creates a task list containing the supplied tasks.
      * A defensive copy prevents callers from changing the collection directly.
      *
-     * @param tasks initial tasks
+     * @param tasks initial tasks.
      */
     public TaskList(List<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
@@ -31,7 +31,7 @@ public class TaskList {
     /**
      * Adds a task to the end of the list.
      *
-     * @param task task to add
+     * @param task task to add.
      */
     public void addTask(Task task) {
         tasks.add(task);
@@ -40,8 +40,8 @@ public class TaskList {
     /**
      * Removes and returns the task at a zero-based index.
      *
-     * @param taskIndex zero-based task index
-     * @return removed task
+     * @param taskIndex zero-based task index.
+     * @return removed task.
      */
     public Task deleteTask(int taskIndex) {
         return tasks.remove(taskIndex);
@@ -50,8 +50,8 @@ public class TaskList {
     /**
      * Returns the task at a zero-based index.
      *
-     * @param taskIndex zero-based task index
-     * @return selected task
+     * @param taskIndex zero-based task index.
+     * @return selected task.
      */
     public Task getTask(int taskIndex) {
         return tasks.get(taskIndex);
@@ -60,7 +60,7 @@ public class TaskList {
     /**
      * Returns the number of tasks in the list.
      *
-     * @return task count
+     * @return task count.
      */
     public int getTaskCount() {
         return tasks.size();
@@ -69,7 +69,7 @@ public class TaskList {
     /**
      * Returns whether the task list contains no tasks.
      *
-     * @return {@code true} if the list is empty
+     * @return {@code true} if the list is empty.
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
@@ -78,7 +78,7 @@ public class TaskList {
     /**
      * Returns an immutable snapshot for display or storage.
      *
-     * @return snapshot of all tasks
+     * @return snapshot of all tasks.
      */
     public List<Task> getTasks() {
         return List.copyOf(tasks);
@@ -87,8 +87,8 @@ public class TaskList {
     /**
      * Returns an immutable temporary view of tasks occurring on a date.
      *
-     * @param date date to match
-     * @return matching deadlines and events in task-list order
+     * @param date date to match.
+     * @return matching deadlines and events in task-list order.
      */
     public List<Task> getTasksOnDate(LocalDate date) {
         return tasks.stream()

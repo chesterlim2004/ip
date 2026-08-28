@@ -20,7 +20,7 @@ public final class ListCommand extends Command {
     /**
      * Creates a list command with an optional date filter.
      *
-     * @param date empty for the complete list, or the requested filter date
+     * @param date empty for the complete list, or the requested filter date.
      */
     public ListCommand(Optional<LocalDate> date) {
         this.date = date;
@@ -29,9 +29,9 @@ public final class ListCommand extends Command {
     /**
      * Displays the requested task-list view without changing persistent data.
      *
-     * @param tasks task list to display
-     * @param ui console interface used to present the result
-     * @param storage persistence service; not used by this read-only command
+     * @param tasks task list to display.
+     * @param ui console interface used to present the result.
+     * @param storage persistence service; not used by this read-only command.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
