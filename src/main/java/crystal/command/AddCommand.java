@@ -16,7 +16,7 @@ public final class AddCommand extends Command {
     /**
      * Creates an add command for a parsed task.
      *
-     * @param task task to add
+     * @param task task to add.
      */
     public AddCommand(Task task) {
         this.task = task;
@@ -25,10 +25,10 @@ public final class AddCommand extends Command {
     /**
      * Adds, saves, and displays the task.
      *
-     * @param tasks task list to mutate
-     * @param ui console interface used to present the result
-     * @param storage persistence service for the updated task list
-     * @throws CrystalException if the updated task list cannot be saved
+     * @param tasks task list to mutate.
+     * @param ui console interface used to present the result.
+     * @param storage persistence service for the updated task list.
+     * @throws CrystalException if the updated task list cannot be saved.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CrystalException {

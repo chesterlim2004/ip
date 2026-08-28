@@ -8,14 +8,13 @@ import java.time.LocalDate;
 public class Task {
     /** User-visible description of this task. */
     protected String description;
-
-    /** Whether the task has been completed. */
+    /** Whether this task has been completed. */
     protected boolean isDone;
 
     /**
      * Creates an incomplete task with the given description.
      *
-     * @param description description of the task
+     * @param description description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -25,7 +24,7 @@ public class Task {
     /**
      * Returns the symbol used to display the task's completion status.
      *
-     * @return {@code X} if the task is done, or a space otherwise
+     * @return {@code X} if the task is done, or a space otherwise.
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
@@ -34,7 +33,7 @@ public class Task {
     /**
      * Returns whether this task has been completed.
      *
-     * @return {@code true} if this task is done
+     * @return {@code true} if this task is done.
      */
     public boolean isDone() {
         return isDone;
@@ -57,7 +56,7 @@ public class Task {
     /**
      * Returns the common fields used to store this task on disk.
      *
-     * @return pipe-separated completion status and description
+     * @return pipe-separated completion status and description.
      */
     public String toDataString() {
         return (isDone ? "1" : "0") + " | " + description;
@@ -67,8 +66,8 @@ public class Task {
      * Returns whether this task occurs on a calendar date.
      * Tasks without calendar dates do not occur on any specific date.
      *
-     * @param date date to check
-     * @return {@code true} if this task occurs on the date
+     * @param date date to check.
+     * @return {@code true} if this task occurs on the date.
      */
     public boolean occursOn(LocalDate date) {
         return false;
@@ -77,7 +76,7 @@ public class Task {
     /**
      * Returns the task's status icon followed by its description.
      *
-     * @return formatted task details
+     * @return formatted task details.
      */
     @Override
     public String toString() {

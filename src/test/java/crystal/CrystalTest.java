@@ -100,7 +100,7 @@ public class CrystalTest {
     /**
      * Supplies complete console commands before Crystal constructs its scanner.
      *
-     * @param input newline-separated commands
+     * @param input newline-separated commands.
      */
     private static void setInput(String input) {
         System.setIn(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)));
@@ -109,7 +109,7 @@ public class CrystalTest {
     /**
      * Returns console output with platform line endings normalized.
      *
-     * @return captured console output
+     * @return captured console output.
      */
     private String getOutput() {
         return capturedOutput.toString(StandardCharsets.UTF_8).replace("\r\n", "\n");

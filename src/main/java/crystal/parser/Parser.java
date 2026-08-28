@@ -41,9 +41,9 @@ public class Parser {
     /**
      * Parses a complete user instruction into an executable command.
      *
-     * @param command command entered by the user
-     * @return concrete command containing all parsed arguments
-     * @throws CrystalException if the command or its arguments are invalid
+     * @param command command entered by the user.
+     * @return concrete command containing all parsed arguments.
+     * @throws CrystalException if the command or its arguments are invalid.
      */
     public static Command parse(String command) throws CrystalException {
         CommandType commandType = parseCommandType(command);
@@ -61,8 +61,8 @@ public class Parser {
      * The exit command must match exactly, while other known commands are
      * recognized by prefix so their malformed forms receive specific errors.
      *
-     * @param command command entered by the user
-     * @return matching command type, or {@link CommandType#UNKNOWN} if none matches
+     * @param command command entered by the user.
+     * @return matching command type, or {@link CommandType#UNKNOWN} if none matches.
      */
     private static CommandType parseCommandType(String command) {
         if (command.equals(CommandType.EXIT.getKeyword())) {
@@ -83,9 +83,9 @@ public class Parser {
     /**
      * Parses a list command and returns its optional date filter.
      *
-     * @param command full list command
-     * @return empty for {@code list}, or the date supplied to {@code list /on}
-     * @throws CrystalException if the list command or its date is invalid
+     * @param command full list command.
+     * @return empty for {@code list}, or the date supplied to {@code list /on}.
+     * @throws CrystalException if the list command or its date is invalid.
      */
     private static Optional<LocalDate> parseListCommand(String command)
             throws CrystalException {
@@ -114,10 +114,10 @@ public class Parser {
     /**
      * Creates the mutation command described by a mark, unmark, or delete command.
      *
-     * @param command full mark, unmark, or delete command
-     * @param commandType type of task mutation
-     * @return command targeting the parsed task number
-     * @throws CrystalException if the command does not contain a task number
+     * @param command full mark, unmark, or delete command.
+     * @param commandType type of task mutation.
+     * @return command targeting the parsed task number.
+     * @throws CrystalException if the command does not contain a task number.
      */
     private static Command parseMutationCommand(String command, CommandType commandType)
             throws CrystalException {
@@ -134,10 +134,10 @@ public class Parser {
      * Converts the task number in a command into a zero-based list index.
      * Existence is checked when the resulting command executes against the task list.
      *
-     * @param command full mark, unmark, or delete command
-     * @param commandType type of task mutation
-     * @return zero-based index supplied by the user
-     * @throws CrystalException if the command does not contain a task number
+     * @param command full mark, unmark, or delete command.
+     * @param commandType type of task mutation.
+     * @return zero-based index supplied by the user.
+     * @throws CrystalException if the command does not contain a task number.
      */
     private static int parseTaskIndex(String command, CommandType commandType)
             throws CrystalException {
@@ -159,10 +159,10 @@ public class Parser {
     /**
      * Creates an add command containing the described todo, deadline, or event.
      *
-     * @param command task creation command
-     * @param commandType type of task to create
-     * @return add command containing the parsed task
-     * @throws CrystalException if required task details are missing
+     * @param command task creation command.
+     * @param commandType type of task to create.
+     * @return add command containing the parsed task.
+     * @throws CrystalException if required task details are missing.
      */
     private static Command parseAddCommand(String command, CommandType commandType)
             throws CrystalException {

@@ -14,7 +14,7 @@ public abstract class TaskIndexCommand extends Command {
     /**
      * Creates a command targeting a zero-based task index.
      *
-     * @param taskIndex zero-based task index
+     * @param taskIndex zero-based task index.
      */
     protected TaskIndexCommand(int taskIndex) {
         this.taskIndex = taskIndex;
@@ -23,9 +23,9 @@ public abstract class TaskIndexCommand extends Command {
     /**
      * Returns the target task after validating that it still exists.
      *
-     * @param tasks current task list
-     * @return target task
-     * @throws CrystalException if the index is outside the current task list
+     * @param tasks current task list.
+     * @return target task.
+     * @throws CrystalException if the index is outside the current task list.
      */
     protected Task getTask(TaskList tasks) throws CrystalException {
         if (taskIndex < 0 || taskIndex >= tasks.getTaskCount()) {

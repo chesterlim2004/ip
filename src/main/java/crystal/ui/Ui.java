@@ -58,7 +58,7 @@ public class Ui {
     /**
      * Prompts for and returns the user's next command.
      *
-     * @return command entered by the user
+     * @return command entered by the user.
      */
     public String readCommand() {
         System.out.print("You: ");
@@ -82,7 +82,7 @@ public class Ui {
     /**
      * Shows a user-facing Crystal error.
      *
-     * @param exception error to display
+     * @param exception error to display.
      */
     public void showError(CrystalException exception) {
         System.out.println(exception.getUserMessage());
@@ -91,7 +91,7 @@ public class Ui {
     /**
      * Shows the complete task list with its persistent task numbers.
      *
-     * @param tasks complete task list
+     * @param tasks complete task list.
      */
     public void showTaskList(TaskList tasks) {
         if (tasks.isEmpty()) {
@@ -108,8 +108,8 @@ public class Ui {
     /**
      * Shows an unnumbered temporary view of tasks occurring on a date.
      *
-     * @param formattedDate date in Crystal's display format
-     * @param matchingTasks deadlines and events occurring on the date
+     * @param formattedDate date in Crystal's display format.
+     * @param matchingTasks deadlines and events occurring on the date.
      */
     public void showTasksOnDate(String formattedDate, List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
@@ -128,7 +128,7 @@ public class Ui {
     /**
      * Shows that a task was already marked as done.
      *
-     * @param task task whose status was unchanged
+     * @param task task whose status was unchanged.
      */
     public void showTaskAlreadyDone(Task task) {
         showTaskWithHeading("Crystal: You have already completed this task!", task);
@@ -137,7 +137,7 @@ public class Ui {
     /**
      * Shows that a task was already marked as not done.
      *
-     * @param task task whose status was unchanged
+     * @param task task whose status was unchanged.
      */
     public void showTaskAlreadyNotDone(Task task) {
         showTaskWithHeading(
@@ -147,7 +147,7 @@ public class Ui {
     /**
      * Shows that a task was marked as done.
      *
-     * @param task task whose status changed
+     * @param task task whose status changed.
      */
     public void showTaskMarkedDone(Task task) {
         showTaskWithHeading("Crystal: Nice! I've marked this task as done:", task);
@@ -156,7 +156,7 @@ public class Ui {
     /**
      * Shows that a task was marked as not done.
      *
-     * @param task task whose status changed
+     * @param task task whose status changed.
      */
     public void showTaskMarkedNotDone(Task task) {
         showTaskWithHeading("Crystal: OK, I've marked this task as not done yet:", task);
@@ -165,8 +165,8 @@ public class Ui {
     /**
      * Shows a newly added task and the updated task count.
      *
-     * @param task added task
-     * @param taskCount number of tasks after the addition
+     * @param task added task.
+     * @param taskCount number of tasks after the addition.
      */
     public void showTaskAdded(Task task, int taskCount) {
         showTaskAndCount("Crystal: Got it! I've added this task:", task, taskCount);
@@ -175,8 +175,8 @@ public class Ui {
     /**
      * Shows a deleted task and the updated task count.
      *
-     * @param task deleted task
-     * @param taskCount number of tasks after the deletion
+     * @param task deleted task.
+     * @param taskCount number of tasks after the deletion.
      */
     public void showTaskDeleted(Task task, int taskCount) {
         showTaskAndCount("Crystal: Noted. I've removed this task:", task, taskCount);
@@ -185,8 +185,8 @@ public class Ui {
     /**
      * Shows a response heading followed by one indented task.
      *
-     * @param heading response heading
-     * @param task task to display
+     * @param heading response heading.
+     * @param task task to display.
      */
     private void showTaskWithHeading(String heading, Task task) {
         System.out.println(heading);
@@ -196,9 +196,9 @@ public class Ui {
     /**
      * Shows a response heading, one task, and the updated task count.
      *
-     * @param heading response heading
-     * @param task task to display
-     * @param taskCount current number of tasks
+     * @param heading response heading.
+     * @param task task to display.
+     * @param taskCount current number of tasks.
      */
     private void showTaskAndCount(String heading, Task task, int taskCount) {
         showTaskWithHeading(heading, task);

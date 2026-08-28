@@ -200,7 +200,7 @@ public class UiTest {
     /**
      * Returns console output with platform line endings normalized.
      *
-     * @return captured console output
+     * @return captured console output.
      */
     private String getOutput() {
         return capturedOutput.toString(StandardCharsets.UTF_8).replace("\r\n", "\n");
