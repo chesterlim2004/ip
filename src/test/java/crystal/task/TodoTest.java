@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
  * Tests todo-specific display and storage representations.
  */
 public class TodoTest {
+    /** Verifies the display and storage forms of an incomplete todo. */
     @Test
     public void representations_incompleteTodo_includeTypeAndStatus() {
         Todo todo = new Todo("read book");
@@ -16,6 +17,7 @@ public class TodoTest {
         assertEquals("[T][ ] read book", todo.toString());
     }
 
+    /** Verifies the display and storage forms of a completed todo. */
     @Test
     public void representations_completedTodo_includeCompletedStatus() {
         Todo todo = new Todo("read book");

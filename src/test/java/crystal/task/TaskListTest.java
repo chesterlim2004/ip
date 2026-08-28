@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
  * Tests task collection ownership, mutation, and date filtering.
  */
 public class TaskListTest {
+    /** Verifies that the no-argument constructor creates an empty task list. */
     @Test
     public void constructor_noTasks_createsEmptyTaskList() {
         TaskList tasks = new TaskList();
@@ -25,6 +26,7 @@ public class TaskListTest {
         assertEquals(List.of(), tasks.getTasks());
     }
 
+    /** Verifies that construction defensively copies the supplied task collection. */
     @Test
     public void constructor_sourceListModified_taskListRetainsDefensiveCopy() {
         ArrayList<Task> source = new ArrayList<>();
@@ -37,6 +39,7 @@ public class TaskListTest {
         assertEquals("[T][ ] read book", tasks.getTask(0).toString());
     }
 
+    /** Verifies addition, deletion, returned tasks, and retained ordering. */
     @Test
     public void addAndDelete_validTasks_updatesOrderAndReturnsDeletedTask() {
         Task first = new Todo("read book");
@@ -53,6 +56,7 @@ public class TaskListTest {
         assertFalse(tasks.isEmpty());
     }
 
+    /** Verifies that indexed operations reject negative and out-of-range indexes. */
     @Test
     public void indexedOperations_invalidIndexes_throwIndexOutOfBoundsException() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));
@@ -62,6 +66,7 @@ public class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> tasks.deleteTask(1));
     }
 
+    /** Verifies that callers cannot mutate a task list through its returned snapshot. */
     @Test
     public void getTasks_returnedSnapshotCannotMutateTaskList() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));
@@ -72,6 +77,7 @@ public class TaskListTest {
         assertEquals(1, tasks.getTaskCount());
     }
 
+    /** Verifies date filtering, source order, exclusion rules, and immutability. */
     @Test
     public void getTasksOnDate_mixedTasks_returnsMatchingTasksInOriginalOrder() {
         Task todo = new Todo("mention 02 Dec 2026");

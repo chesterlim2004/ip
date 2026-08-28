@@ -10,6 +10,12 @@ import crystal.ui.Ui;
  */
 public abstract class Command {
     /**
+     * Creates a command with no command-specific base state.
+     */
+    protected Command() {
+    }
+
+    /**
      * Performs this command using the application's shared dependencies.
      *
      * @param tasks task list to query or mutate

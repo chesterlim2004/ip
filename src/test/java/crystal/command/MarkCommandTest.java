@@ -21,6 +21,7 @@ import crystal.task.Todo;
  * Tests marking tasks, no-op handling, persistence, and index validation.
  */
 public class MarkCommandTest extends CommandTestBase {
+    /** Verifies marking, persistence, and user feedback for an incomplete task. */
     @Test
     public void execute_incompleteTask_marksPersistsAndDisplaysTask() throws Exception {
         Todo todo = new Todo("read book");
@@ -36,6 +37,7 @@ public class MarkCommandTest extends CommandTestBase {
                 + "         [T][X] read book\n", getOutput());
     }
 
+    /** Verifies that marking an already completed task does not save again. */
     @Test
     public void execute_alreadyCompletedTask_displaysNoOpWithoutSaving() throws Exception {
         Todo todo = new Todo("read book");
@@ -51,6 +53,7 @@ public class MarkCommandTest extends CommandTestBase {
                 + "         [T][X] read book\n", getOutput());
     }
 
+    /** Verifies that marking rejects an out-of-range task index. */
     @Test
     public void execute_indexOutsideTaskList_throwsCrystalException() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));

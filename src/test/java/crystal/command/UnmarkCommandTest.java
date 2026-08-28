@@ -21,6 +21,7 @@ import crystal.task.Todo;
  * Tests unmarking tasks, no-op handling, persistence, and index validation.
  */
 public class UnmarkCommandTest extends CommandTestBase {
+    /** Verifies unmarking, persistence, and feedback for a completed task. */
     @Test
     public void execute_completedTask_unmarksPersistsAndDisplaysTask() throws Exception {
         Todo todo = new Todo("read book");
@@ -37,6 +38,7 @@ public class UnmarkCommandTest extends CommandTestBase {
                 + "         [T][ ] read book\n", getOutput());
     }
 
+    /** Verifies that unmarking an incomplete task does not save again. */
     @Test
     public void execute_alreadyIncompleteTask_displaysNoOpWithoutSaving() throws Exception {
         Todo todo = new Todo("read book");
@@ -51,6 +53,7 @@ public class UnmarkCommandTest extends CommandTestBase {
                 + "         [T][ ] read book\n", getOutput());
     }
 
+    /** Verifies that unmarking rejects a negative task index. */
     @Test
     public void execute_indexOutsideTaskList_throwsCrystalException() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));

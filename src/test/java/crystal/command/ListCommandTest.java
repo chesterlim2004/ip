@@ -19,6 +19,7 @@ import crystal.task.Todo;
  * Tests complete and date-filtered task listing through {@link ListCommand}.
  */
 public class ListCommandTest extends CommandTestBase {
+    /** Verifies numbered complete-list output without a storage mutation. */
     @Test
     public void execute_withoutDate_displaysNumberedCompleteListWithoutSaving() {
         TaskList tasks = new TaskList(List.of(
@@ -33,6 +34,7 @@ public class ListCommandTest extends CommandTestBase {
         assertFalse(Files.exists(tempDirectory.resolve("data").resolve("crystal.txt")));
     }
 
+    /** Verifies unnumbered date-filtered output containing only matching tasks. */
     @Test
     public void execute_withDate_displaysOnlyUnnumberedMatchingDatedTasks() {
         TaskList tasks = new TaskList(List.of(
@@ -50,6 +52,7 @@ public class ListCommandTest extends CommandTestBase {
                 getOutput());
     }
 
+    /** Verifies the date-specific message when no tasks match. */
     @Test
     public void execute_withDateAndNoMatches_displaysEmptyFilteredMessage() {
         TaskList tasks = new TaskList(List.of(new Deadline("submit report", "3Dec26")));

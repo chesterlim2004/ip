@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
  * Tests the stable command keywords exposed by {@link CommandType}.
  */
 public class CommandTypeTest {
+    /** Verifies the stable user-facing keyword associated with every command type. */
     @Test
     public void getKeyword_allCommandTypes_returnExpectedVocabulary() {
         Map<CommandType, String> expectedKeywords = Map.ofEntries(

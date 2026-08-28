@@ -28,6 +28,7 @@ public class CrystalTest {
     private PrintStream originalOutput;
     private ByteArrayOutputStream capturedOutput;
 
+    /** Redirects standard output before Crystal constructs its console UI. */
     @BeforeEach
     public void redirectStandardOutput() {
         originalInput = System.in;
@@ -36,12 +37,14 @@ public class CrystalTest {
         System.setOut(new PrintStream(capturedOutput, true, StandardCharsets.UTF_8));
     }
 
+    /** Restores standard input and output after each application-loop test. */
     @AfterEach
     public void restoreStandardStreams() {
         System.setIn(originalInput);
         System.setOut(originalOutput);
     }
 
+    /** Verifies startup loading, mutation persistence, feedback, and normal exit. */
     @Test
     public void run_existingData_loadsMutatesPersistsAndExits() throws Exception {
         Path dataFile = tempDirectory.resolve("data").resolve("crystal.txt");
@@ -61,6 +64,7 @@ public class CrystalTest {
         assertTrue(output.contains("Crystal: Bye!!! Hope to see you again soon!"));
     }
 
+    /** Verifies recovery from corrupted data and replacement after a new mutation. */
     @Test
     public void run_corruptedData_reportsErrorUsesEmptyListAndReplacesFileOnMutation()
             throws Exception {
@@ -78,6 +82,7 @@ public class CrystalTest {
                 + "         [T][ ] recovered task\n"));
     }
 
+    /** Verifies that command errors are reported without ending the command loop. */
     @Test
     public void run_invalidCommand_reportsErrorAndContinuesToExit() {
         Path dataFile = tempDirectory.resolve("crystal.txt");

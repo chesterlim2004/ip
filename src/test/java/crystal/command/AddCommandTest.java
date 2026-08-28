@@ -18,6 +18,7 @@ import crystal.task.Todo;
  * Tests adding, saving, and reporting a task through {@link AddCommand}.
  */
 public class AddCommandTest extends CommandTestBase {
+    /** Verifies successful task addition, persistence, and user feedback. */
     @Test
     public void execute_validTask_addsPersistsAndDisplaysTask() throws Exception {
         Todo todo = new Todo("read book");
@@ -36,6 +37,7 @@ public class AddCommandTest extends CommandTestBase {
                 + "         Now you have 1 task in the list.\n", getOutput());
     }
 
+    /** Verifies that task-saving failures propagate as Crystal exceptions. */
     @Test
     public void execute_storageFailure_propagatesCrystalException() throws Exception {
         Path directoryAsFile = tempDirectory.resolve("crystal.txt");

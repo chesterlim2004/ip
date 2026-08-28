@@ -11,6 +11,7 @@ import crystal.task.TaskList;
  * Tests exit identification and farewell output.
  */
 public class ExitCommandTest extends CommandTestBase {
+    /** Verifies farewell output and the exit signal. */
     @Test
     public void execute_exitCommand_displaysFarewellAndSignalsExit() {
         ExitCommand command = new ExitCommand();

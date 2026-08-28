@@ -29,6 +29,7 @@ public class UiTest {
     private PrintStream originalOutput;
     private ByteArrayOutputStream capturedOutput;
 
+    /** Saves and redirects standard streams for isolated UI assertions. */
     @BeforeEach
     public void redirectStandardStreams() {
         originalInput = System.in;
@@ -37,12 +38,14 @@ public class UiTest {
         System.setOut(new PrintStream(capturedOutput, true, StandardCharsets.UTF_8));
     }
 
+    /** Restores the original process streams after each UI test. */
     @AfterEach
     public void restoreStandardStreams() {
         System.setIn(originalInput);
         System.setOut(originalOutput);
     }
 
+    /** Verifies command prompting and preservation of the complete input line. */
     @Test
     public void readCommand_inputLine_printsPromptAndReturnsCompleteLine() {
         System.setIn(new ByteArrayInputStream("todo read book  \n".getBytes(StandardCharsets.UTF_8)));
@@ -54,6 +57,7 @@ public class UiTest {
         assertEquals("You: ", getOutput());
     }
 
+    /** Verifies the complete startup banner, greeting, command guide, and dividers. */
     @Test
     public void showWelcome_called_printsBannerGreetingGuideAndDividers() {
         Ui ui = new Ui();
@@ -80,6 +84,7 @@ public class UiTest {
                 + LINE + "\n", getOutput());
     }
 
+    /** Verifies divider, farewell, and Crystal exception output. */
     @Test
     public void basicResponses_called_printExpectedDividerFarewellAndError() {
         Ui ui = new Ui();
@@ -93,6 +98,7 @@ public class UiTest {
                 + "Crystal: Oopsies!!! That task number does not exist!\n", getOutput());
     }
 
+    /** Verifies the response for an empty complete task list. */
     @Test
     public void showTaskList_emptyList_printsEmptyMessage() {
         new Ui().showTaskList(new TaskList());
@@ -100,6 +106,7 @@ public class UiTest {
         assertEquals("Crystal: Your task list is empty!\n", getOutput());
     }
 
+    /** Verifies one-based persistent numbering for a non-empty task list. */
     @Test
     public void showTaskList_nonEmptyList_printsPersistentOneBasedIndexes() {
         TaskList tasks = new TaskList(List.of(
@@ -112,6 +119,7 @@ public class UiTest {
                 + "         2.[D][ ] submit report (by: 02 Dec 2026)\n", getOutput());
     }
 
+    /** Verifies the date-specific response when a filtered list is empty. */
     @Test
     public void showTasksOnDate_noMatches_printsDateSpecificEmptyMessage() {
         new Ui().showTasksOnDate("02 Dec 2026", List.of());
@@ -120,6 +128,7 @@ public class UiTest {
                 getOutput());
     }
 
+    /** Verifies unnumbered output for a temporary date-filtered task list. */
     @Test
     public void showTasksOnDate_matches_printsUnnumberedTemporaryList() {
         new Ui().showTasksOnDate("02 Dec 2026", List.of(
@@ -131,6 +140,7 @@ public class UiTest {
                 + "         - [D][ ] send invoice (by: 02 Dec 2026 1700)\n", getOutput());
     }
 
+    /** Verifies all status-change and repeated-status response variants. */
     @Test
     public void showTaskStatusResponses_allVariants_printExpectedHeadingsAndTask() {
         Todo doneTask = new Todo("read book");
@@ -153,6 +163,7 @@ public class UiTest {
                 + "         [T][ ] return book\n", getOutput());
     }
 
+    /** Verifies singular and plural grammar after task additions. */
     @Test
     public void showTaskAdded_singularAndPluralCounts_useCorrectGrammar() {
         Ui ui = new Ui();
@@ -169,6 +180,7 @@ public class UiTest {
                 + "         Now you have 2 tasks in the list.\n", getOutput());
     }
 
+    /** Verifies zero-count plural and one-count singular grammar after deletions. */
     @Test
     public void showTaskDeleted_zeroAndSingularCounts_useCorrectGrammar() {
         Ui ui = new Ui();

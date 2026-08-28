@@ -33,6 +33,7 @@ public class ParserTest {
     @TempDir
     private Path tempDirectory;
 
+    /** Verifies that every supported keyword creates the corresponding command type. */
     @Test
     public void parse_supportedCommandKeywords_returnsMatchingCommandTypes()
             throws CrystalException {
@@ -49,6 +50,7 @@ public class ParserTest {
         assertInstanceOf(ExitCommand.class, Parser.parse("bye"));
     }
 
+    /** Verifies extraction and normalization of todo, deadline, and event details. */
     @Test
     public void parse_addCommands_executeWithExtractedAndNormalizedTaskDetails()
             throws CrystalException {
@@ -59,6 +61,7 @@ public class ParserTest {
                 "E | 0 | workshop | Monday 0600 | 1830");
     }
 
+    /** Verifies conversion of user-facing task numbers into zero-based indexes. */
     @Test
     public void parse_mutationCommands_convertsOneBasedTaskNumberToZeroBasedIndex()
             throws CrystalException {
@@ -79,6 +82,7 @@ public class ParserTest {
         assertEquals(List.of(second), tasks.getTasks());
     }
 
+    /** Verifies that unknown input and non-exact exit commands receive the unknown error. */
     @Test
     public void parse_unknownOrNonExactExitCommands_throwUnknownCommandError() {
         assertParseError("", "I don't know what that means :-(");
@@ -86,6 +90,7 @@ public class ParserTest {
         assertParseError("bye now", "I don't know what that means :-(");
     }
 
+    /** Verifies todo usage errors for missing and blank descriptions. */
     @Test
     public void parse_malformedTodoCommands_throwTodoUsageError() {
         String expected = "A todo must have a description!";
@@ -95,6 +100,7 @@ public class ParserTest {
         assertParseError("todo    ", expected);
     }
 
+    /** Verifies deadline usage errors for missing descriptions and deadline values. */
     @Test
     public void parse_malformedDeadlineCommands_throwDeadlineUsageError() {
         String expected = "A deadline must have a description and a /by time!";
@@ -105,6 +111,7 @@ public class ParserTest {
         assertParseError("deadline submit report /by ", expected);
     }
 
+    /** Verifies event usage errors for missing descriptions, starts, and ends. */
     @Test
     public void parse_malformedEventCommands_throwEventUsageError() {
         String expected = "An event must have a description, a /from time and a /to time!";
@@ -116,6 +123,7 @@ public class ParserTest {
         assertParseError("event workshop /from 6am /to ", expected);
     }
 
+    /** Verifies specific errors for malformed list and list-on-date commands. */
     @Test
     public void parse_malformedListCommands_throwSpecificListErrors() {
         assertParseError("list ", "To view your task list, simply enter 'list'!");
@@ -128,6 +136,7 @@ public class ParserTest {
         assertParseError("list /on 31/02/26", "I couldn't understand that date!");
     }
 
+    /** Verifies action-specific errors for malformed task mutation commands. */
     @Test
     public void parse_malformedMutationCommands_throwActionSpecificErrors() {
         assertParseError("mark", "You have to mark a task number!");

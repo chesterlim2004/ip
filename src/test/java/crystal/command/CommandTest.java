@@ -10,6 +10,7 @@ import crystal.task.Todo;
  * Tests behavior shared by ordinary commands.
  */
 public class CommandTest {
+    /** Verifies that an ordinary command does not request application exit. */
     @Test
     public void isExit_ordinaryCommand_returnsFalse() {
         Command command = new AddCommand(new Todo("read book"));
