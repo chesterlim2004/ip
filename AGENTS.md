@@ -37,6 +37,15 @@ Do not commit or push unless explicitly asked.
 ## Exceptions and Errors
 Always throw a new CrystalException with the message that the user should see as the parameter, and print .getUserMessage() unless otherwise stated.
 
+## JUnit unit testing
+
+After every application code update:
+
+1. Review the corresponding JUnit tests under `src/test/java` and update them to cover every changed nontrivial public behavior and all reasonable normal, boundary, and error cases.
+2. Follow Gradle and JUnit conventions: mirror the production package beneath `src/test/java` and name a test for `Example` as `ExampleTest`.
+3. Select Java 25 and run `./gradlew test` from the project root.
+4. Stop at the first failing unit test. Report the failure and do not claim the code update is complete until it is resolved or the user directs otherwise.
+
 ## Console UI regression testing
 
 After every application code update:

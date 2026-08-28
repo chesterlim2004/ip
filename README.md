@@ -28,4 +28,14 @@ Alternatively, run Crystal through Gradle from the project root:
 ./gradlew run --console=plain
 ```
 
+## Testing
+
+JUnit tests mirror Crystal's production packages beneath `src/test/java`. Run the complete unit test suite with:
+
+```bash
+./gradlew test
+```
+
+Whenever application code changes, update the corresponding JUnit tests with reasonable normal, boundary, and error cases before running the suite.
+
 **Warning:** Keep `src/main/java` as the source root for Java files. Gradle and IntelliJ expect the package directories, such as `crystal/task`, beneath this folder.
