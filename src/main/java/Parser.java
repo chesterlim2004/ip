@@ -24,6 +24,24 @@ public class Parser {
     }
 
     /**
+     * Parses a complete user instruction into an executable command.
+     *
+     * @param command command entered by the user
+     * @return concrete command containing all parsed arguments
+     * @throws CrystalException if the command or its arguments are invalid
+     */
+    public static Command parse(String command) throws CrystalException {
+        CommandType commandType = parseCommandType(command);
+        return switch (commandType) {
+        case TODO, DEADLINE, EVENT -> parseAddCommand(command, commandType);
+        case MARK, UNMARK, DELETE -> parseMutationCommand(command, commandType);
+        case LIST -> new ListCommand(parseListCommand(command));
+        case EXIT -> new ExitCommand();
+        case UNKNOWN -> throw new CrystalException("I don't know what that means :-(");
+        };
+    }
+
+    /**
      * Determines the type of a command entered by the user.
      * The exit command must match exactly, while other known commands are
      * recognized by prefix so their malformed forms receive specific errors.
@@ -31,7 +49,7 @@ public class Parser {
      * @param command command entered by the user
      * @return matching command type, or {@link CommandType#UNKNOWN} if none matches
      */
-    public static CommandType parseCommandType(String command) {
+    private static CommandType parseCommandType(String command) {
         if (command.equals(CommandType.EXIT.getKeyword())) {
             return CommandType.EXIT;
         }
@@ -54,7 +72,7 @@ public class Parser {
      * @return empty for {@code list}, or the date supplied to {@code list /on}
      * @throws CrystalException if the list command or its date is invalid
      */
-    public static Optional<LocalDate> parseListCommand(String command)
+    private static Optional<LocalDate> parseListCommand(String command)
             throws CrystalException {
         if (command.equals(CommandType.LIST.getKeyword())) {
             return Optional.empty();
@@ -86,7 +104,7 @@ public class Parser {
      * @return command targeting the parsed task number
      * @throws CrystalException if the command does not contain a task number
      */
-    public static Command parseMutationCommand(String command, CommandType commandType)
+    private static Command parseMutationCommand(String command, CommandType commandType)
             throws CrystalException {
         int taskIndex = parseTaskIndex(command, commandType);
         return switch (commandType) {
@@ -131,7 +149,7 @@ public class Parser {
      * @return add command containing the parsed task
      * @throws CrystalException if required task details are missing
      */
-    public static Command parseAddCommand(String command, CommandType commandType)
+    private static Command parseAddCommand(String command, CommandType commandType)
             throws CrystalException {
         String prefix = commandType.getKeyword() + " ";
         switch (commandType) {

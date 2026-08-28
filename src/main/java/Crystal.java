@@ -1,7 +1,4 @@
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Coordinates Crystal's command loop, task operations, storage, and console UI.
@@ -38,42 +35,20 @@ public class Crystal {
             ui.showError(exception);
             tasks = new TaskList();
         }
-        while (true) {
-            String command = ui.readCommand();
-            CommandType commandType = Parser.parseCommandType(command);
-            if (commandType == CommandType.EXIT) {
-                break;
-            }
-
-            ui.showDivider();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                switch (commandType) {
-                case LIST -> {
-                    Optional<LocalDate> date = Parser.parseListCommand(command);
-                    if (date.isEmpty()) {
-                        ui.showTaskList(tasks);
-                    } else {
-                        listTasksOnDate(date.get(), tasks, ui);
-                    }
-                }
-                case MARK, UNMARK, DELETE -> {
-                    Command mutationCommand = Parser.parseMutationCommand(command, commandType);
-                    mutationCommand.execute(tasks, ui, storage);
-                }
-                case TODO, DEADLINE, EVENT -> {
-                    Command addCommand = Parser.parseAddCommand(command, commandType);
-                    addCommand.execute(tasks, ui, storage);
-                }
-                case UNKNOWN, EXIT -> throw new CrystalException(
-                        "I don't know what that means :-(");
-                }
+                String fullCommand = ui.readCommand();
+                ui.showDivider();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (CrystalException exception) {
                 ui.showError(exception);
+            } finally {
+                ui.showDivider();
             }
-            ui.showDivider();
         }
-
-        ui.showGoodbye();
     }
 
     /**
@@ -83,18 +58,5 @@ public class Crystal {
      */
     public static void main(String[] args) {
         new Crystal(Path.of("data", "crystal.txt")).run();
-    }
-
-    /**
-     * Asks the UI to show tasks occurring on a parsed date.
-     *
-     * @param date date parsed from a {@code list /on} command
-     * @param tasks complete task list
-     * @param ui console UI used to display the temporary list
-     */
-    private static void listTasksOnDate(LocalDate date, TaskList tasks, Ui ui) {
-        List<Task> matchingTasks = tasks.getTasksOnDate(date);
-        String formattedDate = TaskDateTime.formatDate(date);
-        ui.showTasksOnDate(formattedDate, matchingTasks);
     }
 }

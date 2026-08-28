@@ -70,9 +70,7 @@ public class Ui {
      * Shows Crystal's farewell.
      */
     public void showGoodbye() {
-        showDivider();
         System.out.println("Crystal: Bye!!! Hope to see you again soon!");
-        showDivider();
     }
 
     /**
