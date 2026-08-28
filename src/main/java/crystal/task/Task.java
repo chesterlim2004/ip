@@ -1,6 +1,7 @@
 package crystal.task;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 /**
  * Represents a task with a description and completion status.
@@ -71,6 +72,18 @@ public class Task {
      */
     public boolean occursOn(LocalDate date) {
         return false;
+    }
+
+    /**
+     * Returns whether this task's description contains a keyword, ignoring case.
+     *
+     * @param keyword keyword to search for.
+     * @return {@code true} if the description contains the keyword.
+     */
+    public boolean hasDescriptionContaining(String keyword) {
+        String normalizedDescription = description.toLowerCase(Locale.ROOT);
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
+        return normalizedDescription.contains(normalizedKeyword);
     }
 
     /**

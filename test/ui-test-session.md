@@ -17,6 +17,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -70,6 +71,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -124,6 +126,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -160,6 +163,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -224,6 +228,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -282,6 +287,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -345,6 +351,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -409,6 +416,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -442,6 +450,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -509,6 +518,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -561,6 +571,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -613,6 +624,7 @@ Hello!!! I'm Crystal.
 - To add an event, enter 'event [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
 - To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
@@ -659,4 +671,54 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (12 test cases)
+## UI-13: Find tasks by a case-insensitive keyword in their descriptions without changing stored tasks
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your task list, enter 'list'
+- To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+You: find   BOOK
+____________________________________________________________
+Crystal: Here are the matching tasks in your list:
+         1.[T][X] read book
+         2.[D][X] return book (by: June 6th)
+____________________________________________________________
+You: find homework
+____________________________________________________________
+Crystal: There are no matching tasks in your list!
+____________________________________________________________
+You: find
+____________________________________________________________
+Crystal: Oopsies!!! To find tasks, enter 'find [keyword]'!
+____________________________________________________________
+You: list
+____________________________________________________________
+Crystal: Here are the tasks in your list:
+         1.[T][X] read book
+         2.[D][X] return book (by: June 6th)
+         3.[E][ ] project meeting (from: book to: Friday)
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (13 test cases)

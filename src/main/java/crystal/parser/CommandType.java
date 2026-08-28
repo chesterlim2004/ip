@@ -12,6 +12,8 @@ public enum CommandType {
     EVENT("event"),
     /** Lists stored tasks. */
     LIST("list"),
+    /** Finds tasks whose descriptions contain a keyword. */
+    FIND("find"),
     /** Marks a task as completed. */
     MARK("mark"),
     /** Marks a task as incomplete. */

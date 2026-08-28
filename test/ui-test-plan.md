@@ -511,6 +511,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         "- To add an event, enter 'event [description] /from [start] /to [end]'",
         "- To view your task list, enter 'list'",
         "- To view deadlines and events on a date, enter 'list /on [date]'",
+        "- To find tasks by description, enter 'find [keyword]'",
         "- To mark a task as done, enter 'mark [task number]'",
         "- To mark a task as not done, enter 'unmark [task number]'",
         "- To delete a task, enter 'delete [task number]'",
@@ -851,6 +852,72 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "E | 0 | weekly call | Monday 0600 | Tuesday 0700"
         ]
       }
+    },
+    {
+      "id": "UI-13",
+      "aim": "Find tasks by a case-insensitive keyword in their descriptions without changing stored tasks",
+      "initial_files": {
+        "data/crystal.txt": [
+          "T | 1 | read book",
+          "D | 1 | return book | June 6th",
+          "E | 0 | project meeting | book | Friday"
+        ]
+      },
+      "exchanges": [
+        {
+          "input": "find   BOOK",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the matching tasks in your list:",
+            "         1.[T][X] read book",
+            "         2.[D][X] return book (by: June 6th)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "find homework",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: There are no matching tasks in your list!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "find",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! To find tasks, enter 'find [keyword]'!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the tasks in your list:",
+            "         1.[T][X] read book",
+            "         2.[D][X] return book (by: June 6th)",
+            "         3.[E][ ] project meeting (from: book to: Friday)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "T | 1 | read book",
+          "D | 1 | return book | June 6th",
+          "E | 0 | project meeting | book | Friday"
+        ]
+      }
     }
   ]
 }
@@ -867,3 +934,5 @@ E | 0 | conference | 01 Dec 2026 | 03 Dec 2026
 E | 0 | overnight trip | 01 Dec 2026 | 02 Dec 2026
 E | 0 | weekly call | Monday 0600 | Tuesday 0700
 ```
+
+After `UI-13`, the runner verifies that searching did not change `data/crystal.txt`.

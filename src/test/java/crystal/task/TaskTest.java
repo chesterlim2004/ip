@@ -38,4 +38,13 @@ public class TaskTest {
 
         assertFalse(task.occursOn(LocalDate.of(2026, 12, 2)));
     }
+
+    @Test
+    public void hasDescriptionContaining_substringWithDifferentCase_returnsTrue() {
+        Task task = new Task("Return Library Book");
+
+        assertTrue(task.hasDescriptionContaining("library"));
+        assertTrue(task.hasDescriptionContaining("BOOK"));
+        assertFalse(task.hasDescriptionContaining("borrow"));
+    }
 }

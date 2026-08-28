@@ -7,6 +7,7 @@ import crystal.command.AddCommand;
 import crystal.command.Command;
 import crystal.command.DeleteCommand;
 import crystal.command.ExitCommand;
+import crystal.command.FindCommand;
 import crystal.command.ListCommand;
 import crystal.command.MarkCommand;
 import crystal.command.UnmarkCommand;
@@ -51,9 +52,30 @@ public class Parser {
         case TODO, DEADLINE, EVENT -> parseAddCommand(command, commandType);
         case MARK, UNMARK, DELETE -> parseMutationCommand(command, commandType);
         case LIST -> new ListCommand(parseListCommand(command));
+        case FIND -> parseFindCommand(command);
         case EXIT -> new ExitCommand();
         case UNKNOWN -> throw new CrystalException("I don't know what that means :-(");
         };
+    }
+
+    /**
+     * Creates a find command containing a nonblank search keyword.
+     *
+     * @param command full find command.
+     * @return command containing the trimmed keyword.
+     * @throws CrystalException if no keyword is supplied.
+     */
+    private static Command parseFindCommand(String command) throws CrystalException {
+        String prefix = CommandType.FIND.getKeyword() + " ";
+        if (!command.startsWith(prefix)) {
+            throw new CrystalException("To find tasks, enter 'find [keyword]'!");
+        }
+
+        String keyword = command.substring(prefix.length()).trim();
+        if (keyword.isBlank()) {
+            throw new CrystalException("To find tasks, enter 'find [keyword]'!");
+        }
+        return new FindCommand(keyword);
     }
 
     /**
