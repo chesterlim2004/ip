@@ -32,28 +32,4 @@ public enum CommandType {
     public String getKeyword() {
         return keyword;
     }
-
-    /**
-     * Determines the type of a command entered by the user.
-     * The exit command must match exactly, while other known commands are
-     * recognized by prefix so their malformed forms can receive specific errors.
-     *
-     * @param command command entered by the user
-     * @return matching command type, or {@link #UNKNOWN} if none matches
-     */
-    public static CommandType fromCommand(String command) {
-        if (command.equals(BYE.keyword)) {
-            return BYE;
-        }
-
-        for (CommandType commandType : values()) {
-            if (commandType == BYE || commandType == UNKNOWN) {
-                continue;
-            }
-            if (command.startsWith(commandType.keyword)) {
-                return commandType;
-            }
-        }
-        return UNKNOWN;
-    }
 }
