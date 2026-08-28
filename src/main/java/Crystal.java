@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,12 +37,12 @@ public class Crystal {
         System.out.println(horizontalLine);
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks;
+        TaskList tasks;
         try {
-            tasks = Storage.loadTasks();
+            tasks = new TaskList(Storage.loadTasks());
         } catch (CrystalException exception) {
             System.out.println(exception.getUserMessage());
-            tasks = new ArrayList<>();
+            tasks = new TaskList();
         }
         while (true) {
             System.out.print("You: ");
@@ -67,50 +66,52 @@ public class Crystal {
                 }
                 case MARK -> {
                     int taskIndex = getTaskIndex(
-                            command, commandType.getKeyword() + " ", tasks.size());
-                    Task task = tasks.get(taskIndex);
+                            command, commandType.getKeyword() + " ", tasks.getTaskCount());
+                    Task task = tasks.getTask(taskIndex);
                     if (task.isDone()) {
                         System.out.println("Crystal: You have already completed this task!");
                         System.out.println("         " + task);
                     } else {
                         task.markAsDone();
-                        Storage.saveTasks(tasks);
+                        Storage.saveTasks(tasks.getTasks());
                         System.out.println("Crystal: Nice! I've marked this task as done:");
                         System.out.println("         " + task);
                     }
                 }
                 case UNMARK -> {
                     int taskIndex = getTaskIndex(
-                            command, commandType.getKeyword() + " ", tasks.size());
-                    Task task = tasks.get(taskIndex);
+                            command, commandType.getKeyword() + " ", tasks.getTaskCount());
+                    Task task = tasks.getTask(taskIndex);
                     if (!task.isDone()) {
                         System.out.println("Crystal: You have not completed this task in the first place!");
                         System.out.println("         " + task);
                     } else {
                         task.markAsNotDone();
-                        Storage.saveTasks(tasks);
+                        Storage.saveTasks(tasks.getTasks());
                         System.out.println("Crystal: OK, I've marked this task as not done yet:");
                         System.out.println("         " + task);
                     }
                 }
                 case DELETE -> {
                     int taskIndex = getTaskIndex(
-                            command, commandType.getKeyword() + " ", tasks.size());
-                    Task removedTask = tasks.remove(taskIndex);
-                    Storage.saveTasks(tasks);
-                    String taskWord = tasks.size() == 1 ? "task" : "tasks";
+                            command, commandType.getKeyword() + " ", tasks.getTaskCount());
+                    Task removedTask = tasks.deleteTask(taskIndex);
+                    Storage.saveTasks(tasks.getTasks());
+                    String taskWord = tasks.getTaskCount() == 1 ? "task" : "tasks";
                     System.out.println("Crystal: Noted. I've removed this task:");
                     System.out.println("         " + removedTask);
-                    System.out.println("         Now you have " + tasks.size() + " " + taskWord + " in the list.");
+                    System.out.println("         Now you have " + tasks.getTaskCount()
+                            + " " + taskWord + " in the list.");
                 }
                 case TODO, DEADLINE, EVENT -> {
                     Task newTask = createTask(command, commandType);
-                    tasks.add(newTask);
-                    Storage.saveTasks(tasks);
-                    String taskWord = tasks.size() == 1 ? "task" : "tasks";
+                    tasks.addTask(newTask);
+                    Storage.saveTasks(tasks.getTasks());
+                    String taskWord = tasks.getTaskCount() == 1 ? "task" : "tasks";
                     System.out.println("Crystal: Got it! I've added this task:");
                     System.out.println("         " + newTask);
-                    System.out.println("         Now you have " + tasks.size() + " " + taskWord + " in the list.");
+                    System.out.println("         Now you have " + tasks.getTaskCount()
+                            + " " + taskWord + " in the list.");
                 }
                 case UNKNOWN, BYE -> throw new CrystalException("I don't know what that means :-(");
                 }
@@ -130,15 +131,15 @@ public class Crystal {
      *
      * @param tasks complete task list
      */
-    private static void listTasks(List<Task> tasks) {
+    private static void listTasks(TaskList tasks) {
         if (tasks.isEmpty()) {
             System.out.println("Crystal: Your task list is empty!");
             return;
         }
 
         System.out.println("Crystal: Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("         " + (i + 1) + "." + tasks.get(i));
+        for (int i = 0; i < tasks.getTaskCount(); i++) {
+            System.out.println("         " + (i + 1) + "." + tasks.getTask(i));
         }
     }
 
@@ -149,7 +150,7 @@ public class Crystal {
      * @param tasks complete task list
      * @throws CrystalException if the command is missing a valid calendar date
      */
-    private static void listTasksOnDate(String command, List<Task> tasks)
+    private static void listTasksOnDate(String command, TaskList tasks)
             throws CrystalException {
         String prefix = "list /on ";
         if (!command.startsWith(prefix) || command.substring(prefix.length()).isBlank()) {
@@ -163,9 +164,7 @@ public class Crystal {
             throw new CrystalException("I couldn't understand that date!");
         }
 
-        List<Task> matchingTasks = tasks.stream()
-                .filter(task -> task.occursOn(date))
-                .toList();
+        List<Task> matchingTasks = tasks.getTasksOnDate(date);
         String formattedDate = TaskDateTime.formatDate(date);
         if (matchingTasks.isEmpty()) {
             System.out.println(
