@@ -628,17 +628,142 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "D | 0 | call client | 1845"
         ]
       }
+    },
+    {
+      "id": "UI-10",
+      "aim": "Parse month-name dates despite missing spaces and common separator variations",
+      "exchanges": [
+        {
+          "input": "deadline first release /by 2Oct2026",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] first release (by: 02 Oct 2026)",
+            "         Now you have 1 task in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline second release /by 2 Dec2026",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] second release (by: 02 Dec 2026)",
+            "         Now you have 2 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline third release /by 2Nov 2026",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] third release (by: 02 Nov 2026)",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "event launch /from 2nd-Oct-2026 6am /to 3 October 2026 18:30",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [E][ ] launch (from: 02 Oct 2026 0600 to: 03 Oct 2026 1830)",
+            "         Now you have 4 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "D | 0 | first release | 02 Oct 2026",
+          "D | 0 | second release | 02 Dec 2026",
+          "D | 0 | third release | 02 Nov 2026",
+          "E | 0 | launch | 02 Oct 2026 0600 | 03 Oct 2026 1830"
+        ]
+      }
+    },
+    {
+      "id": "UI-11",
+      "aim": "Expand two-digit years to the 2000s in numeric and month-name dates",
+      "exchanges": [
+        {
+          "input": "deadline numeric date /by 2/12/26",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] numeric date (by: 02 Dec 2026)",
+            "         Now you have 1 task in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline compact date /by 2Oct26",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] compact date (by: 02 Oct 2026)",
+            "         Now you have 2 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline partial spacing /by 2 Dec26 630pm",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] partial spacing (by: 02 Dec 2026 1830)",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline spaced date /by 2Nov 26",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [D][ ] spaced date (by: 02 Nov 2026)",
+            "         Now you have 4 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "D | 0 | numeric date | 02 Dec 2026",
+          "D | 0 | compact date | 02 Oct 2026",
+          "D | 0 | partial spacing | 02 Dec 2026 1830",
+          "D | 0 | spaced date | 02 Nov 2026"
+        ]
+      }
     }
   ]
 }
 ```
 
-After `UI-09`, the runner verifies that `data/crystal.txt` contains exactly:
+After `UI-11`, the runner verifies that `data/crystal.txt` contains exactly:
 
 ```text
-D | 0 | return book | 02 Dec 2019 1800
-D | 0 | submit report | 15 Oct 2019
-E | 0 | breakfast | 0600 | 1830
-E | 0 | workshop | 1830 | Monday
-D | 0 | call client | 1845
+D | 0 | numeric date | 02 Dec 2026
+D | 0 | compact date | 02 Oct 2026
+D | 0 | partial spacing | 02 Dec 2026 1830
+D | 0 | spaced date | 02 Nov 2026
 ```

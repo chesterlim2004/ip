@@ -13,11 +13,32 @@ import java.util.regex.Pattern;
  * Represents a task's date, time, or unrestricted text such as {@code Monday}.
  */
 public final class TaskDateTime {
+    /** Strict formatter for day/month/four-digit-year dates. */
+    private static final DateTimeFormatter SLASH_DATE_FORMATTER =
+            createDateFormatter("d/M/uuuu");
+
     /** Accepted date formats for commands and previously saved task data. */
     private static final List<DateTimeFormatter> DATE_FORMATTERS = List.of(
             createDateFormatter("uuuu-M-d"),
-            createDateFormatter("d/M/uuuu"),
-            createDateFormatter("d MMM uuuu"));
+            SLASH_DATE_FORMATTER);
+
+    /** Month-name date formats used after spacing variations are normalized. */
+    private static final List<DateTimeFormatter> MONTH_NAME_DATE_FORMATTERS = List.of(
+            createDateFormatter("d MMM uuuu"),
+            createDateFormatter("d MMMM uuuu"));
+
+    /** Day/month dates whose two-digit year should be interpreted as 20xx. */
+    private static final Pattern TWO_DIGIT_SLASH_DATE_PATTERN =
+            Pattern.compile("^(\\d{1,2})/(\\d{1,2})/(\\d{2})$");
+
+    /**
+     * Day-first month-name dates with optional spaces, separators, and ordinal suffixes.
+     * Examples include 2Oct2026, 2 Dec2026, 2Nov 2026, and 2nd-Oct-2026.
+     */
+    private static final Pattern FLEXIBLE_MONTH_NAME_DATE_PATTERN = Pattern.compile(
+            "^(\\d{1,2})(?:st|nd|rd|th)?[\\s./-]*([A-Za-z]+)"
+                    + "[\\s,./-]*(\\d{2}(?:\\d{2})?)$",
+            Pattern.CASE_INSENSITIVE);
 
     /** Consistent date format used for display and storage. */
     private static final DateTimeFormatter DISPLAY_DATE_FORMATTER =
@@ -130,7 +151,42 @@ public final class TaskDateTime {
                 // Try the next supported date format.
             }
         }
+
+        Matcher slashDateMatcher = TWO_DIGIT_SLASH_DATE_PATTERN.matcher(value);
+        if (slashDateMatcher.matches()) {
+            String normalizedDate = slashDateMatcher.group(1) + "/"
+                    + slashDateMatcher.group(2) + "/20" + slashDateMatcher.group(3);
+            try {
+                return LocalDate.parse(normalizedDate, SLASH_DATE_FORMATTER);
+            } catch (DateTimeParseException exception) {
+                return null;
+            }
+        }
+
+        Matcher monthNameMatcher = FLEXIBLE_MONTH_NAME_DATE_PATTERN.matcher(value);
+        if (monthNameMatcher.matches()) {
+            String year = expandYear(monthNameMatcher.group(3));
+            String normalizedDate = monthNameMatcher.group(1) + " "
+                    + monthNameMatcher.group(2) + " " + year;
+            for (DateTimeFormatter formatter : MONTH_NAME_DATE_FORMATTERS) {
+                try {
+                    return LocalDate.parse(normalizedDate, formatter);
+                } catch (DateTimeParseException exception) {
+                    // Try the next supported month-name format.
+                }
+            }
+        }
         return null;
+    }
+
+    /**
+     * Expands a two-digit year into the 2000s while retaining a four-digit year.
+     *
+     * @param year two-digit or four-digit year
+     * @return four-digit year
+     */
+    private static String expandYear(String year) {
+        return year.length() == 2 ? "20" + year : year;
     }
 
     /**

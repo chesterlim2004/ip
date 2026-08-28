@@ -483,4 +483,106 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (9 test cases)
+## UI-10: Parse month-name dates despite missing spaces and common separator variations
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your list, enter 'list'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+You: deadline first release /by 2Oct2026
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] first release (by: 02 Oct 2026)
+         Now you have 1 task in the list.
+____________________________________________________________
+You: deadline second release /by 2 Dec2026
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] second release (by: 02 Dec 2026)
+         Now you have 2 tasks in the list.
+____________________________________________________________
+You: deadline third release /by 2Nov 2026
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] third release (by: 02 Nov 2026)
+         Now you have 3 tasks in the list.
+____________________________________________________________
+You: event launch /from 2nd-Oct-2026 6am /to 3 October 2026 18:30
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [E][ ] launch (from: 02 Oct 2026 0600 to: 03 Oct 2026 1830)
+         Now you have 4 tasks in the list.
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+## UI-11: Expand two-digit years to the 2000s in numeric and month-name dates
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your list, enter 'list'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+You: deadline numeric date /by 2/12/26
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] numeric date (by: 02 Dec 2026)
+         Now you have 1 task in the list.
+____________________________________________________________
+You: deadline compact date /by 2Oct26
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] compact date (by: 02 Oct 2026)
+         Now you have 2 tasks in the list.
+____________________________________________________________
+You: deadline partial spacing /by 2 Dec26 630pm
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] partial spacing (by: 02 Dec 2026 1830)
+         Now you have 3 tasks in the list.
+____________________________________________________________
+You: deadline spaced date /by 2Nov 26
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [D][ ] spaced date (by: 02 Nov 2026)
+         Now you have 4 tasks in the list.
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (11 test cases)
