@@ -1,5 +1,11 @@
+package crystal.ui;
+
 import java.util.List;
 import java.util.Scanner;
+
+import crystal.exception.CrystalException;
+import crystal.task.Task;
+import crystal.task.TaskList;
 
 /**
  * Handles console input and presents Crystal's responses to the user.

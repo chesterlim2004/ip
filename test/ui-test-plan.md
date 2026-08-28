@@ -1,6 +1,6 @@
 # Console UI Test Plan
 
-The runner compiles every Java source under `src/main/java`, starts a fresh `Crystal` process in an isolated working directory for each test case, and checks each response before sending the next command. It supports case-specific starting files and compares expected saved files exactly without touching the developer's real data file. Console output is compared exactly after normalizing line endings. The shared `LINE` variable represents the application's horizontal divider.
+The runner compiles every Java source under `src/main/java`, starts a fresh `crystal.Crystal` process in an isolated working directory for each test case, and checks each response before sending the next command. It supports case-specific starting files and compares expected saved files exactly without touching the developer's real data file. Console output is compared exactly after normalizing line endings. The shared `LINE` variable represents the application's horizontal divider.
 
 Each test case below specifies its aim, command inputs, and expected output. An exchange with `expect_exit` must cause the program to terminate successfully.
 
@@ -15,7 +15,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
     "source_dir": "src/main/java",
     "classes_dir": "_temp/ui-test-classes",
     "working_dir": "_temp/ui-test-work",
-    "main_class": "Crystal"
+    "main_class": "crystal.Crystal"
   },
   "test_cases": [
     {

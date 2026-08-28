@@ -1,3 +1,5 @@
+package crystal.exception;
+
 /**
  * Represents an error specific to the Crystal chatbot.
  */

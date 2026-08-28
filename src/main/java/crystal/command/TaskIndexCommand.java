@@ -1,3 +1,9 @@
+package crystal.command;
+
+import crystal.exception.CrystalException;
+import crystal.task.Task;
+import crystal.task.TaskList;
+
 /**
  * Base command for operations targeting one task-list index.
  */

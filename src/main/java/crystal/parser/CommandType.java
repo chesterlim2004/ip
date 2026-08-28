@@ -1,3 +1,5 @@
+package crystal.parser;
+
 /**
  * Represents the commands understood by the Crystal chatbot.
  */

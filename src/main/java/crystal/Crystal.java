@@ -1,4 +1,13 @@
+package crystal;
+
 import java.nio.file.Path;
+
+import crystal.command.Command;
+import crystal.exception.CrystalException;
+import crystal.parser.Parser;
+import crystal.storage.Storage;
+import crystal.task.TaskList;
+import crystal.ui.Ui;
 
 /**
  * Coordinates Crystal's command loop, task operations, storage, and console UI.

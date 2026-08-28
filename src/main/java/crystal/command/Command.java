@@ -1,3 +1,10 @@
+package crystal.command;
+
+import crystal.exception.CrystalException;
+import crystal.storage.Storage;
+import crystal.task.TaskList;
+import crystal.ui.Ui;
+
 /**
  * Represents an executable instruction understood by Crystal.
  */

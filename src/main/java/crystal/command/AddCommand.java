@@ -1,3 +1,11 @@
+package crystal.command;
+
+import crystal.exception.CrystalException;
+import crystal.storage.Storage;
+import crystal.task.Task;
+import crystal.task.TaskList;
+import crystal.ui.Ui;
+
 /**
  * Adds one parsed task to the task list and persists the result.
  */

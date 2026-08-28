@@ -1,3 +1,5 @@
+package crystal.task;
+
 /**
  * Represents a task without a specific date or time.
  */

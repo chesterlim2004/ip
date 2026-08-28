@@ -1,3 +1,9 @@
+package crystal.command;
+
+import crystal.storage.Storage;
+import crystal.task.TaskList;
+import crystal.ui.Ui;
+
 /**
  * Ends the chatbot session after displaying Crystal's farewell.
  */
