@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
  * Tests Crystal's accepted date/time forms and normalization rules.
  */
 public class TaskDateTimeTest {
+    /** Verifies normalization of supported numeric date formats and two-digit years. */
     @Test
     public void parse_supportedNumericDates_normalizesDates() {
         assertEquals("15 Oct 2019", TaskDateTime.parse("2019-10-15").toString());
@@ -20,6 +21,7 @@ public class TaskDateTimeTest {
         assertEquals("02 Dec 2026", TaskDateTime.parse("2/12/26").toString());
     }
 
+    /** Verifies flexible month-name dates, spacing, case, suffixes, and short years. */
     @Test
     public void parse_supportedMonthNameDates_normalizesSpacingCaseAndYears() {
         assertEquals("02 Oct 2026", TaskDateTime.parse("2Oct2026").toString());
@@ -29,6 +31,7 @@ public class TaskDateTimeTest {
         assertEquals("03 Oct 2026", TaskDateTime.parse("3 October 2026").toString());
     }
 
+    /** Verifies conversion of supported 12-hour times into a 24-hour clock. */
     @Test
     public void parse_supportedTwelveHourTimes_normalizesToTwentyFourHourClock() {
         assertEquals("0600", TaskDateTime.parse("6am").toString());
@@ -39,6 +42,7 @@ public class TaskDateTimeTest {
         assertEquals("1830", TaskDateTime.parse("6:30pm").toString());
     }
 
+    /** Verifies normalization of separated and compact 24-hour times. */
     @Test
     public void parse_supportedTwentyFourHourTimes_normalizesSeparators() {
         assertEquals("1845", TaskDateTime.parse("18:45").toString());
@@ -47,18 +51,21 @@ public class TaskDateTimeTest {
         assertEquals("1830", TaskDateTime.parse("1830").toString());
     }
 
+    /** Verifies normalization when a value contains both a date and a time. */
     @Test
     public void parse_dateAndTime_normalizesBothComponents() {
         assertEquals("02 Dec 2026 1830",
                 TaskDateTime.parse("2 Dec 2026 630pm").toString());
     }
 
+    /** Verifies that unrestricted text is preserved while a final time is normalized. */
     @Test
     public void parse_textWithFinalTime_preservesTextAndNormalizesTime() {
         assertEquals("Monday 0600", TaskDateTime.parse("Monday 6am").toString());
         assertEquals("team meeting 1830", TaskDateTime.parse("team meeting 18:30").toString());
     }
 
+    /** Verifies that invalid or unrecognized scheduling input remains trimmed text. */
     @Test
     public void parse_unrecognizedOrInvalidInput_preservesTrimmedText() {
         assertEquals("Monday", TaskDateTime.parse("  Monday  ").toString());
@@ -68,6 +75,7 @@ public class TaskDateTimeTest {
         assertEquals("31/02/26", TaskDateTime.parse("31/02/26").toString());
     }
 
+    /** Verifies that direct date parsing returns dates for valid input and null otherwise. */
     @Test
     public void parseDate_supportedAndInvalidInputs_returnsDateOrNull() {
         assertEquals(LocalDate.of(2026, 12, 2), TaskDateTime.parseDate(" 2Dec26 "));
@@ -76,6 +84,7 @@ public class TaskDateTimeTest {
         assertNull(TaskDateTime.parseDate("Monday"));
     }
 
+    /** Verifies date access, occurrence matching, and Crystal's date formatting. */
     @Test
     public void dateAccessors_datedAndTextValues_returnExpectedResults() {
         LocalDate date = LocalDate.of(2026, 12, 2);

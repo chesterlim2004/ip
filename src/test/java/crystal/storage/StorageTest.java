@@ -29,6 +29,7 @@ public class StorageTest {
     @TempDir
     private Path tempDirectory;
 
+    /** Verifies that first-run loading succeeds when the data file does not exist. */
     @Test
     public void loadTasks_missingDataFile_returnsEmptyList() throws CrystalException {
         Storage storage = new Storage(tempDirectory.resolve("data").resolve("crystal.txt"));
@@ -38,6 +39,7 @@ public class StorageTest {
         assertTrue(tasks.isEmpty());
     }
 
+    /** Verifies that an existing empty data file loads as an empty task list. */
     @Test
     public void loadTasks_emptyDataFile_returnsEmptyList() throws IOException, CrystalException {
         Path dataFile = tempDirectory.resolve("crystal.txt");
@@ -47,6 +49,7 @@ public class StorageTest {
         assertTrue(storage.loadTasks().isEmpty());
     }
 
+    /** Verifies missing directory creation and UTF-8 task persistence. */
     @Test
     public void saveTasks_missingParentDirectory_createsDirectoryAndUtf8File()
             throws IOException, CrystalException {
@@ -61,6 +64,7 @@ public class StorageTest {
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
     }
 
+    /** Verifies that saving replaces rather than appends to an existing data file. */
     @Test
     public void saveTasks_existingDataFile_replacesOldContents()
             throws IOException, CrystalException {
@@ -76,6 +80,7 @@ public class StorageTest {
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
     }
 
+    /** Verifies reconstruction of every task type, field, and completion status. */
     @Test
     public void loadTasks_validStoredTasks_reconstructsTypesFieldsAndStatuses()
             throws IOException, CrystalException {
@@ -101,6 +106,7 @@ public class StorageTest {
         assertTrue(tasks.get(1).isDone());
     }
 
+    /** Verifies that saving then loading preserves every task's data representation. */
     @Test
     public void saveAndLoadTasks_allTaskTypes_preservesStorageRepresentations()
             throws CrystalException {
@@ -119,6 +125,7 @@ public class StorageTest {
                 loaded.stream().map(Task::toDataString).toList());
     }
 
+    /** Verifies consistent rejection of representative corrupted record shapes. */
     @Test
     public void loadTasks_corruptedDataShapes_throwConsistentException() throws IOException {
         Path dataFile = tempDirectory.resolve("crystal.txt");
@@ -140,6 +147,7 @@ public class StorageTest {
         }
     }
 
+    /** Verifies user-facing read failure reporting when the data path is a directory. */
     @Test
     public void loadTasks_dataPathIsDirectory_throwsReadError() throws IOException {
         Path dataDirectory = tempDirectory.resolve("crystal.txt");
@@ -151,6 +159,7 @@ public class StorageTest {
         assertEquals("I couldn't load your tasks from the hard disk.", exception.getMessage());
     }
 
+    /** Verifies user-facing write failure reporting when the data path is a directory. */
     @Test
     public void saveTasks_dataPathIsDirectory_throwsWriteError() throws IOException {
         Path dataDirectory = tempDirectory.resolve("crystal.txt");

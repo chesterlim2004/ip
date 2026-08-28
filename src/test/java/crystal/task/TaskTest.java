@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
  * Tests the common completion state and representations of {@link Task}.
  */
 public class TaskTest {
+    /** Verifies that marking and unmarking updates every status representation. */
     @Test
     public void completionState_markAndUnmark_statusAndRepresentationsUpdated() {
         Task task = new Task("read book");
@@ -32,6 +33,7 @@ public class TaskTest {
         assertEquals(" ", task.getStatusIcon());
     }
 
+    /** Verifies that a basic task never matches a calendar date. */
     @Test
     public void occursOn_taskWithoutDate_returnsFalse() {
         Task task = new Task("read book");
