@@ -79,16 +79,35 @@ public class Parser {
     }
 
     /**
-     * Converts the task number in a command into a valid list index.
+     * Creates the mutation command described by a mark, unmark, or delete command.
      *
      * @param command full mark, unmark, or delete command
      * @param commandType type of task mutation
-     * @param taskCount number of tasks currently stored
-     * @return zero-based index of the selected task
-     * @throws CrystalException if the command is malformed or the task does not exist
+     * @return command targeting the parsed task number
+     * @throws CrystalException if the command does not contain a task number
      */
-    public static int parseTaskIndex(
-            String command, CommandType commandType, int taskCount) throws CrystalException {
+    public static Command parseMutationCommand(String command, CommandType commandType)
+            throws CrystalException {
+        int taskIndex = parseTaskIndex(command, commandType);
+        return switch (commandType) {
+        case MARK -> new MarkCommand(taskIndex);
+        case UNMARK -> new UnmarkCommand(taskIndex);
+        case DELETE -> new DeleteCommand(taskIndex);
+        default -> throw new CrystalException("I don't know what that means :-(");
+        };
+    }
+
+    /**
+     * Converts the task number in a command into a zero-based list index.
+     * Existence is checked when the resulting command executes against the task list.
+     *
+     * @param command full mark, unmark, or delete command
+     * @param commandType type of task mutation
+     * @return zero-based index supplied by the user
+     * @throws CrystalException if the command does not contain a task number
+     */
+    private static int parseTaskIndex(String command, CommandType commandType)
+            throws CrystalException {
         String action = commandType.getKeyword();
         String prefix = action + " ";
         if (!command.startsWith(prefix)) {
@@ -101,12 +120,7 @@ public class Parser {
         } catch (NumberFormatException exception) {
             throw new CrystalException("You have to " + action + " a task number!");
         }
-
-        int taskIndex = taskNumber - 1;
-        if (taskIndex < 0 || taskIndex >= taskCount) {
-            throw new CrystalException("That task number does not exist!");
-        }
-        return taskIndex;
+        return taskNumber - 1;
     }
 
     /**

@@ -56,36 +56,9 @@ public class Crystal {
                         listTasksOnDate(date.get(), tasks, ui);
                     }
                 }
-                case MARK -> {
-                    int taskIndex = Parser.parseTaskIndex(
-                            command, commandType, tasks.getTaskCount());
-                    Task task = tasks.getTask(taskIndex);
-                    if (task.isDone()) {
-                        ui.showTaskAlreadyDone(task);
-                    } else {
-                        task.markAsDone();
-                        storage.saveTasks(tasks.getTasks());
-                        ui.showTaskMarkedDone(task);
-                    }
-                }
-                case UNMARK -> {
-                    int taskIndex = Parser.parseTaskIndex(
-                            command, commandType, tasks.getTaskCount());
-                    Task task = tasks.getTask(taskIndex);
-                    if (!task.isDone()) {
-                        ui.showTaskAlreadyNotDone(task);
-                    } else {
-                        task.markAsNotDone();
-                        storage.saveTasks(tasks.getTasks());
-                        ui.showTaskMarkedNotDone(task);
-                    }
-                }
-                case DELETE -> {
-                    int taskIndex = Parser.parseTaskIndex(
-                            command, commandType, tasks.getTaskCount());
-                    Task removedTask = tasks.deleteTask(taskIndex);
-                    storage.saveTasks(tasks.getTasks());
-                    ui.showTaskDeleted(removedTask, tasks.getTaskCount());
+                case MARK, UNMARK, DELETE -> {
+                    Command mutationCommand = Parser.parseMutationCommand(command, commandType);
+                    mutationCommand.execute(tasks, ui, storage);
                 }
                 case TODO, DEADLINE, EVENT -> {
                     Command addCommand = Parser.parseAddCommand(command, commandType);
