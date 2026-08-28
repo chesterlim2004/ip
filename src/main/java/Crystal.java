@@ -1,3 +1,4 @@
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -6,18 +7,33 @@ import java.util.Optional;
  * Coordinates Crystal's command loop, task operations, storage, and console UI.
  */
 public class Crystal {
+    /** Console interface used to interact with the user. */
+    private final Ui ui;
+
+    /** Persistence service for the task list. */
+    private final Storage storage;
+
+    /** Tasks available during the current chatbot session. */
+    private TaskList tasks;
+
     /**
-     * Runs the chatbot's command loop.
+     * Creates a Crystal chatbot backed by the supplied data file.
      *
-     * @param args command-line arguments; not used
+     * @param dataFilePath relative path to the task data file
      */
-    public static void main(String[] args) {
-        Ui ui = new Ui();
+    public Crystal(Path dataFilePath) {
+        ui = new Ui();
+        storage = new Storage(dataFilePath);
+    }
+
+    /**
+     * Loads saved tasks and runs the chatbot's command loop.
+     */
+    public void run() {
         ui.showWelcome();
 
-        TaskList tasks;
         try {
-            tasks = new TaskList(Storage.loadTasks());
+            tasks = new TaskList(storage.loadTasks());
         } catch (CrystalException exception) {
             ui.showError(exception);
             tasks = new TaskList();
@@ -48,7 +64,7 @@ public class Crystal {
                         ui.showTaskAlreadyDone(task);
                     } else {
                         task.markAsDone();
-                        Storage.saveTasks(tasks.getTasks());
+                        storage.saveTasks(tasks.getTasks());
                         ui.showTaskMarkedDone(task);
                     }
                 }
@@ -60,7 +76,7 @@ public class Crystal {
                         ui.showTaskAlreadyNotDone(task);
                     } else {
                         task.markAsNotDone();
-                        Storage.saveTasks(tasks.getTasks());
+                        storage.saveTasks(tasks.getTasks());
                         ui.showTaskMarkedNotDone(task);
                     }
                 }
@@ -68,13 +84,13 @@ public class Crystal {
                     int taskIndex = Parser.parseTaskIndex(
                             command, commandType, tasks.getTaskCount());
                     Task removedTask = tasks.deleteTask(taskIndex);
-                    Storage.saveTasks(tasks.getTasks());
+                    storage.saveTasks(tasks.getTasks());
                     ui.showTaskDeleted(removedTask, tasks.getTaskCount());
                 }
                 case TODO, DEADLINE, EVENT -> {
                     Task newTask = Parser.parseTask(command, commandType);
                     tasks.addTask(newTask);
-                    Storage.saveTasks(tasks.getTasks());
+                    storage.saveTasks(tasks.getTasks());
                     ui.showTaskAdded(newTask, tasks.getTaskCount());
                 }
                 case UNKNOWN, EXIT -> throw new CrystalException("I don't know what that means :-(");
@@ -86,6 +102,15 @@ public class Crystal {
         }
 
         ui.showGoodbye();
+    }
+
+    /**
+     * Starts Crystal using its OS-independent relative data path.
+     *
+     * @param args command-line arguments; not used
+     */
+    public static void main(String[] args) {
+        new Crystal(Path.of("data", "crystal.txt")).run();
     }
 
     /**

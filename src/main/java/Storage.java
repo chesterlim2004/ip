@@ -9,10 +9,16 @@ import java.util.List;
  * Loads and saves Crystal's tasks using a file on the hard disk.
  */
 public final class Storage {
-    /** Location of Crystal's task data, relative to the project root. */
-    private static final Path DATA_FILE_PATH = Path.of("data", "crystal.txt");
+    /** Location of Crystal's task data. */
+    private final Path dataFilePath;
 
-    private Storage() {
+    /**
+     * Creates storage backed by the supplied file path.
+     *
+     * @param dataFilePath relative path to Crystal's task data
+     */
+    public Storage(Path dataFilePath) {
+        this.dataFilePath = dataFilePath;
     }
 
     /**
@@ -21,14 +27,14 @@ public final class Storage {
      * @return tasks reconstructed from the data file
      * @throws CrystalException if the task data cannot be read or is invalid
      */
-    public static ArrayList<Task> loadTasks() throws CrystalException {
-        if (Files.notExists(DATA_FILE_PATH)) {
+    public ArrayList<Task> loadTasks() throws CrystalException {
+        if (Files.notExists(dataFilePath)) {
             return new ArrayList<>();
         }
 
         try {
             ArrayList<Task> tasks = new ArrayList<>();
-            for (String taskLine : Files.readAllLines(DATA_FILE_PATH, StandardCharsets.UTF_8)) {
+            for (String taskLine : Files.readAllLines(dataFilePath, StandardCharsets.UTF_8)) {
                 tasks.add(parseTask(taskLine));
             }
             return tasks;
@@ -43,13 +49,16 @@ public final class Storage {
      * @param tasks tasks to save
      * @throws CrystalException if the task data cannot be written
      */
-    public static void saveTasks(List<Task> tasks) throws CrystalException {
+    public void saveTasks(List<Task> tasks) throws CrystalException {
         try {
-            Files.createDirectories(DATA_FILE_PATH.getParent());
+            Path parentDirectory = dataFilePath.getParent();
+            if (parentDirectory != null) {
+                Files.createDirectories(parentDirectory);
+            }
             List<String> taskLines = tasks.stream()
                     .map(Task::toDataString)
                     .toList();
-            Files.write(DATA_FILE_PATH, taskLines, StandardCharsets.UTF_8);
+            Files.write(dataFilePath, taskLines, StandardCharsets.UTF_8);
         } catch (IOException exception) {
             throw new CrystalException("I couldn't save your tasks to the hard disk.");
         }
