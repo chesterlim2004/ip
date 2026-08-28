@@ -487,6 +487,60 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "T | 0 | join sports club"
         ]
       }
+    },
+    {
+      "id": "UI-08",
+      "aim": "Report corrupted saved data and continue with a safe empty task list",
+      "initial_files": {
+        "data/crystal.txt": [
+          "this is not valid task data"
+        ]
+      },
+      "expected_startup_output": [
+        "{{LINE}}",
+        "  ____ ______   ______ _____  _    _",
+        " / ___|  _ \\ \\ / / ___|_   _|/ \\  | |",
+        "| |   | |_) \\ V /\\___ \\ | | / _ \\ | |",
+        "| |___|  _ < | |  ___) || |/ ___ \\| |___",
+        " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|",
+        "",
+        "Hello!!! I'm Crystal.",
+        "[Commands:",
+        "- To add a todo, enter 'todo [description]'",
+        "- To add a deadline, enter 'deadline [description] /by [deadline]'",
+        "- To add an event, enter 'event [description] /from [start] /to [end]'",
+        "- To view your list, enter 'list'",
+        "- To mark a task as done, enter 'mark [task number]'",
+        "- To mark a task as not done, enter 'unmark [task number]'",
+        "- To delete a task, enter 'delete [task number]'",
+        "- To exit, enter 'bye']",
+        "{{LINE}}",
+        "Crystal: Oopsies!!! Your saved task data is invalid."
+      ],
+      "exchanges": [
+        {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Your task list is empty!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "this is not valid task data"
+        ]
+      }
     }
   ]
 }

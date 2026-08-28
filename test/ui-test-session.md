@@ -385,4 +385,36 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (7 test cases)
+## UI-08: Report corrupted saved data and continue with a safe empty task list
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your list, enter 'list'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To exit, enter 'bye']
+____________________________________________________________
+Crystal: Oopsies!!! Your saved task data is invalid.
+You: list
+____________________________________________________________
+Crystal: Your task list is empty!
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (8 test cases)

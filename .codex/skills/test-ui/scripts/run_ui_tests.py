@@ -212,6 +212,14 @@ def run_case(case: dict, prompt: str, variables: dict[str, str],
                 case["id"], 0, "<startup>", prompt, normalize(startup),
                 "program exited before displaying its input prompt", transcript,
             )
+        if "expected_startup_output" in case:
+            expected_startup = expand_expected(case["expected_startup_output"], variables)
+            actual_startup = normalize(startup)
+            if actual_startup != expected_startup:
+                raise TestFailure(
+                    case["id"], 0, "<startup>", expected_startup, actual_startup,
+                    "startup output did not match expected output", transcript,
+                )
 
         for step_number, exchange in enumerate(case["exchanges"], start=1):
             command = exchange["input"]
