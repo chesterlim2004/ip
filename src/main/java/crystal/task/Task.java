@@ -6,7 +6,10 @@ import java.time.LocalDate;
  * Represents a task with a description and completion status.
  */
 public class Task {
+    /** User-visible description of this task. */
     protected String description;
+
+    /** Whether the task has been completed. */
     protected boolean isDone;
 
     /**
