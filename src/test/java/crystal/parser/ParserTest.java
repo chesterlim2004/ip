@@ -17,6 +17,7 @@ import crystal.command.Command;
 import crystal.command.DeleteCommand;
 import crystal.command.ExitCommand;
 import crystal.command.FindCommand;
+import crystal.command.HelpCommand;
 import crystal.command.ListCommand;
 import crystal.command.MarkCommand;
 import crystal.command.UnmarkCommand;
@@ -49,6 +50,7 @@ public class ParserTest {
         assertInstanceOf(MarkCommand.class, Parser.parse("mark 1"));
         assertInstanceOf(UnmarkCommand.class, Parser.parse("unmark 1"));
         assertInstanceOf(DeleteCommand.class, Parser.parse("delete 1"));
+        assertInstanceOf(HelpCommand.class, Parser.parse("help"));
         assertInstanceOf(ExitCommand.class, Parser.parse("bye"));
     }
 
@@ -84,11 +86,12 @@ public class ParserTest {
         assertEquals(List.of(second), tasks.getTasks());
     }
 
-    /** Verifies that unknown input and non-exact exit commands receive the unknown error. */
+    /** Verifies that unknown input and non-exact standalone commands receive the unknown error. */
     @Test
-    public void parse_unknownOrNonExactExitCommands_throwUnknownCommandError() {
+    public void parse_unknownOrNonExactStandaloneCommands_throwUnknownCommandError() {
         assertParseError("", "I don't know what that means :-(");
         assertParseError("read book", "I don't know what that means :-(");
+        assertParseError("help me", "I don't know what that means :-(");
         assertParseError("bye now", "I don't know what that means :-(");
     }
 

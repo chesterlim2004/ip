@@ -22,6 +22,7 @@ public class CommandTypeTest {
                 Map.entry(CommandType.MARK, "mark"),
                 Map.entry(CommandType.UNMARK, "unmark"),
                 Map.entry(CommandType.DELETE, "delete"),
+                Map.entry(CommandType.HELP, "help"),
                 Map.entry(CommandType.EXIT, "bye"),
                 Map.entry(CommandType.UNKNOWN, ""));
 

@@ -95,8 +95,28 @@ public class UiTest {
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
                 + "- To delete a task, enter 'delete [task number]'\n"
+                + "- To view this command guide, enter 'help'\n"
                 + "- To exit, enter 'bye']\n"
                 + LINE + "\n", getOutput());
+    }
+
+    /** Verifies that help reproduces the command guide shown during startup. */
+    @Test
+    public void showHelp_called_printsCompleteCommandGuide() {
+        new Ui().showHelp();
+
+        assertEquals("[Commands:\n"
+                + "- To add a todo, enter 'todo [description]'\n"
+                + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
+                + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
+                + "- To view your task list, enter 'list'\n"
+                + "- To view deadlines and events on a date, enter 'list /on [date]'\n"
+                + "- To find tasks by description, enter 'find [keyword]'\n"
+                + "- To mark a task as done, enter 'mark [task number]'\n"
+                + "- To mark a task as not done, enter 'unmark [task number]'\n"
+                + "- To delete a task, enter 'delete [task number]'\n"
+                + "- To view this command guide, enter 'help'\n"
+                + "- To exit, enter 'bye']\n", getOutput());
     }
 
     /** Verifies divider, farewell, and Crystal exception output. */

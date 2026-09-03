@@ -20,6 +20,8 @@ public enum CommandType {
     UNMARK("unmark"),
     /** Deletes a task. */
     DELETE("delete"),
+    /** Displays the command guide. */
+    HELP("help"),
     /** Exits the chatbot. */
     EXIT("bye"),
     /** Represents input that does not match a supported command. */

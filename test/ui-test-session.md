@@ -21,6 +21,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
@@ -75,6 +76,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
@@ -130,6 +132,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: read book
@@ -167,6 +170,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: list 
@@ -232,6 +236,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
@@ -291,6 +296,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: todo read book
@@ -355,6 +361,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: list
@@ -420,6 +427,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 Crystal: Oopsies!!! Your saved task data is invalid.
@@ -454,6 +462,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: deadline return book /by 2/12/2019 1800
@@ -522,6 +531,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: deadline first release /by 2Oct2026
@@ -575,6 +585,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: deadline numeric date /by 2/12/26
@@ -628,6 +639,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: list /on 2Dec26
@@ -692,6 +704,7 @@ Hello!!! I'm Crystal.
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
 - To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
 You: find   BOOK
@@ -721,4 +734,49 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (13 test cases)
+## UI-14: Display the complete command guide when the user enters help
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your task list, enter 'list'
+- To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
+- To exit, enter 'bye']
+____________________________________________________________
+You: help
+____________________________________________________________
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To view your task list, enter 'list'
+- To view deadlines and events on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
+- To exit, enter 'bye']
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (14 test cases)

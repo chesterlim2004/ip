@@ -24,7 +24,7 @@ public class Ui {
             + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n";
 
     /** Command guide shown when Crystal starts. */
-    private static final String COMMANDS = "[Commands:\n"
+    private static final String COMMAND_GUIDE = "[Commands:\n"
             + "- To add a todo, enter 'todo [description]'\n"
             + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
             + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
@@ -34,6 +34,7 @@ public class Ui {
             + "- To mark a task as done, enter 'mark [task number]'\n"
             + "- To mark a task as not done, enter 'unmark [task number]'\n"
             + "- To delete a task, enter 'delete [task number]'\n"
+            + "- To view this command guide, enter 'help'\n"
             + "- To exit, enter 'bye']";
 
     /** Reads commands from the console. */
@@ -77,7 +78,7 @@ public class Ui {
         showDivider();
         output.print(BANNER);
         output.println("\nHello!!! I'm Crystal.");
-        output.println(COMMANDS);
+        output.println(COMMAND_GUIDE);
         showDivider();
     }
 
@@ -103,6 +104,13 @@ public class Ui {
      */
     public void showGoodbye() {
         output.println("Crystal: Bye!!! Hope to see you again soon!");
+    }
+
+    /**
+     * Shows the complete command guide.
+     */
+    public void showHelp() {
+        output.println(COMMAND_GUIDE);
     }
 
     /**

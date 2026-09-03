@@ -8,6 +8,7 @@ import crystal.command.Command;
 import crystal.command.DeleteCommand;
 import crystal.command.ExitCommand;
 import crystal.command.FindCommand;
+import crystal.command.HelpCommand;
 import crystal.command.ListCommand;
 import crystal.command.MarkCommand;
 import crystal.command.UnmarkCommand;
@@ -53,6 +54,7 @@ public class Parser {
             case MARK, UNMARK, DELETE -> parseMutationCommand(command, commandType);
             case LIST -> new ListCommand(parseListCommand(command));
             case FIND -> parseFindCommand(command);
+            case HELP -> new HelpCommand();
             case EXIT -> new ExitCommand();
             case UNKNOWN -> throw new CrystalException("I don't know what that means :-(");
         };
@@ -90,9 +92,14 @@ public class Parser {
         if (command.equals(CommandType.EXIT.getKeyword())) {
             return CommandType.EXIT;
         }
+        if (command.equals(CommandType.HELP.getKeyword())) {
+            return CommandType.HELP;
+        }
 
         for (CommandType commandType : CommandType.values()) {
-            if (commandType == CommandType.EXIT || commandType == CommandType.UNKNOWN) {
+            if (commandType == CommandType.EXIT
+                    || commandType == CommandType.HELP
+                    || commandType == CommandType.UNKNOWN) {
                 continue;
             }
             if (command.startsWith(commandType.getKeyword())) {
