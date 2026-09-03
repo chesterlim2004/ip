@@ -86,10 +86,10 @@ public final class Storage {
         }
 
         Task task = switch (fields[0]) {
-        case "T" -> fields.length == 3 ? new Todo(fields[2]) : null;
-        case "D" -> fields.length == 4 ? new Deadline(fields[2], fields[3]) : null;
-        case "E" -> fields.length == 5 ? new Event(fields[2], fields[3], fields[4]) : null;
-        default -> null;
+            case "T" -> fields.length == 3 ? new Todo(fields[2]) : null;
+            case "D" -> fields.length == 4 ? new Deadline(fields[2], fields[3]) : null;
+            case "E" -> fields.length == 5 ? new Event(fields[2], fields[3], fields[4]) : null;
+            default -> null;
         };
         if (task == null || !(fields[1].equals("0") || fields[1].equals("1"))) {
             throw invalidDataException();

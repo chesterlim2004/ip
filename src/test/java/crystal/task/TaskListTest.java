@@ -72,8 +72,8 @@ public class TaskListTest {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));
         List<Task> snapshot = tasks.getTasks();
 
-        assertThrows(UnsupportedOperationException.class,
-                () -> snapshot.add(new Todo("return book")));
+        assertThrows(UnsupportedOperationException.class, () ->
+                snapshot.add(new Todo("return book")));
         assertEquals(1, tasks.getTaskCount());
     }
 
@@ -91,8 +91,8 @@ public class TaskListTest {
         List<Task> matches = tasks.getTasksOnDate(LocalDate.of(2026, 12, 2));
 
         assertEquals(List.of(matchingDeadline, spanningEvent), matches);
-        assertThrows(UnsupportedOperationException.class,
-                () -> matches.add(new Todo("another")));
+        assertThrows(UnsupportedOperationException.class, () ->
+                matches.add(new Todo("another")));
     }
 
     @Test
@@ -105,7 +105,7 @@ public class TaskListTest {
         List<Task> matches = tasks.findTasks("BoOk");
 
         assertEquals(List.of(firstMatch, secondMatch), matches);
-        assertThrows(UnsupportedOperationException.class,
-                () -> matches.add(new Todo("book review")));
+        assertThrows(UnsupportedOperationException.class, () ->
+                matches.add(new Todo("book review")));
     }
 }

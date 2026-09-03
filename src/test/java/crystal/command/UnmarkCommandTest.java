@@ -58,8 +58,8 @@ public class UnmarkCommandTest extends CommandTestBase {
     public void execute_indexOutsideTaskList_throwsCrystalException() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));
 
-        CrystalException exception = assertThrows(CrystalException.class,
-                () -> new UnmarkCommand(-1).execute(tasks, createUi(), createStorage()));
+        CrystalException exception = assertThrows(CrystalException.class, () ->
+                new UnmarkCommand(-1).execute(tasks, createUi(), createStorage()));
 
         assertEquals("That task number does not exist!", exception.getMessage());
     }
