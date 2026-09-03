@@ -4,12 +4,16 @@ import java.io.InputStream;
 import java.util.Objects;
 
 import crystal.Crystal;
+import crystal.parser.CommandType;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controls the main messaging window and forwards user input to Crystal.
@@ -23,6 +27,9 @@ public final class MainWindow {
     /** Prefix included in console-oriented Crystal responses. */
     private static final String CRYSTAL_PREFIX = "Crystal: ";
 
+    /** Time the farewell remains visible before the window closes. */
+    private static final Duration WINDOW_CLOSE_DELAY = Duration.seconds(1.5);
+
     @FXML
     private ScrollPane messageScrollPane;
 
@@ -31,6 +38,9 @@ public final class MainWindow {
 
     @FXML
     private TextField commandInput;
+
+    @FXML
+    private HBox messageComposer;
 
     /** Crystal instance that owns the current task session. */
     private Crystal crystal;
@@ -80,12 +90,38 @@ public final class MainWindow {
             return;
         }
 
+        boolean shouldCloseWindow = isExitCommand(userCommand);
         String crystalResponse = formatCrystalResponse(crystal.getResponse(userCommand));
         messageContainer.getChildren().addAll(
                 DialogBox.createUserDialog(userCommand, userAvatar),
                 DialogBox.createCrystalDialog(crystalResponse, crystalAvatar));
         commandInput.clear();
-        commandInput.requestFocus();
+        if (shouldCloseWindow) {
+            scheduleWindowClose();
+        } else {
+            commandInput.requestFocus();
+        }
+    }
+
+    /**
+     * Returns whether the command is the exact instruction that exits Crystal.
+     *
+     * @param userCommand stripped command entered by the user.
+     * @return {@code true} only for the exit command.
+     */
+    static boolean isExitCommand(String userCommand) {
+        return userCommand.equals(CommandType.EXIT.getKeyword());
+    }
+
+    /**
+     * Disables further input and closes the window after the farewell delay.
+     */
+    private void scheduleWindowClose() {
+        messageComposer.setDisable(true);
+        PauseTransition closeDelay = new PauseTransition(WINDOW_CLOSE_DELAY);
+        closeDelay.setOnFinished(finishedEvent ->
+                messageComposer.getScene().getWindow().hide());
+        closeDelay.play();
     }
 
     /**
