@@ -1,5 +1,6 @@
 package crystal.ui;
 
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,11 +39,35 @@ public class Ui {
     /** Reads commands from the console. */
     private final Scanner scanner;
 
+    /** Destination for all text presented by this UI. */
+    private final PrintStream output;
+
     /**
      * Creates a console UI that reads from standard input.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
+        this(new Scanner(System.in), System.out);
+    }
+
+    /**
+     * Creates a UI with explicit input and output channels.
+     *
+     * @param scanner source of console commands.
+     * @param output destination for application responses.
+     */
+    private Ui(Scanner scanner, PrintStream output) {
+        this.scanner = scanner;
+        this.output = output;
+    }
+
+    /**
+     * Creates a response-only UI that writes to the supplied stream.
+     *
+     * @param output destination for application responses.
+     * @return UI suitable for collecting a single command response.
+     */
+    public static Ui createForOutput(PrintStream output) {
+        return new Ui(new Scanner(""), output);
     }
 
     /**
@@ -50,9 +75,9 @@ public class Ui {
      */
     public void showWelcome() {
         showDivider();
-        System.out.print(BANNER);
-        System.out.println("\nHello!!! I'm Crystal.");
-        System.out.println(COMMANDS);
+        output.print(BANNER);
+        output.println("\nHello!!! I'm Crystal.");
+        output.println(COMMANDS);
         showDivider();
     }
 
@@ -62,7 +87,7 @@ public class Ui {
      * @return command entered by the user.
      */
     public String readCommand() {
-        System.out.print("You: ");
+        output.print("You: ");
         return scanner.nextLine();
     }
 
@@ -70,14 +95,14 @@ public class Ui {
      * Shows a divider between console interactions.
      */
     public void showDivider() {
-        System.out.println(HORIZONTAL_LINE);
+        output.println(HORIZONTAL_LINE);
     }
 
     /**
      * Shows Crystal's farewell.
      */
     public void showGoodbye() {
-        System.out.println("Crystal: Bye!!! Hope to see you again soon!");
+        output.println("Crystal: Bye!!! Hope to see you again soon!");
     }
 
     /**
@@ -86,7 +111,7 @@ public class Ui {
      * @param exception error to display.
      */
     public void showError(CrystalException exception) {
-        System.out.println(exception.getUserMessage());
+        output.println(exception.getUserMessage());
     }
 
     /**
@@ -96,13 +121,13 @@ public class Ui {
      */
     public void showTaskList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("Crystal: Your task list is empty!");
+            output.println("Crystal: Your task list is empty!");
             return;
         }
 
-        System.out.println("Crystal: Here are the tasks in your list:");
+        output.println("Crystal: Here are the tasks in your list:");
         for (int i = 0; i < tasks.getTaskCount(); i++) {
-            System.out.println("         " + (i + 1) + "." + tasks.getTask(i));
+            output.println("         " + (i + 1) + "." + tasks.getTask(i));
         }
     }
 
@@ -114,15 +139,15 @@ public class Ui {
      */
     public void showTasksOnDate(String formattedDate, List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println(
+            output.println(
                     "Crystal: There are no deadlines or events on " + formattedDate + "!");
             return;
         }
 
-        System.out.println("Crystal: Here are the deadlines and events on "
+        output.println("Crystal: Here are the deadlines and events on "
                 + formattedDate + ":");
         for (Task task : matchingTasks) {
-            System.out.println("         - " + task);
+            output.println("         - " + task);
         }
     }
 
@@ -133,13 +158,13 @@ public class Ui {
      */
     public void showMatchingTasks(List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println("Crystal: There are no matching tasks in your list!");
+            output.println("Crystal: There are no matching tasks in your list!");
             return;
         }
 
-        System.out.println("Crystal: Here are the matching tasks in your list:");
+        output.println("Crystal: Here are the matching tasks in your list:");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println("         " + (i + 1) + "." + matchingTasks.get(i));
+            output.println("         " + (i + 1) + "." + matchingTasks.get(i));
         }
     }
 
@@ -207,8 +232,8 @@ public class Ui {
      * @param task task to display.
      */
     private void showTaskWithHeading(String heading, Task task) {
-        System.out.println(heading);
-        System.out.println("         " + task);
+        output.println(heading);
+        output.println("         " + task);
     }
 
     /**
@@ -221,7 +246,7 @@ public class Ui {
     private void showTaskAndCount(String heading, Task task, int taskCount) {
         showTaskWithHeading(heading, task);
         String taskWord = taskCount == 1 ? "task" : "tasks";
-        System.out.println("         Now you have " + taskCount
+        output.println("         Now you have " + taskCount
                 + " " + taskWord + " in the list.");
     }
 }

@@ -97,6 +97,49 @@ public class CrystalTest {
         assertTrue(goodbyeIndex > errorIndex);
     }
 
+    /** Verifies that independent GUI-style requests share task state and persistence. */
+    @Test
+    public void getResponse_successiveCommands_returnsResponsesAndPreservesState()
+            throws Exception {
+        Path dataFile = tempDirectory.resolve("crystal.txt");
+        Crystal crystal = new Crystal(dataFile);
+
+        String addResponse = crystal.getResponse("todo read book");
+        String listResponse = crystal.getResponse("list");
+
+        assertEquals("Crystal: Got it! I've added this task:\n"
+                + "         [T][ ] read book\n"
+                + "         Now you have 1 task in the list.", addResponse);
+        assertEquals("Crystal: Here are the tasks in your list:\n"
+                + "         1.[T][ ] read book", listResponse);
+        assertEquals(List.of("T | 0 | read book"),
+                Files.readAllLines(dataFile, StandardCharsets.UTF_8));
+    }
+
+    /** Verifies that GUI-style requests return parser errors instead of throwing them. */
+    @Test
+    public void getResponse_invalidCommand_returnsUserFacingError() {
+        Crystal crystal = new Crystal(tempDirectory.resolve("crystal.txt"));
+
+        String response = crystal.getResponse("unknown command");
+
+        assertEquals("Crystal: Oopsies!!! I don't know what that means :-(", response);
+    }
+
+    /** Verifies that the first GUI-style request reports and recovers from corrupt data. */
+    @Test
+    public void getResponse_corruptedData_reportsErrorAndUsesEmptyTaskList()
+            throws Exception {
+        Path dataFile = tempDirectory.resolve("crystal.txt");
+        Files.writeString(dataFile, "corrupted data", StandardCharsets.UTF_8);
+        Crystal crystal = new Crystal(dataFile);
+
+        String response = crystal.getResponse("list");
+
+        assertEquals("Crystal: Oopsies!!! Your saved task data is invalid.\n"
+                + "Crystal: Your task list is empty!", response);
+    }
+
     /**
      * Supplies complete console commands before Crystal constructs its scanner.
      *

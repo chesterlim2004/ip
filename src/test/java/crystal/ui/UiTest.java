@@ -57,6 +57,20 @@ public class UiTest {
         assertEquals("You: ", getOutput());
     }
 
+    /** Verifies that a response-only UI writes to its supplied stream. */
+    @Test
+    public void createForOutput_showGoodbye_usesSuppliedOutputStream() {
+        ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
+        Ui ui = Ui.createForOutput(
+                new PrintStream(responseOutput, true, StandardCharsets.UTF_8));
+
+        ui.showGoodbye();
+
+        assertEquals("Crystal: Bye!!! Hope to see you again soon!\n",
+                responseOutput.toString(StandardCharsets.UTF_8));
+        assertEquals("", getOutput());
+    }
+
     /** Verifies the complete startup banner, greeting, command guide, and dividers. */
     @Test
     public void showWelcome_called_printsBannerGreetingGuideAndDividers() {
