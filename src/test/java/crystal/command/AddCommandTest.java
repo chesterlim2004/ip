@@ -45,9 +45,9 @@ public class AddCommandTest extends CommandTestBase {
         AddCommand command = new AddCommand(new Todo("read book"));
 
         CrystalException exception = org.junit.jupiter.api.Assertions.assertThrows(
-                CrystalException.class,
-                () -> command.execute(new TaskList(), createUi(),
-                        new crystal.storage.Storage(directoryAsFile)));
+                CrystalException.class, () ->
+                        command.execute(new TaskList(), createUi(),
+                                new crystal.storage.Storage(directoryAsFile)));
 
         assertEquals("I couldn't save your tasks to the hard disk.", exception.getMessage());
     }

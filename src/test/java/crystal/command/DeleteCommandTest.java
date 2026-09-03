@@ -41,10 +41,10 @@ public class DeleteCommandTest extends CommandTestBase {
     public void execute_indexOutsideTaskList_throwsCrystalException() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));
 
-        CrystalException negativeIndex = assertThrows(CrystalException.class,
-                () -> new DeleteCommand(-1).execute(tasks, createUi(), createStorage()));
-        CrystalException highIndex = assertThrows(CrystalException.class,
-                () -> new DeleteCommand(1).execute(tasks, createUi(), createStorage()));
+        CrystalException negativeIndex = assertThrows(CrystalException.class, () ->
+                new DeleteCommand(-1).execute(tasks, createUi(), createStorage()));
+        CrystalException highIndex = assertThrows(CrystalException.class, () ->
+                new DeleteCommand(1).execute(tasks, createUi(), createStorage()));
 
         assertEquals("That task number does not exist!", negativeIndex.getMessage());
         assertEquals("That task number does not exist!", highIndex.getMessage());

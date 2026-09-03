@@ -49,12 +49,12 @@ public class Parser {
     public static Command parse(String command) throws CrystalException {
         CommandType commandType = parseCommandType(command);
         return switch (commandType) {
-        case TODO, DEADLINE, EVENT -> parseAddCommand(command, commandType);
-        case MARK, UNMARK, DELETE -> parseMutationCommand(command, commandType);
-        case LIST -> new ListCommand(parseListCommand(command));
-        case FIND -> parseFindCommand(command);
-        case EXIT -> new ExitCommand();
-        case UNKNOWN -> throw new CrystalException("I don't know what that means :-(");
+            case TODO, DEADLINE, EVENT -> parseAddCommand(command, commandType);
+            case MARK, UNMARK, DELETE -> parseMutationCommand(command, commandType);
+            case LIST -> new ListCommand(parseListCommand(command));
+            case FIND -> parseFindCommand(command);
+            case EXIT -> new ExitCommand();
+            case UNKNOWN -> throw new CrystalException("I don't know what that means :-(");
         };
     }
 
@@ -145,10 +145,10 @@ public class Parser {
             throws CrystalException {
         int taskIndex = parseTaskIndex(command, commandType);
         return switch (commandType) {
-        case MARK -> new MarkCommand(taskIndex);
-        case UNMARK -> new UnmarkCommand(taskIndex);
-        case DELETE -> new DeleteCommand(taskIndex);
-        default -> throw new CrystalException("I don't know what that means :-(");
+            case MARK -> new MarkCommand(taskIndex);
+            case UNMARK -> new UnmarkCommand(taskIndex);
+            case DELETE -> new DeleteCommand(taskIndex);
+            default -> throw new CrystalException("I don't know what that means :-(");
         };
     }
 
@@ -190,48 +190,48 @@ public class Parser {
             throws CrystalException {
         String prefix = commandType.getKeyword() + " ";
         switch (commandType) {
-        case TODO -> {
-            if (!command.startsWith(prefix)) {
-                throw new CrystalException("A todo must have a description!");
+            case TODO -> {
+                if (!command.startsWith(prefix)) {
+                    throw new CrystalException("A todo must have a description!");
+                }
+                String description = command.substring(prefix.length());
+                if (description.isBlank()) {
+                    throw new CrystalException("A todo must have a description!");
+                }
+                return new AddCommand(new Todo(description));
             }
-            String description = command.substring(prefix.length());
-            if (description.isBlank()) {
-                throw new CrystalException("A todo must have a description!");
+            case DEADLINE -> {
+                if (!command.startsWith(prefix)) {
+                    throw new CrystalException("A deadline must have a description and a /by time!");
+                }
+                String details = command.substring(prefix.length());
+                int byIndex = details.indexOf(BY_SEPARATOR);
+                if (byIndex <= 0 || byIndex + BY_SEPARATOR.length() >= details.length()) {
+                    throw new CrystalException("A deadline must have a description and a /by time!");
+                }
+                String description = details.substring(0, byIndex);
+                String by = details.substring(byIndex + BY_SEPARATOR.length());
+                return new AddCommand(new Deadline(description, by));
             }
-            return new AddCommand(new Todo(description));
-        }
-        case DEADLINE -> {
-            if (!command.startsWith(prefix)) {
-                throw new CrystalException("A deadline must have a description and a /by time!");
+            case EVENT -> {
+                if (!command.startsWith(prefix)) {
+                    throw new CrystalException(
+                            "An event must have a description, a /from time and a /to time!");
+                }
+                String details = command.substring(prefix.length());
+                int fromIndex = details.indexOf(FROM_SEPARATOR);
+                int toIndex = details.indexOf(TO_SEPARATOR, fromIndex + FROM_SEPARATOR.length());
+                if (fromIndex <= 0 || toIndex <= fromIndex + FROM_SEPARATOR.length()
+                        || toIndex + TO_SEPARATOR.length() >= details.length()) {
+                    throw new CrystalException(
+                            "An event must have a description, a /from time and a /to time!");
+                }
+                String description = details.substring(0, fromIndex);
+                String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
+                String to = details.substring(toIndex + TO_SEPARATOR.length());
+                return new AddCommand(new Event(description, from, to));
             }
-            String details = command.substring(prefix.length());
-            int byIndex = details.indexOf(BY_SEPARATOR);
-            if (byIndex <= 0 || byIndex + BY_SEPARATOR.length() >= details.length()) {
-                throw new CrystalException("A deadline must have a description and a /by time!");
-            }
-            String description = details.substring(0, byIndex);
-            String by = details.substring(byIndex + BY_SEPARATOR.length());
-            return new AddCommand(new Deadline(description, by));
-        }
-        case EVENT -> {
-            if (!command.startsWith(prefix)) {
-                throw new CrystalException(
-                        "An event must have a description, a /from time and a /to time!");
-            }
-            String details = command.substring(prefix.length());
-            int fromIndex = details.indexOf(FROM_SEPARATOR);
-            int toIndex = details.indexOf(TO_SEPARATOR, fromIndex + FROM_SEPARATOR.length());
-            if (fromIndex <= 0 || toIndex <= fromIndex + FROM_SEPARATOR.length()
-                    || toIndex + TO_SEPARATOR.length() >= details.length()) {
-                throw new CrystalException(
-                        "An event must have a description, a /from time and a /to time!");
-            }
-            String description = details.substring(0, fromIndex);
-            String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
-            String to = details.substring(toIndex + TO_SEPARATOR.length());
-            return new AddCommand(new Event(description, from, to));
-        }
-        default -> throw new CrystalException("I don't know what that means :-(");
+            default -> throw new CrystalException("I don't know what that means :-(");
         }
     }
 }
