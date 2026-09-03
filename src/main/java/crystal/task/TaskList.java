@@ -29,6 +29,16 @@ public class TaskList {
     }
 
     /**
+     * Creates a task list containing the supplied task arguments.
+     * A defensive copy prevents callers from changing the task array directly.
+     *
+     * @param tasks initial tasks.
+     */
+    public TaskList(Task... tasks) {
+        this(List.of(tasks));
+    }
+
+    /**
      * Adds a task to the end of the list.
      *
      * @param task task to add.
