@@ -22,7 +22,8 @@ public final class MainWindow {
     /** Introductory message displayed when the window opens. */
     private static final String WELCOME_MESSAGE = "Hello! I'm Crystal. "
             + "Send me a command and I'll help you manage your tasks.\n\n"
-            + "Try: todo read a book, list, find book, or bye.";
+            + "Try: todo hw, list, find book, or bye (closes window).\n"
+            + "Enter 'help' to view all commands!";
 
     /** Prefix included in console-oriented Crystal responses. */
     private static final String CRYSTAL_PREFIX = "Crystal: ";
