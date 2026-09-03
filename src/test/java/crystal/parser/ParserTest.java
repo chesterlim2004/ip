@@ -89,10 +89,8 @@ public class ParserTest {
     /** Verifies that unknown input and non-exact standalone commands receive the unknown error. */
     @Test
     public void parse_unknownOrNonExactStandaloneCommands_throwUnknownCommandError() {
-        assertParseError("", "I don't know what that means :-(");
-        assertParseError("read book", "I don't know what that means :-(");
-        assertParseError("help me", "I don't know what that means :-(");
-        assertParseError("bye now", "I don't know what that means :-(");
+        assertParseErrors("I don't know what that means :-(",
+                "", "read book", "help me", "bye now");
     }
 
     /** Verifies todo usage errors for missing and blank descriptions. */
@@ -100,9 +98,7 @@ public class ParserTest {
     public void parse_malformedTodoCommands_throwTodoUsageError() {
         String expected = "A todo must have a description!";
 
-        assertParseError("todo", expected);
-        assertParseError("todo ", expected);
-        assertParseError("todo    ", expected);
+        assertParseErrors(expected, "todo", "todo ", "todo    ");
     }
 
     /** Verifies deadline usage errors for missing descriptions and deadline values. */
@@ -110,10 +106,9 @@ public class ParserTest {
     public void parse_malformedDeadlineCommands_throwDeadlineUsageError() {
         String expected = "A deadline must have a description and a /by time!";
 
-        assertParseError("deadline", expected);
-        assertParseError("deadline submit report", expected);
-        assertParseError("deadline /by 2Dec26", expected);
-        assertParseError("deadline submit report /by ", expected);
+        assertParseErrors(expected,
+                "deadline", "deadline submit report", "deadline /by 2Dec26",
+                "deadline submit report /by ");
     }
 
     /** Verifies event usage errors for missing descriptions, starts, and ends. */
@@ -121,24 +116,20 @@ public class ParserTest {
     public void parse_malformedEventCommands_throwEventUsageError() {
         String expected = "An event must have a description, a /from time and a /to time!";
 
-        assertParseError("event", expected);
-        assertParseError("event workshop", expected);
-        assertParseError("event /from 6am /to 7am", expected);
-        assertParseError("event workshop /from /to 7am", expected);
-        assertParseError("event workshop /from 6am /to ", expected);
+        assertParseErrors(expected,
+                "event", "event workshop", "event /from 6am /to 7am",
+                "event workshop /from /to 7am", "event workshop /from 6am /to ");
     }
 
     /** Verifies specific errors for malformed list and list-on-date commands. */
     @Test
     public void parse_malformedListCommands_throwSpecificListErrors() {
-        assertParseError("list ", "To view your task list, simply enter 'list'!");
-        assertParseError("list tomorrow", "To view your task list, simply enter 'list'!");
-        assertParseError("list /on",
-                "To list tasks on a date, enter 'list /on [date]'!");
-        assertParseError("list /on    ",
-                "To list tasks on a date, enter 'list /on [date]'!");
-        assertParseError("list /on Monday", "I couldn't understand that date!");
-        assertParseError("list /on 31/02/26", "I couldn't understand that date!");
+        assertParseErrors("To view your task list, simply enter 'list'!",
+                "list ", "list tomorrow");
+        assertParseErrors("To list tasks on a date, enter 'list /on [date]'!",
+                "list /on", "list /on    ");
+        assertParseErrors("I couldn't understand that date!",
+                "list /on Monday", "list /on 31/02/26");
     }
 
     /** Verifies action-specific errors for malformed task mutation commands. */
@@ -146,21 +137,17 @@ public class ParserTest {
     public void parse_malformedFindCommands_throwFindUsageError() {
         String expected = "To find tasks, enter 'find [keyword]'!";
 
-        assertParseError("find", expected);
-        assertParseError("find ", expected);
-        assertParseError("find    ", expected);
-        assertParseError("finder", expected);
+        assertParseErrors(expected, "find", "find ", "find    ", "finder");
     }
 
     @Test
     public void parse_malformedMutationCommands_throwActionSpecificErrors() {
-        assertParseError("mark", "You have to mark a task number!");
-        assertParseError("mark abc", "You have to mark a task number!");
-        assertParseError("mark 1 2", "You have to mark a task number!");
-        assertParseError("unmark", "You have to unmark a task number!");
-        assertParseError("unmark 1.5", "You have to unmark a task number!");
-        assertParseError("delete", "You have to delete a task number!");
-        assertParseError("delete one", "You have to delete a task number!");
+        assertParseErrors("You have to mark a task number!",
+                "mark", "mark abc", "mark 1 2");
+        assertParseErrors("You have to unmark a task number!",
+                "unmark", "unmark 1.5");
+        assertParseErrors("You have to delete a task number!",
+                "delete", "delete one");
     }
 
     /**
@@ -178,6 +165,18 @@ public class ParserTest {
 
         assertEquals(1, tasks.getTaskCount());
         assertEquals(expectedData, tasks.getTask(0).toDataString());
+    }
+
+    /**
+     * Verifies that each input fails with the same exact internal error message.
+     *
+     * @param expectedMessage expected exception message.
+     * @param inputs malformed commands.
+     */
+    private static void assertParseErrors(String expectedMessage, String... inputs) {
+        for (String input : inputs) {
+            assertParseError(input, expectedMessage);
+        }
     }
 
     /**

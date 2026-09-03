@@ -39,6 +39,21 @@ public class TaskListTest {
         assertEquals("[T][ ] read book", tasks.getTask(0).toString());
     }
 
+    /** Verifies varargs ordering and defensive copying of the supplied task array. */
+    @Test
+    public void constructor_taskVarargs_createsDefensiveCopyInOriginalOrder() {
+        Task first = new Todo("read book");
+        Task second = new Todo("return book");
+        Task[] source = {first, second};
+        TaskList tasks = new TaskList(source);
+
+        source[0] = new Todo("replacement task");
+
+        assertEquals(2, tasks.getTaskCount());
+        assertSame(first, tasks.getTask(0));
+        assertSame(second, tasks.getTask(1));
+    }
+
     /** Verifies addition, deletion, returned tasks, and retained ordering. */
     @Test
     public void addAndDelete_validTasks_updatesOrderAndReturnsDeletedTask() {
@@ -59,7 +74,7 @@ public class TaskListTest {
     /** Verifies that indexed operations reject negative and out-of-range indexes. */
     @Test
     public void indexedOperations_invalidIndexes_throwIndexOutOfBoundsException() {
-        TaskList tasks = new TaskList(List.of(new Todo("read book")));
+        TaskList tasks = new TaskList(new Todo("read book"));
 
         assertThrows(IndexOutOfBoundsException.class, () -> tasks.getTask(-1));
         assertThrows(IndexOutOfBoundsException.class, () -> tasks.getTask(1));
@@ -69,7 +84,7 @@ public class TaskListTest {
     /** Verifies that callers cannot mutate a task list through its returned snapshot. */
     @Test
     public void getTasks_returnedSnapshotCannotMutateTaskList() {
-        TaskList tasks = new TaskList(List.of(new Todo("read book")));
+        TaskList tasks = new TaskList(new Todo("read book"));
         List<Task> snapshot = tasks.getTasks();
 
         assertThrows(UnsupportedOperationException.class, () ->
@@ -85,8 +100,8 @@ public class TaskListTest {
         Task otherDeadline = new Deadline("later", "3Dec26");
         Task spanningEvent = new Event("conference", "1Dec26", "3Dec26");
         Task textEvent = new Event("weekly call", "Monday", "Tuesday");
-        TaskList tasks = new TaskList(List.of(
-                todo, matchingDeadline, otherDeadline, spanningEvent, textEvent));
+        TaskList tasks = new TaskList(
+                todo, matchingDeadline, otherDeadline, spanningEvent, textEvent);
 
         List<Task> matches = tasks.getTasksOnDate(LocalDate.of(2026, 12, 2));
 
@@ -100,7 +115,7 @@ public class TaskListTest {
         Task firstMatch = new Todo("READ book");
         Task dateOnlyMatch = new Deadline("submit report", "book collection day");
         Task secondMatch = new Event("book club", "Monday", "Tuesday");
-        TaskList tasks = new TaskList(List.of(firstMatch, dateOnlyMatch, secondMatch));
+        TaskList tasks = new TaskList(firstMatch, dateOnlyMatch, secondMatch);
 
         List<Task> matches = tasks.findTasks("BoOk");
 
