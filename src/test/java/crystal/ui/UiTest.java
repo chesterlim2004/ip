@@ -57,6 +57,20 @@ public class UiTest {
         assertEquals("You: ", getOutput());
     }
 
+    /** Verifies that a response-only UI writes to its supplied stream. */
+    @Test
+    public void createForOutput_showGoodbye_usesSuppliedOutputStream() {
+        ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
+        Ui ui = Ui.createForOutput(
+                new PrintStream(responseOutput, true, StandardCharsets.UTF_8));
+
+        ui.showGoodbye();
+
+        assertEquals("Crystal: Bye!!! Hope to see you again soon!\n",
+                responseOutput.toString(StandardCharsets.UTF_8));
+        assertEquals("", getOutput());
+    }
+
     /** Verifies the complete startup banner, greeting, command guide, and dividers. */
     @Test
     public void showWelcome_called_printsBannerGreetingGuideAndDividers() {
@@ -81,8 +95,28 @@ public class UiTest {
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
                 + "- To delete a task, enter 'delete [task number]'\n"
+                + "- To view this command guide, enter 'help'\n"
                 + "- To exit, enter 'bye']\n"
                 + LINE + "\n", getOutput());
+    }
+
+    /** Verifies that help reproduces the command guide shown during startup. */
+    @Test
+    public void showHelp_called_printsCompleteCommandGuide() {
+        new Ui().showHelp();
+
+        assertEquals("[Commands:\n"
+                + "- To add a todo, enter 'todo [description]'\n"
+                + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
+                + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
+                + "- To view your task list, enter 'list'\n"
+                + "- To view deadlines and events on a date, enter 'list /on [date]'\n"
+                + "- To find tasks by description, enter 'find [keyword]'\n"
+                + "- To mark a task as done, enter 'mark [task number]'\n"
+                + "- To mark a task as not done, enter 'unmark [task number]'\n"
+                + "- To delete a task, enter 'delete [task number]'\n"
+                + "- To view this command guide, enter 'help'\n"
+                + "- To exit, enter 'bye']\n", getOutput());
     }
 
     /** Verifies divider, farewell, and Crystal exception output. */

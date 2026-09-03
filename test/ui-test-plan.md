@@ -515,6 +515,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         "- To mark a task as done, enter 'mark [task number]'",
         "- To mark a task as not done, enter 'unmark [task number]'",
         "- To delete a task, enter 'delete [task number]'",
+        "- To view this command guide, enter 'help'",
         "- To exit, enter 'bye']",
         "{{LINE}}",
         "Crystal: Oopsies!!! Your saved task data is invalid."
@@ -918,6 +919,40 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "E | 0 | project meeting | book | Friday"
         ]
       }
+    },
+    {
+      "id": "UI-14",
+      "aim": "Display the complete command guide when the user enters help",
+      "exchanges": [
+        {
+          "input": "help",
+          "expected_output": [
+            "{{LINE}}",
+            "[Commands:",
+            "- To add a todo, enter 'todo [description]'",
+            "- To add a deadline, enter 'deadline [description] /by [deadline]'",
+            "- To add an event, enter 'event [description] /from [start] /to [end]'",
+            "- To view your task list, enter 'list'",
+            "- To view deadlines and events on a date, enter 'list /on [date]'",
+            "- To find tasks by description, enter 'find [keyword]'",
+            "- To mark a task as done, enter 'mark [task number]'",
+            "- To mark a task as not done, enter 'unmark [task number]'",
+            "- To delete a task, enter 'delete [task number]'",
+            "- To view this command guide, enter 'help'",
+            "- To exit, enter 'bye']",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ]
     }
   ]
 }
