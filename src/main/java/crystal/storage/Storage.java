@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,9 @@ import crystal.exception.CrystalException;
 import crystal.task.Deadline;
 import crystal.task.Event;
 import crystal.task.Task;
+import crystal.task.TaskDateTime;
 import crystal.task.Todo;
+import crystal.task.WithinPeriod;
 
 /**
  * Loads and saves Crystal's tasks using a file on the hard disk.
@@ -89,6 +92,8 @@ public final class Storage {
             case "T" -> fields.length == 3 ? new Todo(fields[2]) : null;
             case "D" -> fields.length == 4 ? new Deadline(fields[2], fields[3]) : null;
             case "E" -> fields.length == 5 ? new Event(fields[2], fields[3], fields[4]) : null;
+            case "W" -> fields.length == 5
+                    ? parseWithinPeriod(fields[2], fields[3], fields[4]) : null;
             default -> null;
         };
         if (task == null || !(fields[1].equals("0") || fields[1].equals("1"))) {
@@ -100,6 +105,23 @@ public final class Storage {
             task.markAsDone();
         }
         return task;
+    }
+
+    /**
+     * Reconstructs a within-period task after validating its date range.
+     *
+     * @param description task description.
+     * @param from start date text.
+     * @param to end date text.
+     * @return reconstructed task, or {@code null} if the period is invalid.
+     */
+    private static Task parseWithinPeriod(String description, String from, String to) {
+        LocalDate fromDate = TaskDateTime.parseDate(from);
+        LocalDate toDate = TaskDateTime.parseDate(to);
+        if (fromDate == null || toDate == null || toDate.isBefore(fromDate)) {
+            return null;
+        }
+        return new WithinPeriod(description, fromDate, toDate);
     }
 
     /**
