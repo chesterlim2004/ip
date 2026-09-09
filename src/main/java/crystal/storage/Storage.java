@@ -94,6 +94,8 @@ public final class Storage {
         if (task == null || !(fields[1].equals("0") || fields[1].equals("1"))) {
             throw invalidDataException();
         }
+        assert task != null : "Validated task data must produce a task";
+
         if (fields[1].equals("1")) {
             task.markAsDone();
         }

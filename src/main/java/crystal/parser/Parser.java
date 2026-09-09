@@ -150,6 +150,11 @@ public class Parser {
      */
     private static Command parseMutationCommand(String command, CommandType commandType)
             throws CrystalException {
+        assert commandType == CommandType.MARK
+                || commandType == CommandType.UNMARK
+                || commandType == CommandType.DELETE
+                : "Mutation parsing requires a mutation command type";
+
         int taskIndex = parseTaskIndex(command, commandType);
         return switch (commandType) {
             case MARK -> new MarkCommand(taskIndex);
@@ -195,6 +200,11 @@ public class Parser {
      */
     private static Command parseAddCommand(String command, CommandType commandType)
             throws CrystalException {
+        assert commandType == CommandType.TODO
+                || commandType == CommandType.DEADLINE
+                || commandType == CommandType.EVENT
+                : "Add parsing requires an add command type";
+
         String prefix = commandType.getKeyword() + " ";
         switch (commandType) {
             case TODO -> {
