@@ -202,50 +202,84 @@ public class Parser {
                 || commandType == CommandType.EVENT
                 : "Add parsing requires an add command type";
 
-        String prefix = commandType.getKeyword() + " ";
-        switch (commandType) {
-            case TODO -> {
-                if (!command.startsWith(prefix)) {
-                    throw new CrystalException("A todo must have a description!");
-                }
-                String description = command.substring(prefix.length());
-                if (description.isBlank()) {
-                    throw new CrystalException("A todo must have a description!");
-                }
-                return new AddCommand(new Todo(description));
-            }
-            case DEADLINE -> {
-                if (!command.startsWith(prefix)) {
-                    throw new CrystalException("A deadline must have a description and a /by time!");
-                }
-                String details = command.substring(prefix.length());
-                int byIndex = details.indexOf(BY_SEPARATOR);
-                if (byIndex <= 0 || byIndex + BY_SEPARATOR.length() >= details.length()) {
-                    throw new CrystalException("A deadline must have a description and a /by time!");
-                }
-                String description = details.substring(0, byIndex);
-                String by = details.substring(byIndex + BY_SEPARATOR.length());
-                return new AddCommand(new Deadline(description, by));
-            }
-            case EVENT -> {
-                if (!command.startsWith(prefix)) {
-                    throw new CrystalException(
-                            "An event must have a description, a /from time and a /to time!");
-                }
-                String details = command.substring(prefix.length());
-                int fromIndex = details.indexOf(FROM_SEPARATOR);
-                int toIndex = details.indexOf(TO_SEPARATOR, fromIndex + FROM_SEPARATOR.length());
-                if (fromIndex <= 0 || toIndex <= fromIndex + FROM_SEPARATOR.length()
-                        || toIndex + TO_SEPARATOR.length() >= details.length()) {
-                    throw new CrystalException(
-                            "An event must have a description, a /from time and a /to time!");
-                }
-                String description = details.substring(0, fromIndex);
-                String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
-                String to = details.substring(toIndex + TO_SEPARATOR.length());
-                return new AddCommand(new Event(description, from, to));
-            }
+        return switch (commandType) {
+            case TODO -> parseTodoCommand(command);
+            case DEADLINE -> parseDeadlineCommand(command);
+            case EVENT -> parseEventCommand(command);
             default -> throw new CrystalException("I don't know what that means :-(");
+        };
+    }
+
+    /**
+     * Creates an add command containing a todo description.
+     *
+     * @param command complete todo command.
+     * @return add command containing the parsed todo.
+     * @throws CrystalException if the description is missing.
+     */
+    private static Command parseTodoCommand(String command) throws CrystalException {
+        String prefix = CommandType.TODO.getKeyword() + " ";
+        if (!command.startsWith(prefix)) {
+            throw new CrystalException("A todo must have a description!");
         }
+
+        String description = command.substring(prefix.length());
+        if (description.isBlank()) {
+            throw new CrystalException("A todo must have a description!");
+        }
+        return new AddCommand(new Todo(description));
+    }
+
+    /**
+     * Creates an add command containing a deadline description and time.
+     *
+     * @param command complete deadline command.
+     * @return add command containing the parsed deadline.
+     * @throws CrystalException if the description or deadline is missing.
+     */
+    private static Command parseDeadlineCommand(String command) throws CrystalException {
+        String prefix = CommandType.DEADLINE.getKeyword() + " ";
+        if (!command.startsWith(prefix)) {
+            throw new CrystalException("A deadline must have a description and a /by time!");
+        }
+
+        String details = command.substring(prefix.length());
+        int byIndex = details.indexOf(BY_SEPARATOR);
+        if (byIndex <= 0 || byIndex + BY_SEPARATOR.length() >= details.length()) {
+            throw new CrystalException("A deadline must have a description and a /by time!");
+        }
+
+        String description = details.substring(0, byIndex);
+        String by = details.substring(byIndex + BY_SEPARATOR.length());
+        return new AddCommand(new Deadline(description, by));
+    }
+
+    /**
+     * Creates an add command containing an event description and time period.
+     *
+     * @param command complete event command.
+     * @return add command containing the parsed event.
+     * @throws CrystalException if the description, start, or end is missing.
+     */
+    private static Command parseEventCommand(String command) throws CrystalException {
+        String prefix = CommandType.EVENT.getKeyword() + " ";
+        if (!command.startsWith(prefix)) {
+            throw new CrystalException(
+                    "An event must have a description, a /from time and a /to time!");
+        }
+
+        String details = command.substring(prefix.length());
+        int fromIndex = details.indexOf(FROM_SEPARATOR);
+        int toIndex = details.indexOf(TO_SEPARATOR, fromIndex + FROM_SEPARATOR.length());
+        if (fromIndex <= 0 || toIndex <= fromIndex + FROM_SEPARATOR.length()
+                || toIndex + TO_SEPARATOR.length() >= details.length()) {
+            throw new CrystalException(
+                    "An event must have a description, a /from time and a /to time!");
+        }
+
+        String description = details.substring(0, fromIndex);
+        String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
+        String to = details.substring(toIndex + TO_SEPARATOR.length());
+        return new AddCommand(new Event(description, from, to));
     }
 }
