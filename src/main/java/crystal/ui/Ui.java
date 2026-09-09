@@ -28,8 +28,10 @@ public class Ui {
             + "- To add a todo, enter 'todo [description]'\n"
             + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
             + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
+            + "- To add a within-period task, enter "
+            + "'within [description] /from [start date] /to [end date]'\n"
             + "- To view your task list, enter 'list'\n"
-            + "- To view deadlines and events on a date, enter 'list /on [date]'\n"
+            + "- To view dated tasks on a date, enter 'list /on [date]'\n"
             + "- To find tasks by description, enter 'find [keyword]'\n"
             + "- To mark a task as done, enter 'mark [task number]'\n"
             + "- To mark a task as not done, enter 'unmark [task number]'\n"
@@ -143,16 +145,16 @@ public class Ui {
      * Shows an unnumbered temporary view of tasks occurring on a date.
      *
      * @param formattedDate date in Crystal's display format.
-     * @param matchingTasks deadlines and events occurring on the date.
+     * @param matchingTasks dated tasks occurring on the date.
      */
     public void showTasksOnDate(String formattedDate, List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             output.println(
-                    "Crystal: There are no deadlines or events on " + formattedDate + "!");
+                    "Crystal: There are no dated tasks on " + formattedDate + "!");
             return;
         }
 
-        output.println("Crystal: Here are the deadlines and events on "
+        output.println("Crystal: Here are the dated tasks on "
                 + formattedDate + ":");
         for (Task task : matchingTasks) {
             output.println("         - " + task);

@@ -17,6 +17,7 @@ public class CommandTypeTest {
                 Map.entry(CommandType.TODO, "todo"),
                 Map.entry(CommandType.DEADLINE, "deadline"),
                 Map.entry(CommandType.EVENT, "event"),
+                Map.entry(CommandType.WITHIN, "within"),
                 Map.entry(CommandType.LIST, "list"),
                 Map.entry(CommandType.FIND, "find"),
                 Map.entry(CommandType.MARK, "mark"),

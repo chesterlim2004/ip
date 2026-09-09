@@ -44,6 +44,8 @@ public class ParserTest {
                 Parser.parse("deadline submit report /by 2Dec26"));
         assertInstanceOf(AddCommand.class,
                 Parser.parse("event workshop /from 6am /to 630pm"));
+        assertInstanceOf(AddCommand.class,
+                Parser.parse("within collect certificate /from 15Jan27 /to 25Jan27"));
         assertInstanceOf(ListCommand.class, Parser.parse("list"));
         assertInstanceOf(ListCommand.class, Parser.parse("list /on 2Dec26"));
         assertInstanceOf(FindCommand.class, Parser.parse("find book"));
@@ -63,6 +65,8 @@ public class ParserTest {
                 "D | 0 | submit report | 02 Dec 2026 1830");
         assertParsedTaskData("event workshop /from Monday 6am /to 6.30pm",
                 "E | 0 | workshop | Monday 0600 | 1830");
+        assertParsedTaskData("within collect certificate /from 15Jan27 /to 25 January 2027",
+                "W | 0 | collect certificate | 15 Jan 2027 | 25 Jan 2027");
     }
 
     /** Verifies conversion of user-facing task numbers into zero-based indexes. */
@@ -119,6 +123,25 @@ public class ParserTest {
         assertParseErrors(expected,
                 "event", "event workshop", "event /from 6am /to 7am",
                 "event workshop /from /to 7am", "event workshop /from 6am /to ");
+    }
+
+    /** Verifies errors for missing, invalid, repeated, and reversed within-period fields. */
+    @Test
+    public void parse_malformedWithinPeriodCommands_throwSpecificErrors() {
+        String usageMessage = "A within-period task must have a description, "
+                + "a /from date and a /to date!";
+        assertParseErrors(usageMessage,
+                "within", "within collect certificate",
+                "within /from 15Jan27 /to 25Jan27",
+                "within collect certificate /from /to 25Jan27",
+                "within collect certificate /from 15Jan27 /to ",
+                "within collect /from 15Jan27 /from 16Jan27 /to 25Jan27",
+                "within collect /from 15Jan27 /to 25Jan27 /to 26Jan27");
+        assertParseErrors("A within-period task requires valid dates!",
+                "within collect certificate /from Monday /to 25Jan27",
+                "within collect certificate /from 15Jan27 /to 31Feb27");
+        assertParseErrors("A within-period task must not end before it starts!",
+                "within collect certificate /from 25Jan27 /to 15Jan27");
     }
 
     /** Verifies specific errors for malformed list and list-on-date commands. */
