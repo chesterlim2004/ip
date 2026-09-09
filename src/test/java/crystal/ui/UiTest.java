@@ -7,7 +7,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -92,7 +91,7 @@ public class UiTest {
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
                 + "- To add a within-period task, enter "
-                + "'within [description] /from [start date] /to [end date]'\n"
+                + "'within [description] /from [start] /to [end]'\n"
                 + "- To view your task list, enter 'list'\n"
                 + "- To view dated tasks on a date, enter 'list /on [date]'\n"
                 + "- To find tasks by description, enter 'find [keyword]'\n"
@@ -114,7 +113,7 @@ public class UiTest {
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
                 + "- To add a within-period task, enter "
-                + "'within [description] /from [start date] /to [end date]'\n"
+                + "'within [description] /from [start] /to [end]'\n"
                 + "- To view your task list, enter 'list'\n"
                 + "- To view dated tasks on a date, enter 'list /on [date]'\n"
                 + "- To find tasks by description, enter 'find [keyword]'\n"
@@ -175,8 +174,7 @@ public class UiTest {
         new Ui().showTasksOnDate("02 Dec 2026", List.of(
                 new Deadline("submit report", "2Dec26"),
                 new Deadline("send invoice", "2Dec26 1700"),
-                new WithinPeriod("collect certificate",
-                        LocalDate.of(2026, 12, 1), LocalDate.of(2026, 12, 3))));
+                new WithinPeriod("collect certificate", "1Dec26", "3Dec26")));
 
         assertEquals("Crystal: Here are the dated tasks on 02 Dec 2026:\n"
                 + "         - [D][ ] submit report (by: 02 Dec 2026)\n"

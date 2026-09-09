@@ -509,7 +509,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         "- To add a todo, enter 'todo [description]'",
         "- To add a deadline, enter 'deadline [description] /by [deadline]'",
         "- To add an event, enter 'event [description] /from [start] /to [end]'",
-        "- To add a within-period task, enter 'within [description] /from [start date] /to [end date]'",
+        "- To add a within-period task, enter 'within [description] /from [start] /to [end]'",
         "- To view your task list, enter 'list'",
         "- To view dated tasks on a date, enter 'list /on [date]'",
         "- To find tasks by description, enter 'find [keyword]'",
@@ -937,7 +937,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
             "- To add a todo, enter 'todo [description]'",
             "- To add a deadline, enter 'deadline [description] /by [deadline]'",
             "- To add an event, enter 'event [description] /from [start] /to [end]'",
-            "- To add a within-period task, enter 'within [description] /from [start date] /to [end date]'",
+            "- To add a within-period task, enter 'within [description] /from [start] /to [end]'",
             "- To view your task list, enter 'list'",
             "- To view dated tasks on a date, enter 'list /on [date]'",
             "- To find tasks by description, enter 'find [keyword]'",
@@ -962,7 +962,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
     },
     {
       "id": "UI-15",
-      "aim": "Add, validate, persist, and list a task with an inclusive completion period",
+      "aim": "Add, normalize, persist, and list tasks with flexible completion periods",
       "exchanges": [
         {
           "input": "within collect certificate /from 15Jan27 /to 25 January 2027",
@@ -987,15 +987,19 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "within reversed period /from 25Jan27 /to 15Jan27",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Oopsies!!! A within-period task must not end before it starts!",
+            "Crystal: Got it! I've added this task:",
+            "         [W][ ] reversed period (from: 25 Jan 2027 to: 15 Jan 2027)",
+            "         Now you have 2 tasks in the list.",
             "{{LINE}}"
           ]
         },
         {
-          "input": "within invalid period /from Monday /to 25Jan27",
+          "input": "within flexible period /from 31Feb27 /to someday",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Oopsies!!! A within-period task requires valid dates!",
+            "Crystal: Got it! I've added this task:",
+            "         [W][ ] flexible period (from: 31Feb27 to: someday)",
+            "         Now you have 3 tasks in the list.",
             "{{LINE}}"
           ]
         },
@@ -1011,7 +1015,9 @@ Each test case below specifies its aim, command inputs, and expected output. An 
       ],
       "expected_files": {
         "data/crystal.txt": [
-          "W | 0 | collect certificate | 15 Jan 2027 | 25 Jan 2027"
+          "W | 0 | collect certificate | 15 Jan 2027 | 25 Jan 2027",
+          "W | 0 | reversed period | 25 Jan 2027 | 15 Jan 2027",
+          "W | 0 | flexible period | 31Feb27 | someday"
         ]
       }
     }

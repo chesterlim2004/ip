@@ -43,8 +43,7 @@ public class ListCommandTest extends CommandTestBase {
                 new Deadline("submit report", "2Dec26 0900"),
                 new Deadline("later", "3Dec26"),
                 new Event("conference", "1Dec26", "3Dec26"),
-                new WithinPeriod("collect certificate",
-                        LocalDate.of(2026, 12, 1), LocalDate.of(2026, 12, 3))));
+                new WithinPeriod("collect certificate", "1Dec26", "3Dec26")));
         ListCommand command = new ListCommand(Optional.of(LocalDate.of(2026, 12, 2)));
 
         command.execute(tasks, createUi(), createStorage());

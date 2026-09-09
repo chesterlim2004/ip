@@ -3,29 +3,26 @@ package crystal.task;
 import java.time.LocalDate;
 
 /**
- * Represents a task that can be completed within an inclusive date range.
+ * Represents a task that can be completed within a scheduling period.
  */
 public class WithinPeriod extends Task {
-    /** First date on which the task can be completed. */
-    private final LocalDate fromDate;
+    /** Start date, time, or unrestricted scheduling text. */
+    private final TaskDateTime from;
 
-    /** Last date on which the task can be completed. */
-    private final LocalDate toDate;
+    /** End date, time, or unrestricted scheduling text. */
+    private final TaskDateTime to;
 
     /**
-     * Creates an incomplete task with an inclusive completion period.
+     * Creates an incomplete task with a completion period.
      *
      * @param description description of the task.
-     * @param fromDate first date on which the task can be completed.
-     * @param toDate last date on which the task can be completed.
+     * @param from start date, time, or unrestricted text.
+     * @param to end date, time, or unrestricted text.
      */
-    public WithinPeriod(String description, LocalDate fromDate, LocalDate toDate) {
+    public WithinPeriod(String description, String from, String to) {
         super(description);
-        assert fromDate != null : "A within-period task requires a start date";
-        assert toDate != null : "A within-period task requires an end date";
-        assert !toDate.isBefore(fromDate) : "A within-period task requires an ordered date range";
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.from = TaskDateTime.parse(from);
+        this.to = TaskDateTime.parse(to);
     }
 
     /**
@@ -36,19 +33,24 @@ public class WithinPeriod extends Task {
     @Override
     public String toDataString() {
         return "W | " + super.toDataString()
-                + " | " + TaskDateTime.formatDate(fromDate)
-                + " | " + TaskDateTime.formatDate(toDate);
+                + " | " + from + " | " + to;
     }
 
     /**
-     * Returns whether the date falls within this task's inclusive completion period.
+     * Returns whether this task can be completed on the specified date. A dated
+     * task with both a start and end date covers the inclusive range between them.
      *
      * @param date date to check.
      * @return {@code true} if the task can be completed on the date.
      */
     @Override
     public boolean occursOn(LocalDate date) {
-        return !date.isBefore(fromDate) && !date.isAfter(toDate);
+        LocalDate fromDate = from.getDate();
+        LocalDate toDate = to.getDate();
+        if (fromDate != null && toDate != null && !toDate.isBefore(fromDate)) {
+            return !date.isBefore(fromDate) && !date.isAfter(toDate);
+        }
+        return from.occursOn(date) || to.occursOn(date);
     }
 
     /**
@@ -59,7 +61,6 @@ public class WithinPeriod extends Task {
     @Override
     public String toString() {
         return "[W]" + super.toString()
-                + " (from: " + TaskDateTime.formatDate(fromDate)
-                + " to: " + TaskDateTime.formatDate(toDate) + ")";
+                + " (from: " + from + " to: " + to + ")";
     }
 }

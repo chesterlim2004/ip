@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +90,7 @@ public class StorageTest {
                 "T | 0 | read book",
                 "D | 1 | submit report | 02 Dec 2026 0900",
                 "E | 0 | workshop | Monday 0600 | 1830",
-                "W | 1 | collect certificate | 15 Jan 2027 | 25 Jan 2027"),
+                "W | 1 | collect certificate | after the ceremony | before closing"),
                 StandardCharsets.UTF_8);
         Storage storage = new Storage(dataFile);
 
@@ -107,7 +106,7 @@ public class StorageTest {
                 tasks.get(1).toString());
         assertEquals("[E][ ] workshop (from: Monday 0600 to: 1830)",
                 tasks.get(2).toString());
-        assertEquals("[W][X] collect certificate (from: 15 Jan 2027 to: 25 Jan 2027)",
+        assertEquals("[W][X] collect certificate (from: after the ceremony to: before closing)",
                 tasks.get(3).toString());
         assertFalse(tasks.get(0).isDone());
         assertTrue(tasks.get(1).isDone());
@@ -124,8 +123,7 @@ public class StorageTest {
         Deadline deadline = new Deadline("submit report", "2Dec26 0900");
         Event event = new Event("workshop", "2Dec26 0800", "2Dec26 1000");
         WithinPeriod withinPeriod = new WithinPeriod(
-                "collect certificate", LocalDate.of(2027, 1, 15),
-                LocalDate.of(2027, 1, 25));
+                "collect certificate", "after the ceremony", "before closing");
         deadline.markAsDone();
         List<Task> original = List.of(todo, deadline, event, withinPeriod);
 
@@ -148,9 +146,7 @@ public class StorageTest {
                 "T | 0 | extra | field",
                 "D | 0 | missing deadline",
                 "E | 0 | missing | end",
-                "W | 0 | missing end | 15 Jan 2027",
-                "W | 0 | invalid start | Monday | 25 Jan 2027",
-                "W | 0 | reversed period | 25 Jan 2027 | 15 Jan 2027");
+                "W | 0 | missing end | 15 Jan 2027");
 
         for (String invalidLine : invalidLines) {
             Files.writeString(dataFile, invalidLine, StandardCharsets.UTF_8);

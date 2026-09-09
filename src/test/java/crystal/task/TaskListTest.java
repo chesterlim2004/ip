@@ -99,8 +99,7 @@ public class TaskListTest {
         Task matchingDeadline = new Deadline("submit report", "2Dec26 0900");
         Task otherDeadline = new Deadline("later", "3Dec26");
         Task spanningEvent = new Event("conference", "1Dec26", "3Dec26");
-        Task withinPeriod = new WithinPeriod(
-                "collect certificate", LocalDate.of(2026, 12, 1), LocalDate.of(2026, 12, 3));
+        Task withinPeriod = new WithinPeriod("collect certificate", "1Dec26", "3Dec26");
         Task textEvent = new Event("weekly call", "Monday", "Tuesday");
         TaskList tasks = new TaskList(
                 todo, matchingDeadline, otherDeadline, spanningEvent, withinPeriod, textEvent);

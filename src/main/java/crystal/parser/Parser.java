@@ -287,16 +287,16 @@ public class Parser {
     }
 
     /**
-     * Creates an add command containing a task and its valid completion period.
+     * Creates an add command containing a task and its completion period.
      *
      * @param command complete within-period task command.
      * @return add command containing the parsed within-period task.
-     * @throws CrystalException if the description or date range is invalid.
+     * @throws CrystalException if the description or period is missing.
      */
     private static Command parseWithinPeriodCommand(String command) throws CrystalException {
         String prefix = CommandType.WITHIN.getKeyword() + " ";
         String usageMessage = "A within-period task must have a description, "
-                + "a /from date and a /to date!";
+                + "a /from value and a /to value!";
         if (!command.startsWith(prefix)) {
             throw new CrystalException(usageMessage);
         }
@@ -316,14 +316,6 @@ public class Parser {
         String description = details.substring(0, fromIndex);
         String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
         String to = details.substring(toIndex + TO_SEPARATOR.length());
-        LocalDate fromDate = TaskDateTime.parseDate(from);
-        LocalDate toDate = TaskDateTime.parseDate(to);
-        if (fromDate == null || toDate == null) {
-            throw new CrystalException("A within-period task requires valid dates!");
-        }
-        if (toDate.isBefore(fromDate)) {
-            throw new CrystalException("A within-period task must not end before it starts!");
-        }
-        return new AddCommand(new WithinPeriod(description, fromDate, toDate));
+        return new AddCommand(new WithinPeriod(description, from, to));
     }
 }

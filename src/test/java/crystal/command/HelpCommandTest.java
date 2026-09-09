@@ -24,7 +24,7 @@ public class HelpCommandTest extends CommandTestBase {
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
                 + "- To add a within-period task, enter "
-                + "'within [description] /from [start date] /to [end date]'\n"
+                + "'within [description] /from [start] /to [end]'\n"
                 + "- To view your task list, enter 'list'\n"
                 + "- To view dated tasks on a date, enter 'list /on [date]'\n"
                 + "- To find tasks by description, enter 'find [keyword]'\n"
