@@ -509,8 +509,9 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         "- To add a todo, enter 'todo [description]'",
         "- To add a deadline, enter 'deadline [description] /by [deadline]'",
         "- To add an event, enter 'event [description] /from [start] /to [end]'",
+        "- To add a within-period task, enter 'within [description] /from [start] /to [end]'",
         "- To view your task list, enter 'list'",
-        "- To view deadlines and events on a date, enter 'list /on [date]'",
+        "- To view dated tasks on a date, enter 'list /on [date]'",
         "- To find tasks by description, enter 'find [keyword]'",
         "- To mark a task as done, enter 'mark [task number]'",
         "- To mark a task as not done, enter 'unmark [task number]'",
@@ -760,7 +761,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
     },
     {
       "id": "UI-12",
-      "aim": "List unnumbered deadlines and events on a date without mutating their stored indexes",
+      "aim": "List unnumbered dated tasks on a date without mutating their stored indexes",
       "initial_files": {
         "data/crystal.txt": [
           "T | 0 | mention 02 Dec 2026",
@@ -769,6 +770,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "E | 0 | workshop | 02 Dec 2026 0800 | 02 Dec 2026 1000",
           "E | 0 | conference | 01 Dec 2026 | 03 Dec 2026",
           "E | 0 | overnight trip | 01 Dec 2026 | 02 Dec 2026",
+          "W | 0 | collect certificate | 01 Dec 2026 | 03 Dec 2026",
           "E | 0 | weekly call | Monday 0600 | Tuesday 0700"
         ]
       },
@@ -777,11 +779,12 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list /on 2Dec26",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the deadlines and events on 02 Dec 2026:",
+            "Crystal: Here are the dated tasks on 02 Dec 2026:",
             "         - [D][ ] submit report (by: 02 Dec 2026 0900)",
             "         - [E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)",
             "         - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)",
             "         - [E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)",
+            "         - [W][ ] collect certificate (from: 01 Dec 2026 to: 03 Dec 2026)",
             "{{LINE}}"
           ]
         },
@@ -789,7 +792,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list /on 4/12/26",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: There are no deadlines or events on 04 Dec 2026!",
+            "Crystal: There are no dated tasks on 04 Dec 2026!",
             "{{LINE}}"
           ]
         },
@@ -828,7 +831,8 @@ Each test case below specifies its aim, command inputs, and expected output. An 
             "         4.[E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)",
             "         5.[E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)",
             "         6.[E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)",
-            "         7.[E][ ] weekly call (from: Monday 0600 to: Tuesday 0700)",
+            "         7.[W][ ] collect certificate (from: 01 Dec 2026 to: 03 Dec 2026)",
+            "         8.[E][ ] weekly call (from: Monday 0600 to: Tuesday 0700)",
             "{{LINE}}"
           ]
         },
@@ -850,6 +854,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "E | 0 | workshop | 02 Dec 2026 0800 | 02 Dec 2026 1000",
           "E | 0 | conference | 01 Dec 2026 | 03 Dec 2026",
           "E | 0 | overnight trip | 01 Dec 2026 | 02 Dec 2026",
+          "W | 0 | collect certificate | 01 Dec 2026 | 03 Dec 2026",
           "E | 0 | weekly call | Monday 0600 | Tuesday 0700"
         ]
       }
@@ -932,8 +937,9 @@ Each test case below specifies its aim, command inputs, and expected output. An 
             "- To add a todo, enter 'todo [description]'",
             "- To add a deadline, enter 'deadline [description] /by [deadline]'",
             "- To add an event, enter 'event [description] /from [start] /to [end]'",
+            "- To add a within-period task, enter 'within [description] /from [start] /to [end]'",
             "- To view your task list, enter 'list'",
-            "- To view deadlines and events on a date, enter 'list /on [date]'",
+            "- To view dated tasks on a date, enter 'list /on [date]'",
             "- To find tasks by description, enter 'find [keyword]'",
             "- To mark a task as done, enter 'mark [task number]'",
             "- To mark a task as not done, enter 'unmark [task number]'",
@@ -953,6 +959,67 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           ]
         }
       ]
+    },
+    {
+      "id": "UI-15",
+      "aim": "Add, normalize, persist, and list tasks with flexible completion periods",
+      "exchanges": [
+        {
+          "input": "within collect certificate /from 15Jan27 /to 25 January 2027",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [W][ ] collect certificate (from: 15 Jan 2027 to: 25 Jan 2027)",
+            "         Now you have 1 task in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "list /on 20Jan27",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Here are the dated tasks on 20 Jan 2027:",
+            "         - [W][ ] collect certificate (from: 15 Jan 2027 to: 25 Jan 2027)",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "within reversed period /from 25Jan27 /to 15Jan27",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [W][ ] reversed period (from: 25 Jan 2027 to: 15 Jan 2027)",
+            "         Now you have 2 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "within flexible period /from 31Feb27 /to someday",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Got it! I've added this task:",
+            "         [W][ ] flexible period (from: 31Feb27 to: someday)",
+            "         Now you have 3 tasks in the list.",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "bye",
+          "expect_exit": true,
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Bye!!! Hope to see you again soon!",
+            "{{LINE}}"
+          ]
+        }
+      ],
+      "expected_files": {
+        "data/crystal.txt": [
+          "W | 0 | collect certificate | 15 Jan 2027 | 25 Jan 2027",
+          "W | 0 | reversed period | 25 Jan 2027 | 15 Jan 2027",
+          "W | 0 | flexible period | 31Feb27 | someday"
+        ]
+      }
     }
   ]
 }
@@ -967,6 +1034,7 @@ D | 0 | later deadline | 03 Dec 2026
 E | 0 | workshop | 02 Dec 2026 0800 | 02 Dec 2026 1000
 E | 0 | conference | 01 Dec 2026 | 03 Dec 2026
 E | 0 | overnight trip | 01 Dec 2026 | 02 Dec 2026
+W | 0 | collect certificate | 01 Dec 2026 | 03 Dec 2026
 E | 0 | weekly call | Monday 0600 | Tuesday 0700
 ```
 

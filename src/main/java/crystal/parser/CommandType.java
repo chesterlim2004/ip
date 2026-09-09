@@ -10,6 +10,8 @@ public enum CommandType {
     DEADLINE("deadline"),
     /** Adds an event with a start and end. */
     EVENT("event"),
+    /** Adds a task that can be completed within a date range. */
+    WITHIN("within"),
     /** Lists stored tasks. */
     LIST("list"),
     /** Finds tasks whose descriptions contain a keyword. */

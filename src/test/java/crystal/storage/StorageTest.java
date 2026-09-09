@@ -21,6 +21,7 @@ import crystal.task.Deadline;
 import crystal.task.Event;
 import crystal.task.Task;
 import crystal.task.Todo;
+import crystal.task.WithinPeriod;
 
 /**
  * Tests task persistence without reading or writing Crystal's real data file.
@@ -88,22 +89,28 @@ public class StorageTest {
         Files.write(dataFile, List.of(
                 "T | 0 | read book",
                 "D | 1 | submit report | 02 Dec 2026 0900",
-                "E | 0 | workshop | Monday 0600 | 1830"), StandardCharsets.UTF_8);
+                "E | 0 | workshop | Monday 0600 | 1830",
+                "W | 1 | collect certificate | after the ceremony | before closing"),
+                StandardCharsets.UTF_8);
         Storage storage = new Storage(dataFile);
 
         ArrayList<Task> tasks = storage.loadTasks();
 
-        assertEquals(3, tasks.size());
+        assertEquals(4, tasks.size());
         assertInstanceOf(Todo.class, tasks.get(0));
         assertInstanceOf(Deadline.class, tasks.get(1));
         assertInstanceOf(Event.class, tasks.get(2));
+        assertInstanceOf(WithinPeriod.class, tasks.get(3));
         assertEquals("[T][ ] read book", tasks.get(0).toString());
         assertEquals("[D][X] submit report (by: 02 Dec 2026 0900)",
                 tasks.get(1).toString());
         assertEquals("[E][ ] workshop (from: Monday 0600 to: 1830)",
                 tasks.get(2).toString());
+        assertEquals("[W][X] collect certificate (from: after the ceremony to: before closing)",
+                tasks.get(3).toString());
         assertFalse(tasks.get(0).isDone());
         assertTrue(tasks.get(1).isDone());
+        assertTrue(tasks.get(3).isDone());
     }
 
     /** Verifies that saving then loading preserves every task's data representation. */
@@ -115,8 +122,10 @@ public class StorageTest {
         Todo todo = new Todo("read book");
         Deadline deadline = new Deadline("submit report", "2Dec26 0900");
         Event event = new Event("workshop", "2Dec26 0800", "2Dec26 1000");
+        WithinPeriod withinPeriod = new WithinPeriod(
+                "collect certificate", "after the ceremony", "before closing");
         deadline.markAsDone();
-        List<Task> original = List.of(todo, deadline, event);
+        List<Task> original = List.of(todo, deadline, event, withinPeriod);
 
         storage.saveTasks(original);
         List<Task> loaded = storage.loadTasks();
@@ -136,7 +145,8 @@ public class StorageTest {
                 "T | 2 | invalid status",
                 "T | 0 | extra | field",
                 "D | 0 | missing deadline",
-                "E | 0 | missing | end");
+                "E | 0 | missing | end",
+                "W | 0 | missing end | 15 Jan 2027");
 
         for (String invalidLine : invalidLines) {
             Files.writeString(dataFile, invalidLine, StandardCharsets.UTF_8);

@@ -17,6 +17,7 @@ import crystal.exception.CrystalException;
 import crystal.task.Deadline;
 import crystal.task.TaskList;
 import crystal.task.Todo;
+import crystal.task.WithinPeriod;
 
 /**
  * Tests Crystal's console input prompts and all public response variants.
@@ -89,8 +90,10 @@ public class UiTest {
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
+                + "- To add a within-period task, enter "
+                + "'within [description] /from [start] /to [end]'\n"
                 + "- To view your task list, enter 'list'\n"
-                + "- To view deadlines and events on a date, enter 'list /on [date]'\n"
+                + "- To view dated tasks on a date, enter 'list /on [date]'\n"
                 + "- To find tasks by description, enter 'find [keyword]'\n"
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
@@ -109,8 +112,10 @@ public class UiTest {
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
+                + "- To add a within-period task, enter "
+                + "'within [description] /from [start] /to [end]'\n"
                 + "- To view your task list, enter 'list'\n"
-                + "- To view deadlines and events on a date, enter 'list /on [date]'\n"
+                + "- To view dated tasks on a date, enter 'list /on [date]'\n"
                 + "- To find tasks by description, enter 'find [keyword]'\n"
                 + "- To mark a task as done, enter 'mark [task number]'\n"
                 + "- To mark a task as not done, enter 'unmark [task number]'\n"
@@ -159,7 +164,7 @@ public class UiTest {
     public void showTasksOnDate_noMatches_printsDateSpecificEmptyMessage() {
         new Ui().showTasksOnDate("02 Dec 2026", List.of());
 
-        assertEquals("Crystal: There are no deadlines or events on 02 Dec 2026!\n",
+        assertEquals("Crystal: There are no dated tasks on 02 Dec 2026!\n",
                 getOutput());
     }
 
@@ -168,11 +173,14 @@ public class UiTest {
     public void showTasksOnDate_matches_printsUnnumberedTemporaryList() {
         new Ui().showTasksOnDate("02 Dec 2026", List.of(
                 new Deadline("submit report", "2Dec26"),
-                new Deadline("send invoice", "2Dec26 1700")));
+                new Deadline("send invoice", "2Dec26 1700"),
+                new WithinPeriod("collect certificate", "1Dec26", "3Dec26")));
 
-        assertEquals("Crystal: Here are the deadlines and events on 02 Dec 2026:\n"
+        assertEquals("Crystal: Here are the dated tasks on 02 Dec 2026:\n"
                 + "         - [D][ ] submit report (by: 02 Dec 2026)\n"
-                + "         - [D][ ] send invoice (by: 02 Dec 2026 1700)\n", getOutput());
+                + "         - [D][ ] send invoice (by: 02 Dec 2026 1700)\n"
+                + "         - [W][ ] collect certificate "
+                + "(from: 01 Dec 2026 to: 03 Dec 2026)\n", getOutput());
     }
 
     /** Verifies all status-change and repeated-status response variants. */

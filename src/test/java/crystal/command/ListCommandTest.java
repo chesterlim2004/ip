@@ -14,6 +14,7 @@ import crystal.task.Deadline;
 import crystal.task.Event;
 import crystal.task.TaskList;
 import crystal.task.Todo;
+import crystal.task.WithinPeriod;
 
 /**
  * Tests complete and date-filtered task listing through {@link ListCommand}.
@@ -41,14 +42,17 @@ public class ListCommandTest extends CommandTestBase {
                 new Todo("mention 02 Dec 2026"),
                 new Deadline("submit report", "2Dec26 0900"),
                 new Deadline("later", "3Dec26"),
-                new Event("conference", "1Dec26", "3Dec26")));
+                new Event("conference", "1Dec26", "3Dec26"),
+                new WithinPeriod("collect certificate", "1Dec26", "3Dec26")));
         ListCommand command = new ListCommand(Optional.of(LocalDate.of(2026, 12, 2)));
 
         command.execute(tasks, createUi(), createStorage());
 
-        assertEquals("Crystal: Here are the deadlines and events on 02 Dec 2026:\n"
+        assertEquals("Crystal: Here are the dated tasks on 02 Dec 2026:\n"
                 + "         - [D][ ] submit report (by: 02 Dec 2026 0900)\n"
-                + "         - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)\n",
+                + "         - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)\n"
+                + "         - [W][ ] collect certificate "
+                + "(from: 01 Dec 2026 to: 03 Dec 2026)\n",
                 getOutput());
     }
 
@@ -60,7 +64,7 @@ public class ListCommandTest extends CommandTestBase {
 
         command.execute(tasks, createUi(), createStorage());
 
-        assertEquals("Crystal: There are no deadlines or events on 02 Dec 2026!\n",
+        assertEquals("Crystal: There are no dated tasks on 02 Dec 2026!\n",
                 getOutput());
     }
 }

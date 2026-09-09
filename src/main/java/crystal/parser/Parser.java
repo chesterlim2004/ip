@@ -18,6 +18,7 @@ import crystal.task.Deadline;
 import crystal.task.Event;
 import crystal.task.TaskDateTime;
 import crystal.task.Todo;
+import crystal.task.WithinPeriod;
 
 /**
  * Interprets user commands and converts their arguments into application data.
@@ -51,7 +52,7 @@ public class Parser {
     public static Command parse(String command) throws CrystalException {
         CommandType commandType = parseCommandType(command);
         return switch (commandType) {
-            case TODO, DEADLINE, EVENT -> parseAddCommand(command, commandType);
+            case TODO, DEADLINE, EVENT, WITHIN -> parseAddCommand(command, commandType);
             case MARK, UNMARK, DELETE -> parseMutationCommand(command, commandType);
             case LIST -> new ListCommand(parseListCommand(command));
             case FIND -> parseFindCommand(command);
@@ -200,12 +201,14 @@ public class Parser {
         assert commandType == CommandType.TODO
                 || commandType == CommandType.DEADLINE
                 || commandType == CommandType.EVENT
+                || commandType == CommandType.WITHIN
                 : "Add parsing requires an add command type";
 
         return switch (commandType) {
             case TODO -> parseTodoCommand(command);
             case DEADLINE -> parseDeadlineCommand(command);
             case EVENT -> parseEventCommand(command);
+            case WITHIN -> parseWithinPeriodCommand(command);
             default -> throw new CrystalException("I don't know what that means :-(");
         };
     }
@@ -281,5 +284,38 @@ public class Parser {
         String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
         String to = details.substring(toIndex + TO_SEPARATOR.length());
         return new AddCommand(new Event(description, from, to));
+    }
+
+    /**
+     * Creates an add command containing a task and its completion period.
+     *
+     * @param command complete within-period task command.
+     * @return add command containing the parsed within-period task.
+     * @throws CrystalException if the description or period is missing.
+     */
+    private static Command parseWithinPeriodCommand(String command) throws CrystalException {
+        String prefix = CommandType.WITHIN.getKeyword() + " ";
+        String usageMessage = "A within-period task must have a description, "
+                + "a /from value and a /to value!";
+        if (!command.startsWith(prefix)) {
+            throw new CrystalException(usageMessage);
+        }
+
+        String details = command.substring(prefix.length());
+        int fromIndex = details.indexOf(FROM_SEPARATOR);
+        int toIndex = details.indexOf(TO_SEPARATOR, fromIndex + FROM_SEPARATOR.length());
+        boolean hasRepeatedSeparator = fromIndex >= 0
+                && (details.indexOf(FROM_SEPARATOR, fromIndex + FROM_SEPARATOR.length()) >= 0
+                || details.indexOf(TO_SEPARATOR, toIndex + TO_SEPARATOR.length()) >= 0);
+        if (fromIndex <= 0 || toIndex <= fromIndex + FROM_SEPARATOR.length()
+                || toIndex + TO_SEPARATOR.length() >= details.length()
+                || hasRepeatedSeparator) {
+            throw new CrystalException(usageMessage);
+        }
+
+        String description = details.substring(0, fromIndex);
+        String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
+        String to = details.substring(toIndex + TO_SEPARATOR.length());
+        return new AddCommand(new WithinPeriod(description, from, to));
     }
 }

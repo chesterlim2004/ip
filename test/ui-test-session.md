@@ -15,8 +15,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -70,8 +71,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -126,8 +128,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -164,8 +167,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -230,8 +234,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -290,8 +295,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -355,8 +361,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -421,8 +428,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -456,8 +464,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -525,8 +534,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -579,8 +589,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -618,7 +629,7 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-## UI-12: List unnumbered deadlines and events on a date without mutating their stored indexes
+## UI-12: List unnumbered dated tasks on a date without mutating their stored indexes
 
 ```text
 ____________________________________________________________
@@ -633,8 +644,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -644,15 +656,16 @@ Hello!!! I'm Crystal.
 ____________________________________________________________
 You: list /on 2Dec26
 ____________________________________________________________
-Crystal: Here are the deadlines and events on 02 Dec 2026:
+Crystal: Here are the dated tasks on 02 Dec 2026:
          - [D][ ] submit report (by: 02 Dec 2026 0900)
          - [E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)
          - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)
          - [E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)
+         - [W][ ] collect certificate (from: 01 Dec 2026 to: 03 Dec 2026)
 ____________________________________________________________
 You: list /on 4/12/26
 ____________________________________________________________
-Crystal: There are no deadlines or events on 04 Dec 2026!
+Crystal: There are no dated tasks on 04 Dec 2026!
 ____________________________________________________________
 You: list /on
 ____________________________________________________________
@@ -675,7 +688,8 @@ Crystal: Here are the tasks in your list:
          4.[E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)
          5.[E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)
          6.[E][ ] overnight trip (from: 01 Dec 2026 to: 02 Dec 2026)
-         7.[E][ ] weekly call (from: Monday 0600 to: Tuesday 0700)
+         7.[W][ ] collect certificate (from: 01 Dec 2026 to: 03 Dec 2026)
+         8.[E][ ] weekly call (from: Monday 0600 to: Tuesday 0700)
 ____________________________________________________________
 You: bye
 ____________________________________________________________
@@ -698,8 +712,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -749,8 +764,9 @@ Hello!!! I'm Crystal.
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -764,8 +780,9 @@ ____________________________________________________________
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
 - To view your task list, enter 'list'
-- To view deadlines and events on a date, enter 'list /on [date]'
+- To view dated tasks on a date, enter 'list /on [date]'
 - To find tasks by description, enter 'find [keyword]'
 - To mark a task as done, enter 'mark [task number]'
 - To mark a task as not done, enter 'unmark [task number]'
@@ -779,4 +796,58 @@ Crystal: Bye!!! Hope to see you again soon!
 ____________________________________________________________
 ```
 
-Result: PASS (14 test cases)
+## UI-15: Add, normalize, persist, and list tasks with flexible completion periods
+
+```text
+____________________________________________________________
+  ____ ______   ______ _____  _    _
+ / ___|  _ \ \ / / ___|_   _|/ \  | |
+| |   | |_) \ V /\___ \ | | / _ \ | |
+| |___|  _ < | |  ___) || |/ ___ \| |___
+ \____|_| \_\|_| |____/ |_/_/   \_\_____|
+
+Hello!!! I'm Crystal.
+[Commands:
+- To add a todo, enter 'todo [description]'
+- To add a deadline, enter 'deadline [description] /by [deadline]'
+- To add an event, enter 'event [description] /from [start] /to [end]'
+- To add a within-period task, enter 'within [description] /from [start] /to [end]'
+- To view your task list, enter 'list'
+- To view dated tasks on a date, enter 'list /on [date]'
+- To find tasks by description, enter 'find [keyword]'
+- To mark a task as done, enter 'mark [task number]'
+- To mark a task as not done, enter 'unmark [task number]'
+- To delete a task, enter 'delete [task number]'
+- To view this command guide, enter 'help'
+- To exit, enter 'bye']
+____________________________________________________________
+You: within collect certificate /from 15Jan27 /to 25 January 2027
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [W][ ] collect certificate (from: 15 Jan 2027 to: 25 Jan 2027)
+         Now you have 1 task in the list.
+____________________________________________________________
+You: list /on 20Jan27
+____________________________________________________________
+Crystal: Here are the dated tasks on 20 Jan 2027:
+         - [W][ ] collect certificate (from: 15 Jan 2027 to: 25 Jan 2027)
+____________________________________________________________
+You: within reversed period /from 25Jan27 /to 15Jan27
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [W][ ] reversed period (from: 25 Jan 2027 to: 15 Jan 2027)
+         Now you have 2 tasks in the list.
+____________________________________________________________
+You: within flexible period /from 31Feb27 /to someday
+____________________________________________________________
+Crystal: Got it! I've added this task:
+         [W][ ] flexible period (from: 31Feb27 to: someday)
+         Now you have 3 tasks in the list.
+____________________________________________________________
+You: bye
+____________________________________________________________
+Crystal: Bye!!! Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS (15 test cases)

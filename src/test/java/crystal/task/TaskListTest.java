@@ -99,13 +99,14 @@ public class TaskListTest {
         Task matchingDeadline = new Deadline("submit report", "2Dec26 0900");
         Task otherDeadline = new Deadline("later", "3Dec26");
         Task spanningEvent = new Event("conference", "1Dec26", "3Dec26");
+        Task withinPeriod = new WithinPeriod("collect certificate", "1Dec26", "3Dec26");
         Task textEvent = new Event("weekly call", "Monday", "Tuesday");
         TaskList tasks = new TaskList(
-                todo, matchingDeadline, otherDeadline, spanningEvent, textEvent);
+                todo, matchingDeadline, otherDeadline, spanningEvent, withinPeriod, textEvent);
 
         List<Task> matches = tasks.getTasksOnDate(LocalDate.of(2026, 12, 2));
 
-        assertEquals(List.of(matchingDeadline, spanningEvent), matches);
+        assertEquals(List.of(matchingDeadline, spanningEvent, withinPeriod), matches);
         assertThrows(UnsupportedOperationException.class, () ->
                 matches.add(new Todo("another")));
     }
