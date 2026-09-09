@@ -1,6 +1,7 @@
 package crystal.parser;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Optional;
 
 import crystal.command.AddCommand;
@@ -96,17 +97,13 @@ public class Parser {
             return CommandType.HELP;
         }
 
-        for (CommandType commandType : CommandType.values()) {
-            if (commandType == CommandType.EXIT
-                    || commandType == CommandType.HELP
-                    || commandType == CommandType.UNKNOWN) {
-                continue;
-            }
-            if (command.startsWith(commandType.getKeyword())) {
-                return commandType;
-            }
-        }
-        return CommandType.UNKNOWN;
+        return Arrays.stream(CommandType.values())
+                .filter(commandType -> commandType != CommandType.EXIT)
+                .filter(commandType -> commandType != CommandType.HELP)
+                .filter(commandType -> commandType != CommandType.UNKNOWN)
+                .filter(commandType -> command.startsWith(commandType.getKeyword()))
+                .findFirst()
+                .orElse(CommandType.UNKNOWN);
     }
 
     /**
