@@ -33,8 +33,9 @@ commit in this project. The rules are based on the
   use it consistently.
 - For a nontrivial change, add a body separated from the subject by one blank
   line.
-- Wrap body lines at 72 characters. Separate ideas with blank lines and use
-  bullets where they improve readability.
+- Keep every nonblank commit-message line at 72 characters or fewer. This
+  includes the subject, body paragraphs, bullet items, and trailers. Separate
+  ideas with blank lines and use bullets where they improve readability.
 - Explain what changed and why. Leave implementation details that are obvious
   from the diff out of the message.
 - Describe the existing situation in the present tense and the requested
