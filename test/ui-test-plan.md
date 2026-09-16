@@ -283,6 +283,14 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           ]
         },
         {
+          "input": "list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Your task list is all clear, bestie!",
+            "{{LINE}}"
+          ]
+        },
+        {
           "input": "bye",
           "expect_exit": true,
           "expected_output": [

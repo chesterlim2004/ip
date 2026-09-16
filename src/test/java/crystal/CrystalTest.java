@@ -137,6 +137,25 @@ public class CrystalTest {
         assertEquals("Crystal: Oopsies!!! I cant reply to nothing...", response);
     }
 
+    /** Verifies that a rejected add command cannot change session or persisted state. */
+    @Test
+    public void getResponse_rejectedAddCommand_preservesExistingTaskState() throws Exception {
+        Path dataFile = tempDirectory.resolve("crystal.txt");
+        Crystal crystal = new Crystal(dataFile);
+        crystal.getResponse("todo read book");
+
+        String errorResponse = crystal.getResponse(
+                "deadline submit report /by Friday /by Saturday");
+        String listResponse = crystal.getResponse("list");
+
+        assertEquals("Crystal: Oopsies!!! A deadline must have a description "
+                + "and a /by time!", errorResponse);
+        assertEquals("Crystal: Ta-da!!! Here are all your tasks:\n"
+                + "         1.[T][ ] read book", listResponse);
+        assertEquals(List.of("T | 0 | read book"),
+                Files.readAllLines(dataFile, StandardCharsets.UTF_8));
+    }
+
     /** Verifies that the first GUI-style request reports and recovers from corrupt data. */
     @Test
     public void getResponse_corruptedData_reportsErrorAndUsesEmptyTaskList()
