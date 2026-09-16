@@ -95,6 +95,19 @@ public final class DialogBox extends HBox {
     }
 
     /**
+     * Creates a visually prominent left-aligned error message from Crystal.
+     *
+     * @param message error message body.
+     * @param avatarImage Crystal's avatar image.
+     * @return styled Crystal error dialog.
+     */
+    public static DialogBox createCrystalErrorDialog(String message, Image avatarImage) {
+        DialogBox dialogBox = createCrystalDialog(message, avatarImage);
+        dialogBox.messageLabel.getStyleClass().add("error-bubble");
+        return dialogBox;
+    }
+
+    /**
      * Builds a black-bordered circular frame containing a square crop of the avatar.
      * The crop starts at the image's top edge so footer content is excluded.
      *

@@ -71,6 +71,13 @@
     -fx-border-radius: 4px 16px 16px 16px;
 }
 
+.error-bubble {
+    -fx-background-color: #ffd6d6;
+    -fx-border-color: #b3261e;
+    -fx-border-width: 2px;
+    -fx-text-fill: #8b1a14;
+}
+
 .user-bubble {
     -fx-background-color: #f3acc6;
     -fx-background-radius: 16px 4px 16px 16px;

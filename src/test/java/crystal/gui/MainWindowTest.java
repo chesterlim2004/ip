@@ -16,4 +16,13 @@ public class MainWindowTest {
         assertFalse(MainWindow.isExitCommand("bye now"));
         assertFalse(MainWindow.isExitCommand("BYE"));
     }
+
+    /** Verifies that only Crystal exception responses receive error styling. */
+    @Test
+    public void isErrorResponse_errorAndOrdinaryResponses_returnsExpectedResult() {
+        assertTrue(MainWindow.isErrorResponse(
+                "Crystal: Oopsies!!! That task number does not exist!"));
+        assertFalse(MainWindow.isErrorResponse(
+                "Crystal: Your task list is empty!"));
+    }
 }

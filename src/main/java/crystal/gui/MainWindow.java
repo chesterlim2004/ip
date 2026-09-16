@@ -28,6 +28,9 @@ public final class MainWindow {
     /** Prefix included in console-oriented Crystal responses. */
     private static final String CRYSTAL_PREFIX = "Crystal: ";
 
+    /** Prefix identifying a user-facing error response from Crystal. */
+    private static final String ERROR_PREFIX = "Crystal: Oopsies!!! ";
+
     /** Time the farewell remains visible before the window closes. */
     private static final Duration WINDOW_CLOSE_DELAY = Duration.seconds(1.5);
 
@@ -92,10 +95,14 @@ public final class MainWindow {
         }
 
         boolean shouldCloseWindow = isExitCommand(userCommand);
-        String crystalResponse = formatCrystalResponse(crystal.getResponse(userCommand));
+        String completeResponse = crystal.getResponse(userCommand);
+        String crystalResponse = formatCrystalResponse(completeResponse);
+        DialogBox crystalDialog = isErrorResponse(completeResponse)
+                ? DialogBox.createCrystalErrorDialog(crystalResponse, crystalAvatar)
+                : DialogBox.createCrystalDialog(crystalResponse, crystalAvatar);
         messageContainer.getChildren().addAll(
                 DialogBox.createUserDialog(userCommand, userAvatar),
-                DialogBox.createCrystalDialog(crystalResponse, crystalAvatar));
+                crystalDialog);
         commandInput.clear();
         if (shouldCloseWindow) {
             scheduleWindowClose();
@@ -112,6 +119,16 @@ public final class MainWindow {
      */
     static boolean isExitCommand(String userCommand) {
         return userCommand.equals(CommandType.EXIT.getKeyword());
+    }
+
+    /**
+     * Returns whether a response begins with Crystal's error marker.
+     *
+     * @param response complete response produced by Crystal.
+     * @return {@code true} when the response reports an error.
+     */
+    static boolean isErrorResponse(String response) {
+        return response.startsWith(ERROR_PREFIX);
     }
 
     /**
