@@ -57,11 +57,11 @@ public class CrystalTest {
         assertEquals(List.of("T | 1 | read book"),
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
         String output = getOutput();
-        assertTrue(output.contains("Crystal: Here are the tasks in your list:\n"
+        assertTrue(output.contains("Crystal: Ta-da!!! Here are all your tasks:\n"
                 + "         1.[T][ ] read book\n"));
-        assertTrue(output.contains("Crystal: Nice! I've marked this task as done:\n"
+        assertTrue(output.contains("Crystal: Yayyy!!! You finished this task:\n"
                 + "         [T][X] read book\n"));
-        assertTrue(output.contains("Crystal: Bye!!! Hope to see you again soon!"));
+        assertTrue(output.contains("Crystal: Byeee!!! You did amazing today. See you soon!"));
     }
 
     /** Verifies recovery from corrupted data and replacement after a new mutation. */
@@ -78,7 +78,7 @@ public class CrystalTest {
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
         String output = getOutput();
         assertTrue(output.contains("Crystal: Oopsies!!! Your saved task data is invalid."));
-        assertTrue(output.contains("Crystal: Got it! I've added this task:\n"
+        assertTrue(output.contains("Crystal: Okkk!!! Here's your new task!!\n"
                 + "         [T][ ] recovered task\n"));
     }
 
@@ -92,7 +92,8 @@ public class CrystalTest {
 
         String output = getOutput();
         int errorIndex = output.indexOf("Crystal: Oopsies!!! I don't know what that means :-(");
-        int goodbyeIndex = output.indexOf("Crystal: Bye!!! Hope to see you again soon!");
+        int goodbyeIndex = output.indexOf(
+                "Crystal: Byeee!!! You did amazing today. See you soon!");
         assertTrue(errorIndex >= 0);
         assertTrue(goodbyeIndex > errorIndex);
     }
@@ -107,10 +108,10 @@ public class CrystalTest {
         String addResponse = crystal.getResponse("todo read book");
         String listResponse = crystal.getResponse("list");
 
-        assertEquals("Crystal: Got it! I've added this task:\n"
+        assertEquals("Crystal: Okkk!!! Here's your new task!!\n"
                 + "         [T][ ] read book\n"
                 + "         Now you have 1 task in the list.", addResponse);
-        assertEquals("Crystal: Here are the tasks in your list:\n"
+        assertEquals("Crystal: Ta-da!!! Here are all your tasks:\n"
                 + "         1.[T][ ] read book", listResponse);
         assertEquals(List.of("T | 0 | read book"),
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
@@ -137,7 +138,7 @@ public class CrystalTest {
         String response = crystal.getResponse("list");
 
         assertEquals("Crystal: Oopsies!!! Your saved task data is invalid.\n"
-                + "Crystal: Your task list is empty!", response);
+                + "Crystal: Your task list is all clear, bestie!", response);
     }
 
     /**

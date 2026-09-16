@@ -27,7 +27,7 @@ public class FindCommandTest extends CommandTestBase {
 
         new FindCommand("BoOk").execute(tasks, createUi(), createStorage());
 
-        assertEquals("Crystal: Here are the matching tasks in your list:\n"
+        assertEquals("Crystal: Yay, I found these matching tasks:\n"
                 + "         1.[T][X] READ book\n"
                 + "         2.[D][ ] return book (by: June 6th)\n", getOutput());
         assertFalse(Files.exists(tempDirectory.resolve("data").resolve("crystal.txt")));
@@ -39,7 +39,8 @@ public class FindCommandTest extends CommandTestBase {
 
         new FindCommand("homework").execute(tasks, createUi(), createStorage());
 
-        assertEquals("Crystal: There are no matching tasks in your list!\n", getOutput());
+        assertEquals("Crystal: Aww, I couldn't find any matching tasks!\n",
+                getOutput());
         assertFalse(Files.exists(tempDirectory.resolve("data").resolve("crystal.txt")));
     }
 }

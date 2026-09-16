@@ -31,7 +31,7 @@ public class DeleteCommandTest extends CommandTestBase {
         Path dataFile = tempDirectory.resolve("data").resolve("crystal.txt");
         assertEquals(List.of("T | 0 | return book"),
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
-        assertEquals("Crystal: Noted. I've removed this task:\n"
+        assertEquals("Crystal: All gone!!! I've removed this task:\n"
                 + "         [T][ ] read book\n"
                 + "         Now you have 1 task in the list.\n", getOutput());
     }

@@ -32,7 +32,7 @@ public class AddCommandTest extends CommandTestBase {
         Path dataFile = tempDirectory.resolve("data").resolve("crystal.txt");
         assertEquals(List.of("T | 0 | read book"),
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
-        assertEquals("Crystal: Got it! I've added this task:\n"
+        assertEquals("Crystal: Okkk!!! Here's your new task!!\n"
                 + "         [T][ ] read book\n"
                 + "         Now you have 1 task in the list.\n", getOutput());
     }

@@ -19,7 +19,7 @@ public class HelpCommandTest extends CommandTestBase {
         command.execute(new TaskList(), createUi(), createStorage());
 
         assertFalse(command.isExit());
-        assertEquals("[Commands:\n"
+        assertEquals("[Crystal's cute command guide:\n"
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"

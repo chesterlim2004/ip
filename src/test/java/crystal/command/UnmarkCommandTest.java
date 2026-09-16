@@ -34,7 +34,7 @@ public class UnmarkCommandTest extends CommandTestBase {
         Path dataFile = tempDirectory.resolve("data").resolve("crystal.txt");
         assertEquals(List.of("T | 0 | read book"),
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
-        assertEquals("Crystal: OK, I've marked this task as not done yet:\n"
+        assertEquals("Crystal: Okkk!!! I've put this task back on your list:\n"
                 + "         [T][ ] read book\n", getOutput());
     }
 
@@ -49,7 +49,7 @@ public class UnmarkCommandTest extends CommandTestBase {
         assertDoesNotThrow(() -> new UnmarkCommand(0).execute(
                 tasks, createUi(), new Storage(directoryAsFile)));
 
-        assertEquals("Crystal: You have not completed this task in the first place!\n"
+        assertEquals("Crystal: This task is already waiting for you!\n"
                 + "         [T][ ] read book\n", getOutput());
     }
 

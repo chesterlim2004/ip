@@ -24,7 +24,7 @@ public class Ui {
             + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n";
 
     /** Command guide shown when Crystal starts. */
-    private static final String COMMAND_GUIDE = "[Commands:\n"
+    private static final String COMMAND_GUIDE = "[Crystal's cute command guide:\n"
             + "- To add a todo, enter 'todo [description]'\n"
             + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
             + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
@@ -79,7 +79,7 @@ public class Ui {
     public void showWelcome() {
         showDivider();
         output.print(BANNER);
-        output.println("\nHello!!! I'm Crystal.");
+        output.println("\nHiii!!! I'm Crystal, your sparkly task bestie!");
         output.println(COMMAND_GUIDE);
         showDivider();
     }
@@ -105,7 +105,7 @@ public class Ui {
      * Shows Crystal's farewell.
      */
     public void showGoodbye() {
-        output.println("Crystal: Bye!!! Hope to see you again soon!");
+        output.println("Crystal: Byeee!!! You did amazing today. See you soon!");
     }
 
     /**
@@ -131,11 +131,11 @@ public class Ui {
      */
     public void showTaskList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            output.println("Crystal: Your task list is empty!");
+            output.println("Crystal: Your task list is all clear, bestie!");
             return;
         }
 
-        output.println("Crystal: Here are the tasks in your list:");
+        output.println("Crystal: Ta-da!!! Here are all your tasks:");
         for (int i = 0; i < tasks.getTaskCount(); i++) {
             output.println("         " + (i + 1) + "." + tasks.getTask(i));
         }
@@ -149,12 +149,11 @@ public class Ui {
      */
     public void showTasksOnDate(String formattedDate, List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            output.println(
-                    "Crystal: There are no dated tasks on " + formattedDate + "!");
+            output.println("Crystal: No dated tasks on " + formattedDate + ", yay!");
             return;
         }
 
-        output.println("Crystal: Here are the dated tasks on "
+        output.println("Crystal: Yay, here are your dated tasks on "
                 + formattedDate + ":");
         for (Task task : matchingTasks) {
             output.println("         - " + task);
@@ -168,11 +167,11 @@ public class Ui {
      */
     public void showMatchingTasks(List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            output.println("Crystal: There are no matching tasks in your list!");
+            output.println("Crystal: Aww, I couldn't find any matching tasks!");
             return;
         }
 
-        output.println("Crystal: Here are the matching tasks in your list:");
+        output.println("Crystal: Yay, I found these matching tasks:");
         for (int i = 0; i < matchingTasks.size(); i++) {
             output.println("         " + (i + 1) + "." + matchingTasks.get(i));
         }
@@ -184,7 +183,7 @@ public class Ui {
      * @param task task whose status was unchanged.
      */
     public void showTaskAlreadyDone(Task task) {
-        showTaskWithHeading("Crystal: You have already completed this task!", task);
+        showTaskWithHeading("Crystal: This task is already done, superstar!", task);
     }
 
     /**
@@ -193,8 +192,7 @@ public class Ui {
      * @param task task whose status was unchanged.
      */
     public void showTaskAlreadyNotDone(Task task) {
-        showTaskWithHeading(
-                "Crystal: You have not completed this task in the first place!", task);
+        showTaskWithHeading("Crystal: This task is already waiting for you!", task);
     }
 
     /**
@@ -203,7 +201,7 @@ public class Ui {
      * @param task task whose status changed.
      */
     public void showTaskMarkedDone(Task task) {
-        showTaskWithHeading("Crystal: Nice! I've marked this task as done:", task);
+        showTaskWithHeading("Crystal: Yayyy!!! You finished this task:", task);
     }
 
     /**
@@ -212,7 +210,8 @@ public class Ui {
      * @param task task whose status changed.
      */
     public void showTaskMarkedNotDone(Task task) {
-        showTaskWithHeading("Crystal: OK, I've marked this task as not done yet:", task);
+        showTaskWithHeading(
+                "Crystal: Okkk!!! I've put this task back on your list:", task);
     }
 
     /**
@@ -222,7 +221,7 @@ public class Ui {
      * @param taskCount number of tasks after the addition.
      */
     public void showTaskAdded(Task task, int taskCount) {
-        showTaskAndCount("Crystal: Got it! I've added this task:", task, taskCount);
+        showTaskAndCount("Crystal: Okkk!!! Here's your new task!!", task, taskCount);
     }
 
     /**
@@ -232,7 +231,7 @@ public class Ui {
      * @param taskCount number of tasks after the deletion.
      */
     public void showTaskDeleted(Task task, int taskCount) {
-        showTaskAndCount("Crystal: Noted. I've removed this task:", task, taskCount);
+        showTaskAndCount("Crystal: All gone!!! I've removed this task:", task, taskCount);
     }
 
     /**
