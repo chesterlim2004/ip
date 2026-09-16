@@ -26,7 +26,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [T][ ] read book",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -36,7 +36,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline do homework /by no idea :-p",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] do homework (by: no idea :-p)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -46,7 +46,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "event project meeting /from Mon 2pm /to 4pm",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [E][ ] project meeting (from: Mon 1400 to: 1600)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -56,7 +56,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Ta-da!!! Here are all your tasks:",
             "         1.[T][ ] read book",
             "         2.[D][ ] do homework (by: no idea :-p)",
             "         3.[E][ ] project meeting (from: Mon 1400 to: 1600)",
@@ -68,7 +68,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -82,7 +82,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [T][ ] read book",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -92,7 +92,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "mark 1",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Nice! I've marked this task as done:",
+            "Crystal: Yayyy!!! You finished this task:",
             "         [T][X] read book",
             "{{LINE}}"
           ]
@@ -101,7 +101,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "mark 1",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: You have already completed this task!",
+            "Crystal: This task is already done, superstar!",
             "         [T][X] read book",
             "{{LINE}}"
           ]
@@ -110,7 +110,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "unmark 1",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: OK, I've marked this task as not done yet:",
+            "Crystal: Okkk!!! I've put this task back on your list:",
             "         [T][ ] read book",
             "{{LINE}}"
           ]
@@ -119,7 +119,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "unmark 1",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: You have not completed this task in the first place!",
+            "Crystal: This task is already waiting for you!",
             "         [T][ ] read book",
             "{{LINE}}"
           ]
@@ -129,7 +129,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -151,7 +151,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Your task list is empty!",
+            "Crystal: Your task list is all clear, bestie!",
             "{{LINE}}"
           ]
         },
@@ -160,7 +160,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -247,7 +247,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -261,7 +261,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [T][ ] read book",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -271,7 +271,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "event project meeting /from Aug 6th 2pm /to 4pm",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -281,7 +281,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo borrow book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [T][ ] borrow book",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -291,7 +291,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "delete 2",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Noted. I've removed this task:",
+            "Crystal: All gone!!! I've removed this task:",
             "         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -301,7 +301,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Ta-da!!! Here are all your tasks:",
             "         1.[T][ ] read book",
             "         2.[T][ ] borrow book",
             "{{LINE}}"
@@ -312,7 +312,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -326,7 +326,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo read book",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [T][ ] read book",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -336,7 +336,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline return book /by June 6th",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] return book (by: June 6th)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -346,7 +346,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "event project meeting /from Aug 6th 2pm /to 4pm",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [E][ ] project meeting (from: Aug 6th 1400 to: 1600)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -356,7 +356,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "mark 2",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Nice! I've marked this task as done:",
+            "Crystal: Yayyy!!! You finished this task:",
             "         [D][X] return book (by: June 6th)",
             "{{LINE}}"
           ]
@@ -365,7 +365,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo join sports club",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [T][ ] join sports club",
             "         Now you have 4 tasks in the list.",
             "{{LINE}}"
@@ -375,7 +375,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "delete 4",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Noted. I've removed this task:",
+            "Crystal: All gone!!! I've removed this task:",
             "         [T][ ] join sports club",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -386,7 +386,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -414,7 +414,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Ta-da!!! Here are all your tasks:",
             "         1.[T][ ] read book",
             "         2.[D][X] return book (by: 02 Dec 2019 1800)",
             "         3.[E][ ] project meeting (from: Monday 0600 to: 1830)",
@@ -425,7 +425,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "mark 1",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Nice! I've marked this task as done:",
+            "Crystal: Yayyy!!! You finished this task:",
             "         [T][X] read book",
             "{{LINE}}"
           ]
@@ -434,7 +434,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "unmark 2",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: OK, I've marked this task as not done yet:",
+            "Crystal: Okkk!!! I've put this task back on your list:",
             "         [D][ ] return book (by: 02 Dec 2019 1800)",
             "{{LINE}}"
           ]
@@ -443,7 +443,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "todo join sports club",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [T][ ] join sports club",
             "         Now you have 4 tasks in the list.",
             "{{LINE}}"
@@ -453,7 +453,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "delete 3",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Noted. I've removed this task:",
+            "Crystal: All gone!!! I've removed this task:",
             "         [E][ ] project meeting (from: Monday 0600 to: 1830)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -463,7 +463,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Ta-da!!! Here are all your tasks:",
             "         1.[T][X] read book",
             "         2.[D][ ] return book (by: 02 Dec 2019 1800)",
             "         3.[T][ ] join sports club",
@@ -475,7 +475,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -504,8 +504,8 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         "| |___|  _ < | |  ___) || |/ ___ \\| |___",
         " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|",
         "",
-        "Hello!!! I'm Crystal.",
-        "[Commands:",
+        "Hiii!!! I'm Crystal, your sparkly task bestie!",
+        "[Crystal's cute command guide:",
         "- To add a todo, enter 'todo [description]'",
         "- To add a deadline, enter 'deadline [description] /by [deadline]'",
         "- To add an event, enter 'event [description] /from [start] /to [end]'",
@@ -526,7 +526,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Your task list is empty!",
+            "Crystal: Your task list is all clear, bestie!",
             "{{LINE}}"
           ]
         },
@@ -535,7 +535,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -554,7 +554,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline return book /by 2/12/2019 1800",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] return book (by: 02 Dec 2019 1800)",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -564,7 +564,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline submit report /by 2019-10-15",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] submit report (by: 15 Oct 2019)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -574,7 +574,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "event breakfast /from 6am /to 6.30pm",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [E][ ] breakfast (from: 0600 to: 1830)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -584,7 +584,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "event workshop /from 630pm /to Monday",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [E][ ] workshop (from: 1830 to: Monday)",
             "         Now you have 4 tasks in the list.",
             "{{LINE}}"
@@ -594,7 +594,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline call client /by 18:45",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] call client (by: 1845)",
             "         Now you have 5 tasks in the list.",
             "{{LINE}}"
@@ -604,7 +604,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Ta-da!!! Here are all your tasks:",
             "         1.[D][ ] return book (by: 02 Dec 2019 1800)",
             "         2.[D][ ] submit report (by: 15 Oct 2019)",
             "         3.[E][ ] breakfast (from: 0600 to: 1830)",
@@ -618,7 +618,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -641,7 +641,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline first release /by 2Oct2026",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] first release (by: 02 Oct 2026)",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -651,7 +651,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline second release /by 2 Dec2026",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] second release (by: 02 Dec 2026)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -661,7 +661,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline third release /by 2Nov 2026",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] third release (by: 02 Nov 2026)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -671,7 +671,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "event launch /from 2nd-Oct-2026 6am /to 3 October 2026 18:30",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [E][ ] launch (from: 02 Oct 2026 0600 to: 03 Oct 2026 1830)",
             "         Now you have 4 tasks in the list.",
             "{{LINE}}"
@@ -682,7 +682,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -704,7 +704,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline numeric date /by 2/12/26",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] numeric date (by: 02 Dec 2026)",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -714,7 +714,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline compact date /by 2Oct26",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] compact date (by: 02 Oct 2026)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -724,7 +724,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline partial spacing /by 2 Dec26 630pm",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] partial spacing (by: 02 Dec 2026 1830)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -734,7 +734,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "deadline spaced date /by 2Nov 26",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [D][ ] spaced date (by: 02 Nov 2026)",
             "         Now you have 4 tasks in the list.",
             "{{LINE}}"
@@ -745,7 +745,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -779,7 +779,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list /on 2Dec26",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the dated tasks on 02 Dec 2026:",
+            "Crystal: Yay, here are your dated tasks on 02 Dec 2026:",
             "         - [D][ ] submit report (by: 02 Dec 2026 0900)",
             "         - [E][ ] workshop (from: 02 Dec 2026 0800 to: 02 Dec 2026 1000)",
             "         - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)",
@@ -792,7 +792,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list /on 4/12/26",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: There are no dated tasks on 04 Dec 2026!",
+            "Crystal: No dated tasks on 04 Dec 2026, yay!",
             "{{LINE}}"
           ]
         },
@@ -824,7 +824,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Ta-da!!! Here are all your tasks:",
             "         1.[T][ ] mention 02 Dec 2026",
             "         2.[D][ ] submit report (by: 02 Dec 2026 0900)",
             "         3.[D][ ] later deadline (by: 03 Dec 2026)",
@@ -841,7 +841,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -874,7 +874,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "find   BOOK",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the matching tasks in your list:",
+            "Crystal: Yay, I found these matching tasks:",
             "         1.[T][X] read book",
             "         2.[D][X] return book (by: June 6th)",
             "{{LINE}}"
@@ -884,7 +884,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "find homework",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: There are no matching tasks in your list!",
+            "Crystal: Aww, I couldn't find any matching tasks!",
             "{{LINE}}"
           ]
         },
@@ -900,7 +900,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the tasks in your list:",
+            "Crystal: Ta-da!!! Here are all your tasks:",
             "         1.[T][X] read book",
             "         2.[D][X] return book (by: June 6th)",
             "         3.[E][ ] project meeting (from: book to: Friday)",
@@ -912,7 +912,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -933,7 +933,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "help",
           "expected_output": [
             "{{LINE}}",
-            "[Commands:",
+            "[Crystal's cute command guide:",
             "- To add a todo, enter 'todo [description]'",
             "- To add a deadline, enter 'deadline [description] /by [deadline]'",
             "- To add an event, enter 'event [description] /from [start] /to [end]'",
@@ -954,7 +954,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }
@@ -968,7 +968,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "within collect certificate /from 15Jan27 /to 25 January 2027",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [W][ ] collect certificate (from: 15 Jan 2027 to: 25 Jan 2027)",
             "         Now you have 1 task in the list.",
             "{{LINE}}"
@@ -978,7 +978,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list /on 20Jan27",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Here are the dated tasks on 20 Jan 2027:",
+            "Crystal: Yay, here are your dated tasks on 20 Jan 2027:",
             "         - [W][ ] collect certificate (from: 15 Jan 2027 to: 25 Jan 2027)",
             "{{LINE}}"
           ]
@@ -987,7 +987,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "within reversed period /from 25Jan27 /to 15Jan27",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [W][ ] reversed period (from: 25 Jan 2027 to: 15 Jan 2027)",
             "         Now you have 2 tasks in the list.",
             "{{LINE}}"
@@ -997,7 +997,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "within flexible period /from 31Feb27 /to someday",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Got it! I've added this task:",
+            "Crystal: Okkk!!! Here's your new task!!",
             "         [W][ ] flexible period (from: 31Feb27 to: someday)",
             "         Now you have 3 tasks in the list.",
             "{{LINE}}"
@@ -1008,7 +1008,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expect_exit": true,
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Bye!!! Hope to see you again soon!",
+            "Crystal: Byeee!!! You did amazing today. See you soon!",
             "{{LINE}}"
           ]
         }

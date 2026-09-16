@@ -33,7 +33,7 @@ public class MarkCommandTest extends CommandTestBase {
         Path dataFile = tempDirectory.resolve("data").resolve("crystal.txt");
         assertEquals(List.of("T | 1 | read book"),
                 Files.readAllLines(dataFile, StandardCharsets.UTF_8));
-        assertEquals("Crystal: Nice! I've marked this task as done:\n"
+        assertEquals("Crystal: Yayyy!!! You finished this task:\n"
                 + "         [T][X] read book\n", getOutput());
     }
 
@@ -49,7 +49,7 @@ public class MarkCommandTest extends CommandTestBase {
         assertDoesNotThrow(() -> new MarkCommand(0).execute(
                 tasks, createUi(), new Storage(directoryAsFile)));
 
-        assertEquals("Crystal: You have already completed this task!\n"
+        assertEquals("Crystal: This task is already done, superstar!\n"
                 + "         [T][X] read book\n", getOutput());
     }
 

@@ -19,6 +19,7 @@ public class ExitCommandTest extends CommandTestBase {
         command.execute(new TaskList(), createUi(), createStorage());
 
         assertTrue(command.isExit());
-        assertEquals("Crystal: Bye!!! Hope to see you again soon!\n", getOutput());
+        assertEquals("Crystal: Byeee!!! You did amazing today. See you soon!\n",
+                getOutput());
     }
 }

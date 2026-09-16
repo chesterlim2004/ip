@@ -29,7 +29,7 @@ public class ListCommandTest extends CommandTestBase {
 
         command.execute(tasks, createUi(), createStorage());
 
-        assertEquals("Crystal: Here are the tasks in your list:\n"
+        assertEquals("Crystal: Ta-da!!! Here are all your tasks:\n"
                 + "         1.[T][ ] read book\n"
                 + "         2.[D][ ] submit report (by: 02 Dec 2026)\n", getOutput());
         assertFalse(Files.exists(tempDirectory.resolve("data").resolve("crystal.txt")));
@@ -48,7 +48,7 @@ public class ListCommandTest extends CommandTestBase {
 
         command.execute(tasks, createUi(), createStorage());
 
-        assertEquals("Crystal: Here are the dated tasks on 02 Dec 2026:\n"
+        assertEquals("Crystal: Yay, here are your dated tasks on 02 Dec 2026:\n"
                 + "         - [D][ ] submit report (by: 02 Dec 2026 0900)\n"
                 + "         - [E][ ] conference (from: 01 Dec 2026 to: 03 Dec 2026)\n"
                 + "         - [W][ ] collect certificate "
@@ -64,7 +64,7 @@ public class ListCommandTest extends CommandTestBase {
 
         command.execute(tasks, createUi(), createStorage());
 
-        assertEquals("Crystal: There are no dated tasks on 02 Dec 2026!\n",
+        assertEquals("Crystal: No dated tasks on 02 Dec 2026, yay!\n",
                 getOutput());
     }
 }

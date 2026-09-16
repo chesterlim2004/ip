@@ -67,7 +67,7 @@ public class UiTest {
 
         ui.showGoodbye();
 
-        assertEquals("Crystal: Bye!!! Hope to see you again soon!\n",
+        assertEquals("Crystal: Byeee!!! You did amazing today. See you soon!\n",
                 responseOutput.toString(StandardCharsets.UTF_8));
         assertEquals("", getOutput());
     }
@@ -85,8 +85,8 @@ public class UiTest {
                 + "| |   | |_) \\ V /\\___ \\ | | / _ \\ | |\n"
                 + "| |___|  _ < | |  ___) || |/ ___ \\| |___\n"
                 + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n"
-                + "\nHello!!! I'm Crystal.\n"
-                + "[Commands:\n"
+                + "\nHiii!!! I'm Crystal, your sparkly task bestie!\n"
+                + "[Crystal's cute command guide:\n"
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
@@ -108,7 +108,7 @@ public class UiTest {
     public void showHelp_called_printsCompleteCommandGuide() {
         new Ui().showHelp();
 
-        assertEquals("[Commands:\n"
+        assertEquals("[Crystal's cute command guide:\n"
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
@@ -134,7 +134,7 @@ public class UiTest {
         ui.showError(new CrystalException("That task number does not exist!"));
 
         assertEquals(LINE + "\n"
-                + "Crystal: Bye!!! Hope to see you again soon!\n"
+                + "Crystal: Byeee!!! You did amazing today. See you soon!\n"
                 + "Crystal: Oopsies!!! That task number does not exist!\n", getOutput());
     }
 
@@ -143,7 +143,7 @@ public class UiTest {
     public void showTaskList_emptyList_printsEmptyMessage() {
         new Ui().showTaskList(new TaskList());
 
-        assertEquals("Crystal: Your task list is empty!\n", getOutput());
+        assertEquals("Crystal: Your task list is all clear, bestie!\n", getOutput());
     }
 
     /** Verifies one-based persistent numbering for a non-empty task list. */
@@ -154,7 +154,7 @@ public class UiTest {
 
         new Ui().showTaskList(tasks);
 
-        assertEquals("Crystal: Here are the tasks in your list:\n"
+        assertEquals("Crystal: Ta-da!!! Here are all your tasks:\n"
                 + "         1.[T][ ] read book\n"
                 + "         2.[D][ ] submit report (by: 02 Dec 2026)\n", getOutput());
     }
@@ -164,7 +164,7 @@ public class UiTest {
     public void showTasksOnDate_noMatches_printsDateSpecificEmptyMessage() {
         new Ui().showTasksOnDate("02 Dec 2026", List.of());
 
-        assertEquals("Crystal: There are no dated tasks on 02 Dec 2026!\n",
+        assertEquals("Crystal: No dated tasks on 02 Dec 2026, yay!\n",
                 getOutput());
     }
 
@@ -176,7 +176,7 @@ public class UiTest {
                 new Deadline("send invoice", "2Dec26 1700"),
                 new WithinPeriod("collect certificate", "1Dec26", "3Dec26")));
 
-        assertEquals("Crystal: Here are the dated tasks on 02 Dec 2026:\n"
+        assertEquals("Crystal: Yay, here are your dated tasks on 02 Dec 2026:\n"
                 + "         - [D][ ] submit report (by: 02 Dec 2026)\n"
                 + "         - [D][ ] send invoice (by: 02 Dec 2026 1700)\n"
                 + "         - [W][ ] collect certificate "
@@ -188,7 +188,8 @@ public class UiTest {
     public void showMatchingTasks_noMatches_printsEmptySearchMessage() {
         new Ui().showMatchingTasks(List.of());
 
-        assertEquals("Crystal: There are no matching tasks in your list!\n", getOutput());
+        assertEquals("Crystal: Aww, I couldn't find any matching tasks!\n",
+                getOutput());
     }
 
     @Test
@@ -199,7 +200,7 @@ public class UiTest {
         new Ui().showMatchingTasks(List.of(
                 completedTodo, new Deadline("return book", "June 6th")));
 
-        assertEquals("Crystal: Here are the matching tasks in your list:\n"
+        assertEquals("Crystal: Yay, I found these matching tasks:\n"
                 + "         1.[T][X] read book\n"
                 + "         2.[D][ ] return book (by: June 6th)\n", getOutput());
     }
@@ -216,13 +217,13 @@ public class UiTest {
         ui.showTaskMarkedDone(doneTask);
         ui.showTaskMarkedNotDone(incompleteTask);
 
-        assertEquals("Crystal: You have already completed this task!\n"
+        assertEquals("Crystal: This task is already done, superstar!\n"
                 + "         [T][X] read book\n"
-                + "Crystal: You have not completed this task in the first place!\n"
+                + "Crystal: This task is already waiting for you!\n"
                 + "         [T][ ] return book\n"
-                + "Crystal: Nice! I've marked this task as done:\n"
+                + "Crystal: Yayyy!!! You finished this task:\n"
                 + "         [T][X] read book\n"
-                + "Crystal: OK, I've marked this task as not done yet:\n"
+                + "Crystal: Okkk!!! I've put this task back on your list:\n"
                 + "         [T][ ] return book\n", getOutput());
     }
 
@@ -235,10 +236,10 @@ public class UiTest {
         ui.showTaskAdded(task, 1);
         ui.showTaskAdded(task, 2);
 
-        assertEquals("Crystal: Got it! I've added this task:\n"
+        assertEquals("Crystal: Okkk!!! Here's your new task!!\n"
                 + "         [T][ ] read book\n"
                 + "         Now you have 1 task in the list.\n"
-                + "Crystal: Got it! I've added this task:\n"
+                + "Crystal: Okkk!!! Here's your new task!!\n"
                 + "         [T][ ] read book\n"
                 + "         Now you have 2 tasks in the list.\n", getOutput());
     }
@@ -252,10 +253,10 @@ public class UiTest {
         ui.showTaskDeleted(task, 0);
         ui.showTaskDeleted(task, 1);
 
-        assertEquals("Crystal: Noted. I've removed this task:\n"
+        assertEquals("Crystal: All gone!!! I've removed this task:\n"
                 + "         [T][ ] read book\n"
                 + "         Now you have 0 tasks in the list.\n"
-                + "Crystal: Noted. I've removed this task:\n"
+                + "Crystal: All gone!!! I've removed this task:\n"
                 + "         [T][ ] read book\n"
                 + "         Now you have 1 task in the list.\n", getOutput());
     }
