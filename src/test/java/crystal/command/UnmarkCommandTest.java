@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -62,5 +63,22 @@ public class UnmarkCommandTest extends CommandTestBase {
                 new UnmarkCommand(-1).execute(tasks, createUi(), createStorage()));
 
         assertEquals("That task number does not exist!", exception.getMessage());
+    }
+
+    /** Verifies that a failed save restores the task's completed state. */
+    @Test
+    public void execute_storageFailure_restoresCompletedStatus() throws Exception {
+        Todo todo = new Todo("read book");
+        todo.markAsDone();
+        TaskList tasks = new TaskList(List.of(todo));
+        Path directoryAsFile = tempDirectory.resolve("crystal.txt");
+        Files.createDirectory(directoryAsFile);
+
+        CrystalException exception = assertThrows(CrystalException.class, () ->
+                new UnmarkCommand(0).execute(
+                        tasks, createUi(), new Storage(directoryAsFile)));
+
+        assertEquals("I couldn't save your tasks to the hard disk.", exception.getMessage());
+        assertTrue(todo.isDone());
     }
 }

@@ -2,6 +2,7 @@ package crystal.command;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -62,5 +63,21 @@ public class MarkCommandTest extends CommandTestBase {
                 new MarkCommand(1).execute(tasks, createUi(), createStorage()));
 
         assertEquals("That task number does not exist!", exception.getMessage());
+    }
+
+    /** Verifies that a failed save restores the task's incomplete state. */
+    @Test
+    public void execute_storageFailure_restoresIncompleteStatus() throws Exception {
+        Todo todo = new Todo("read book");
+        TaskList tasks = new TaskList(List.of(todo));
+        Path directoryAsFile = tempDirectory.resolve("crystal.txt");
+        Files.createDirectory(directoryAsFile);
+
+        CrystalException exception = assertThrows(CrystalException.class, () ->
+                new MarkCommand(0).execute(
+                        tasks, createUi(), new Storage(directoryAsFile)));
+
+        assertEquals("I couldn't save your tasks to the hard disk.", exception.getMessage());
+        assertFalse(todo.isDone());
     }
 }

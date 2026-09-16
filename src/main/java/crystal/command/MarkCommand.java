@@ -36,7 +36,12 @@ public final class MarkCommand extends TaskIndexCommand {
         }
 
         task.markAsDone();
-        storage.saveTasks(tasks.getTasks());
+        try {
+            storage.saveTasks(tasks.getTasks());
+        } catch (CrystalException exception) {
+            task.markAsNotDone();
+            throw new CrystalException(exception.getMessage());
+        }
         ui.showTaskMarkedDone(task);
     }
 }

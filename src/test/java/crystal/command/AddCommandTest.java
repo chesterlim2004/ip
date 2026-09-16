@@ -2,6 +2,7 @@ package crystal.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import crystal.exception.CrystalException;
+import crystal.storage.Storage;
 import crystal.task.TaskList;
 import crystal.task.Todo;
 
@@ -43,12 +45,14 @@ public class AddCommandTest extends CommandTestBase {
         Path directoryAsFile = tempDirectory.resolve("crystal.txt");
         Files.createDirectory(directoryAsFile);
         AddCommand command = new AddCommand(new Todo("read book"));
+        TaskList tasks = new TaskList();
 
-        CrystalException exception = org.junit.jupiter.api.Assertions.assertThrows(
+        CrystalException exception = assertThrows(
                 CrystalException.class, () ->
-                        command.execute(new TaskList(), createUi(),
-                                new crystal.storage.Storage(directoryAsFile)));
+                        command.execute(tasks, createUi(),
+                                new Storage(directoryAsFile)));
 
         assertEquals("I couldn't save your tasks to the hard disk.", exception.getMessage());
+        assertEquals(0, tasks.getTaskCount());
     }
 }

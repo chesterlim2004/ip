@@ -1,5 +1,8 @@
 package crystal.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import crystal.exception.CrystalException;
 import crystal.storage.Storage;
 import crystal.task.Task;
@@ -32,8 +35,10 @@ public final class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CrystalException {
+        List<Task> updatedTasks = new ArrayList<>(tasks.getTasks());
+        updatedTasks.add(task);
+        storage.saveTasks(updatedTasks);
         tasks.addTask(task);
-        storage.saveTasks(tasks.getTasks());
         ui.showTaskAdded(task, tasks.getTaskCount());
     }
 }

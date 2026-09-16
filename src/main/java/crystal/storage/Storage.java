@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import crystal.exception.CrystalException;
@@ -37,17 +38,17 @@ public final class Storage {
      * @throws CrystalException if the task data cannot be read or is invalid.
      */
     public ArrayList<Task> loadTasks() throws CrystalException {
-        if (Files.notExists(dataFilePath)) {
-            return new ArrayList<>();
-        }
-
         try {
+            if (Files.notExists(dataFilePath)) {
+                return new ArrayList<>();
+            }
+
             ArrayList<Task> tasks = new ArrayList<>();
             for (String taskLine : Files.readAllLines(dataFilePath, StandardCharsets.UTF_8)) {
                 tasks.add(parseTask(taskLine));
             }
             return tasks;
-        } catch (IOException exception) {
+        } catch (IOException | SecurityException exception) {
             throw new CrystalException("I couldn't load your tasks from the hard disk.");
         }
     }
@@ -68,7 +69,7 @@ public final class Storage {
                     .map(Task::toDataString)
                     .toList();
             Files.write(dataFilePath, taskLines, StandardCharsets.UTF_8);
-        } catch (IOException exception) {
+        } catch (IOException | SecurityException exception) {
             throw new CrystalException("I couldn't save your tasks to the hard disk.");
         }
     }
@@ -82,7 +83,7 @@ public final class Storage {
      */
     private static Task parseTask(String taskLine) throws CrystalException {
         String[] fields = taskLine.split(" \\| ", -1);
-        if (fields.length < 3) {
+        if (fields.length < 3 || Arrays.stream(fields).anyMatch(String::isBlank)) {
             throw invalidDataException();
         }
 
