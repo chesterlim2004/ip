@@ -160,6 +160,22 @@ public class StorageTest {
         }
     }
 
+    /** Verifies that a corrupt later record rejects the complete saved task file. */
+    @Test
+    public void loadTasks_validThenCorruptRecords_rejectsCompleteFile() throws IOException {
+        Path dataFile = tempDirectory.resolve("crystal.txt");
+        Files.write(dataFile, List.of(
+                "T | 0 | read book",
+                "not task data"), StandardCharsets.UTF_8);
+        Storage storage = new Storage(dataFile);
+
+        CrystalException exception = assertThrows(CrystalException.class, storage::loadTasks);
+
+        assertEquals("Your saved task data is invalid.", exception.getMessage());
+        assertEquals(List.of("T | 0 | read book", "not task data"),
+                Files.readAllLines(dataFile, StandardCharsets.UTF_8));
+    }
+
     /** Verifies user-facing read failure reporting when the data path is a directory. */
     @Test
     public void loadTasks_dataPathIsDirectory_throwsReadError() throws IOException {

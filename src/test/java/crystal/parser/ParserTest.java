@@ -206,6 +206,17 @@ public class ParserTest {
                 "delete", "delete one");
     }
 
+    /** Verifies that task numbers outside Java's integer range fail cleanly. */
+    @Test
+    public void parse_mutationCommandsWithIntegerOverflow_throwActionSpecificErrors() {
+        assertParseErrors("You have to mark a task number!",
+                "mark 2147483648", "mark -2147483649");
+        assertParseErrors("You have to unmark a task number!",
+                "unmark 999999999999999999999999");
+        assertParseErrors("You have to delete a task number!",
+                "delete -999999999999999999999999");
+    }
+
     /**
      * Parses and executes an add command, then compares its persisted representation.
      *
