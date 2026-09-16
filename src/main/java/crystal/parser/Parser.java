@@ -36,6 +36,16 @@ public class Parser {
     /** Separator before an event's end. */
     private static final String TO_SEPARATOR = " /to ";
 
+    /** Delimiter reserved for separating fields in the saved task file. */
+    private static final String STORAGE_SEPARATOR = " | ";
+
+    /** Message shown when the user submits no visible text. */
+    private static final String EMPTY_COMMAND_MESSAGE = "I cant reply to nothing...";
+
+    /** Message shown when outer spaces make a command ambiguous. */
+    private static final String OUTER_WHITESPACE_MESSAGE =
+            "Please remove spaces from the start or end of your command!";
+
     /**
      * Prevents construction because command parsing has no instance state.
      */
@@ -50,6 +60,13 @@ public class Parser {
      * @throws CrystalException if the command or its arguments are invalid.
      */
     public static Command parse(String command) throws CrystalException {
+        if (command == null || command.isBlank()) {
+            throw new CrystalException(EMPTY_COMMAND_MESSAGE);
+        }
+        if (!command.equals(command.strip())) {
+            throw new CrystalException(OUTER_WHITESPACE_MESSAGE);
+        }
+
         CommandType commandType = parseCommandType(command);
         return switch (commandType) {
             case TODO, DEADLINE, EVENT, WITHIN -> parseAddCommand(command, commandType);
@@ -221,15 +238,14 @@ public class Parser {
      * @throws CrystalException if the description is missing.
      */
     private static Command parseTodoCommand(String command) throws CrystalException {
+        String usageMessage = "A todo must have a description!";
         String prefix = CommandType.TODO.getKeyword() + " ";
         if (!command.startsWith(prefix)) {
-            throw new CrystalException("A todo must have a description!");
+            throw new CrystalException(usageMessage);
         }
 
         String description = command.substring(prefix.length());
-        if (description.isBlank()) {
-            throw new CrystalException("A todo must have a description!");
-        }
+        validateTaskFields(usageMessage, description);
         return new AddCommand(new Todo(description));
     }
 
@@ -241,19 +257,22 @@ public class Parser {
      * @throws CrystalException if the description or deadline is missing.
      */
     private static Command parseDeadlineCommand(String command) throws CrystalException {
+        String usageMessage = "A deadline must have a description and a /by time!";
         String prefix = CommandType.DEADLINE.getKeyword() + " ";
         if (!command.startsWith(prefix)) {
-            throw new CrystalException("A deadline must have a description and a /by time!");
+            throw new CrystalException(usageMessage);
         }
 
         String details = command.substring(prefix.length());
         int byIndex = details.indexOf(BY_SEPARATOR);
-        if (byIndex <= 0 || byIndex + BY_SEPARATOR.length() >= details.length()) {
-            throw new CrystalException("A deadline must have a description and a /by time!");
+        if (byIndex <= 0 || byIndex + BY_SEPARATOR.length() >= details.length()
+                || hasRepeatedSeparator(details, BY_SEPARATOR, byIndex)) {
+            throw new CrystalException(usageMessage);
         }
 
         String description = details.substring(0, byIndex);
         String by = details.substring(byIndex + BY_SEPARATOR.length());
+        validateTaskFields(usageMessage, description, by);
         return new AddCommand(new Deadline(description, by));
     }
 
@@ -265,24 +284,27 @@ public class Parser {
      * @throws CrystalException if the description, start, or end is missing.
      */
     private static Command parseEventCommand(String command) throws CrystalException {
+        String usageMessage =
+                "An event must have a description, a /from time and a /to time!";
         String prefix = CommandType.EVENT.getKeyword() + " ";
         if (!command.startsWith(prefix)) {
-            throw new CrystalException(
-                    "An event must have a description, a /from time and a /to time!");
+            throw new CrystalException(usageMessage);
         }
 
         String details = command.substring(prefix.length());
         int fromIndex = details.indexOf(FROM_SEPARATOR);
         int toIndex = details.indexOf(TO_SEPARATOR, fromIndex + FROM_SEPARATOR.length());
         if (fromIndex <= 0 || toIndex <= fromIndex + FROM_SEPARATOR.length()
-                || toIndex + TO_SEPARATOR.length() >= details.length()) {
-            throw new CrystalException(
-                    "An event must have a description, a /from time and a /to time!");
+                || toIndex + TO_SEPARATOR.length() >= details.length()
+                || hasRepeatedSeparator(details, FROM_SEPARATOR, fromIndex)
+                || hasRepeatedSeparator(details, TO_SEPARATOR, toIndex)) {
+            throw new CrystalException(usageMessage);
         }
 
         String description = details.substring(0, fromIndex);
         String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
         String to = details.substring(toIndex + TO_SEPARATOR.length());
+        validateTaskFields(usageMessage, description, from, to);
         return new AddCommand(new Event(description, from, to));
     }
 
@@ -304,18 +326,50 @@ public class Parser {
         String details = command.substring(prefix.length());
         int fromIndex = details.indexOf(FROM_SEPARATOR);
         int toIndex = details.indexOf(TO_SEPARATOR, fromIndex + FROM_SEPARATOR.length());
-        boolean hasRepeatedSeparator = fromIndex >= 0
-                && (details.indexOf(FROM_SEPARATOR, fromIndex + FROM_SEPARATOR.length()) >= 0
-                || details.indexOf(TO_SEPARATOR, toIndex + TO_SEPARATOR.length()) >= 0);
         if (fromIndex <= 0 || toIndex <= fromIndex + FROM_SEPARATOR.length()
                 || toIndex + TO_SEPARATOR.length() >= details.length()
-                || hasRepeatedSeparator) {
+                || hasRepeatedSeparator(details, FROM_SEPARATOR, fromIndex)
+                || hasRepeatedSeparator(details, TO_SEPARATOR, toIndex)) {
             throw new CrystalException(usageMessage);
         }
 
         String description = details.substring(0, fromIndex);
         String from = details.substring(fromIndex + FROM_SEPARATOR.length(), toIndex);
         String to = details.substring(toIndex + TO_SEPARATOR.length());
+        validateTaskFields(usageMessage, description, from, to);
         return new AddCommand(new WithinPeriod(description, from, to));
+    }
+
+    /**
+     * Returns whether a command field separator occurs more than once.
+     *
+     * @param details command details containing the separator.
+     * @param separator separator to count.
+     * @param firstIndex position of the first separator, or {@code -1}.
+     * @return {@code true} if another separator follows the first.
+     */
+    private static boolean hasRepeatedSeparator(
+            String details, String separator, int firstIndex) {
+        return firstIndex >= 0
+                && details.indexOf(separator, firstIndex + separator.length()) >= 0;
+    }
+
+    /**
+     * Validates nonblank task fields without restricting free-form date text.
+     *
+     * @param usageMessage error shown for a missing or padded field.
+     * @param fields task fields to validate.
+     * @throws CrystalException if a field is blank, padded, or unsafe to save.
+     */
+    private static void validateTaskFields(String usageMessage, String... fields)
+            throws CrystalException {
+        for (String field : fields) {
+            if (field.isBlank() || !field.equals(field.strip())) {
+                throw new CrystalException(usageMessage);
+            }
+            if (field.contains(STORAGE_SEPARATOR)) {
+                throw new CrystalException("Task details cannot contain ' | '!");
+            }
+        }
     }
 }

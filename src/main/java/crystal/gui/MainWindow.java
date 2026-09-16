@@ -89,20 +89,18 @@ public final class MainWindow {
      */
     @FXML
     private void handleUserInput() {
-        String userCommand = commandInput.getText().strip();
-        if (userCommand.isEmpty()) {
-            return;
-        }
-
+        String userCommand = commandInput.getText();
         boolean shouldCloseWindow = isExitCommand(userCommand);
         String completeResponse = crystal.getResponse(userCommand);
         String crystalResponse = formatCrystalResponse(completeResponse);
         DialogBox crystalDialog = isErrorResponse(completeResponse)
                 ? DialogBox.createCrystalErrorDialog(crystalResponse, crystalAvatar)
                 : DialogBox.createCrystalDialog(crystalResponse, crystalAvatar);
-        messageContainer.getChildren().addAll(
-                DialogBox.createUserDialog(userCommand, userAvatar),
-                crystalDialog);
+        if (!userCommand.isBlank()) {
+            messageContainer.getChildren().add(
+                    DialogBox.createUserDialog(userCommand, userAvatar));
+        }
+        messageContainer.getChildren().add(crystalDialog);
         commandInput.clear();
         if (shouldCloseWindow) {
             scheduleWindowClose();

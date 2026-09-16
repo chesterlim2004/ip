@@ -168,13 +168,29 @@ Each test case below specifies its aim, command inputs, and expected output. An 
     },
     {
       "id": "UI-04",
-      "aim": "Report malformed list and task commands and invalid task numbers as Crystal exceptions",
+      "aim": "Report empty, padded, malformed, unsafe, and out-of-range commands as Crystal exceptions",
       "exchanges": [
+        {
+          "input": "",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! I cant reply to nothing...",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": " list",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! Please remove spaces from the start or end of your command!",
+            "{{LINE}}"
+          ]
+        },
         {
           "input": "list ",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Oopsies!!! To view your task list, simply enter 'list'!",
+            "Crystal: Oopsies!!! Please remove spaces from the start or end of your command!",
             "{{LINE}}"
           ]
         },
@@ -199,6 +215,30 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "expected_output": [
             "{{LINE}}",
             "Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "deadline report /by Friday /by Saturday",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! A deadline must have a description and a /by time!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "event meeting /from Monday /from Tuesday /to Wednesday",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!",
+            "{{LINE}}"
+          ]
+        },
+        {
+          "input": "todo unsafe | task",
+          "expected_output": [
+            "{{LINE}}",
+            "Crystal: Oopsies!!! Task details cannot contain ' | '!",
             "{{LINE}}"
           ]
         },

@@ -1,5 +1,8 @@
 package crystal.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import crystal.exception.CrystalException;
 import crystal.storage.Storage;
 import crystal.task.Task;
@@ -30,8 +33,10 @@ public final class DeleteCommand extends TaskIndexCommand {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CrystalException {
         Task task = getTask(tasks);
+        List<Task> updatedTasks = new ArrayList<>(tasks.getTasks());
+        updatedTasks.remove(taskIndex);
+        storage.saveTasks(updatedTasks);
         tasks.deleteTask(taskIndex);
-        storage.saveTasks(tasks.getTasks());
         ui.showTaskDeleted(task, tasks.getTaskCount());
     }
 }

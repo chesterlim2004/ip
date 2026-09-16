@@ -36,7 +36,12 @@ public final class UnmarkCommand extends TaskIndexCommand {
         }
 
         task.markAsNotDone();
-        storage.saveTasks(tasks.getTasks());
+        try {
+            storage.saveTasks(tasks.getTasks());
+        } catch (CrystalException exception) {
+            task.markAsDone();
+            throw new CrystalException(exception.getMessage());
+        }
         ui.showTaskMarkedNotDone(task);
     }
 }

@@ -127,6 +127,16 @@ public class CrystalTest {
         assertEquals("Crystal: Oopsies!!! I don't know what that means :-(", response);
     }
 
+    /** Verifies that empty GUI-style requests return the dedicated empty-input reply. */
+    @Test
+    public void getResponse_emptyCommand_returnsUserFacingError() {
+        Crystal crystal = new Crystal(tempDirectory.resolve("crystal.txt"));
+
+        String response = crystal.getResponse("");
+
+        assertEquals("Crystal: Oopsies!!! I cant reply to nothing...", response);
+    }
+
     /** Verifies that the first GUI-style request reports and recovers from corrupt data. */
     @Test
     public void getResponse_corruptedData_reportsErrorAndUsesEmptyTaskList()

@@ -97,11 +97,27 @@ public class ParserTest {
         assertEquals(List.of(second), tasks.getTasks());
     }
 
+    /** Verifies that empty input receives a specific actionable error. */
+    @Test
+    public void parse_emptyCommands_throwEmptyCommandError() {
+        assertParseErrors("I cant reply to nothing...", null, "", "   ");
+    }
+
+    /** Verifies that accidental outer spaces receive a specific actionable error. */
+    @Test
+    public void parse_commandsWithOuterWhitespace_throwWhitespaceError() {
+        String expected = "Please remove spaces from the start or end of your command!";
+
+        assertParseErrors(expected,
+                " list", "list ", "list /on    ", "todo read book ",
+                " deadline report /by Friday");
+    }
+
     /** Verifies that unknown input and non-exact standalone commands receive the unknown error. */
     @Test
     public void parse_unknownOrNonExactStandaloneCommands_throwUnknownCommandError() {
         assertParseErrors("I don't know what that means :-(",
-                "", "read book", "help me", "bye now");
+                "read book", "help me", "bye now");
     }
 
     /** Verifies todo usage errors for missing and blank descriptions. */
@@ -109,7 +125,7 @@ public class ParserTest {
     public void parse_malformedTodoCommands_throwTodoUsageError() {
         String expected = "A todo must have a description!";
 
-        assertParseErrors(expected, "todo", "todo ", "todo    ");
+        assertParseErrors(expected, "todo", "todo  read book");
     }
 
     /** Verifies deadline usage errors for missing descriptions and deadline values. */
@@ -119,7 +135,8 @@ public class ParserTest {
 
         assertParseErrors(expected,
                 "deadline", "deadline submit report", "deadline /by 2Dec26",
-                "deadline submit report /by ");
+                "deadline submit report /by   Friday",
+                "deadline submit report /by Friday /by Saturday");
     }
 
     /** Verifies event usage errors for missing descriptions, starts, and ends. */
@@ -129,7 +146,9 @@ public class ParserTest {
 
         assertParseErrors(expected,
                 "event", "event workshop", "event /from 6am /to 7am",
-                "event workshop /from /to 7am", "event workshop /from 6am /to ");
+                "event workshop /from /to 7am", "event workshop /from   6am /to 7am",
+                "event workshop /from 6am /from 7am /to 8am",
+                "event workshop /from 6am /to 7am /to 8am");
     }
 
     /** Verifies errors for missing and repeated within-period fields. */
@@ -141,7 +160,7 @@ public class ParserTest {
                 "within", "within collect certificate",
                 "within /from 15Jan27 /to 25Jan27",
                 "within collect certificate /from /to 25Jan27",
-                "within collect certificate /from 15Jan27 /to ",
+                "within collect certificate /from   15Jan27 /to 25Jan27",
                 "within collect /from 15Jan27 /from 16Jan27 /to 25Jan27",
                 "within collect /from 15Jan27 /to 25Jan27 /to 26Jan27");
     }
@@ -150,9 +169,9 @@ public class ParserTest {
     @Test
     public void parse_malformedListCommands_throwSpecificListErrors() {
         assertParseErrors("To view your task list, simply enter 'list'!",
-                "list ", "list tomorrow");
+                "list tomorrow");
         assertParseErrors("To list tasks on a date, enter 'list /on [date]'!",
-                "list /on", "list /on    ");
+                "list /on");
         assertParseErrors("I couldn't understand that date!",
                 "list /on Monday", "list /on 31/02/26");
     }
@@ -162,7 +181,19 @@ public class ParserTest {
     public void parse_malformedFindCommands_throwFindUsageError() {
         String expected = "To find tasks, enter 'find [keyword]'!";
 
-        assertParseErrors(expected, "find", "find ", "find    ", "finder");
+        assertParseErrors(expected, "find", "finder");
+    }
+
+    /** Verifies rejection of the delimiter reserved for saved task fields. */
+    @Test
+    public void parse_taskFieldsContainingStorageDelimiter_throwStorageSafetyError() {
+        String expected = "Task details cannot contain ' | '!";
+
+        assertParseErrors(expected,
+                "todo read | book",
+                "deadline submit report /by before | Friday",
+                "event workshop /from Monday | morning /to Friday",
+                "within collect /from Monday /to before | Friday");
     }
 
     @Test

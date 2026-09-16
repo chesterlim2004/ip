@@ -152,7 +152,7 @@ Crystal: Byeee!!! You did amazing today. See you soon!
 ____________________________________________________________
 ```
 
-## UI-04: Report malformed list and task commands and invalid task numbers as Crystal exceptions
+## UI-04: Report empty, padded, malformed, unsafe, and out-of-range commands as Crystal exceptions
 
 ```text
 ____________________________________________________________
@@ -177,9 +177,17 @@ Hiii!!! I'm Crystal, your sparkly task bestie!
 - To view this command guide, enter 'help'
 - To exit, enter 'bye']
 ____________________________________________________________
+You:
+____________________________________________________________
+Crystal: Oopsies!!! I cant reply to nothing...
+____________________________________________________________
+You:  list
+____________________________________________________________
+Crystal: Oopsies!!! Please remove spaces from the start or end of your command!
+____________________________________________________________
 You: list 
 ____________________________________________________________
-Crystal: Oopsies!!! To view your task list, simply enter 'list'!
+Crystal: Oopsies!!! Please remove spaces from the start or end of your command!
 ____________________________________________________________
 You: todo
 ____________________________________________________________
@@ -192,6 +200,18 @@ ____________________________________________________________
 You: event
 ____________________________________________________________
 Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!
+____________________________________________________________
+You: deadline report /by Friday /by Saturday
+____________________________________________________________
+Crystal: Oopsies!!! A deadline must have a description and a /by time!
+____________________________________________________________
+You: event meeting /from Monday /from Tuesday /to Wednesday
+____________________________________________________________
+Crystal: Oopsies!!! An event must have a description, a /from time and a /to time!
+____________________________________________________________
+You: todo unsafe | task
+____________________________________________________________
+Crystal: Oopsies!!! Task details cannot contain ' | '!
 ____________________________________________________________
 You: mark
 ____________________________________________________________

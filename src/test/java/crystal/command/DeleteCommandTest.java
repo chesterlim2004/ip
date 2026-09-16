@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import crystal.exception.CrystalException;
+import crystal.storage.Storage;
 import crystal.task.TaskList;
 import crystal.task.Todo;
 
@@ -49,5 +50,22 @@ public class DeleteCommandTest extends CommandTestBase {
         assertEquals("That task number does not exist!", negativeIndex.getMessage());
         assertEquals("That task number does not exist!", highIndex.getMessage());
         assertEquals(1, tasks.getTaskCount());
+    }
+
+    /** Verifies that a failed save leaves the target task in memory. */
+    @Test
+    public void execute_storageFailure_preservesTaskList() throws Exception {
+        Todo todo = new Todo("read book");
+        TaskList tasks = new TaskList(List.of(todo));
+        Path directoryAsFile = tempDirectory.resolve("crystal.txt");
+        Files.createDirectory(directoryAsFile);
+
+        CrystalException exception = assertThrows(CrystalException.class, () ->
+                new DeleteCommand(0).execute(
+                        tasks, createUi(), new Storage(directoryAsFile)));
+
+        assertEquals("I couldn't save your tasks to the hard disk.", exception.getMessage());
+        assertEquals(1, tasks.getTaskCount());
+        assertEquals(todo, tasks.getTask(0));
     }
 }
