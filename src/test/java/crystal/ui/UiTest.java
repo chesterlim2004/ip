@@ -86,7 +86,7 @@ public class UiTest {
                 + "| |___|  _ < | |  ___) || |/ ___ \\| |___\n"
                 + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n"
                 + "\nHiii!!! I'm Crystal, your sparkly task bestie!\n"
-                + "[Crystal's cute command guide:\n"
+                + "[Crystal's command guide:\n"
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
@@ -108,7 +108,7 @@ public class UiTest {
     public void showHelp_called_printsCompleteCommandGuide() {
         new Ui().showHelp();
 
-        assertEquals("[Crystal's cute command guide:\n"
+        assertEquals("[Crystal's command guide:\n"
                 + "- To add a todo, enter 'todo [description]'\n"
                 + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
                 + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
@@ -143,7 +143,7 @@ public class UiTest {
     public void showTaskList_emptyList_printsEmptyMessage() {
         new Ui().showTaskList(new TaskList());
 
-        assertEquals("Crystal: Your task list is all clear, bestie!\n", getOutput());
+        assertEquals("Crystal: Your task list is all clear, well done!\n", getOutput());
     }
 
     /** Verifies one-based persistent numbering for a non-empty task list. */
@@ -217,7 +217,7 @@ public class UiTest {
         ui.showTaskMarkedDone(doneTask);
         ui.showTaskMarkedNotDone(incompleteTask);
 
-        assertEquals("Crystal: This task is already done, superstar!\n"
+        assertEquals("Crystal: This task is already done, good job!\n"
                 + "         [T][X] read book\n"
                 + "Crystal: This task is already waiting for you!\n"
                 + "         [T][ ] return book\n"

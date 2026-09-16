@@ -23,6 +23,6 @@ public class MainWindowTest {
         assertTrue(MainWindow.isErrorResponse(
                 "Crystal: Oopsies!!! That task number does not exist!"));
         assertFalse(MainWindow.isErrorResponse(
-                "Crystal: Your task list is all clear, bestie!"));
+                "Crystal: Your task list is all clear, well done!"));
     }
 }

@@ -50,7 +50,7 @@ public class MarkCommandTest extends CommandTestBase {
         assertDoesNotThrow(() -> new MarkCommand(0).execute(
                 tasks, createUi(), new Storage(directoryAsFile)));
 
-        assertEquals("Crystal: This task is already done, superstar!\n"
+        assertEquals("Crystal: This task is already done, good job!\n"
                 + "         [T][X] read book\n", getOutput());
     }
 

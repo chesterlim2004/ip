@@ -101,7 +101,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "mark 1",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: This task is already done, superstar!",
+            "Crystal: This task is already done, good job!",
             "         [T][X] read book",
             "{{LINE}}"
           ]
@@ -151,7 +151,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Your task list is all clear, bestie!",
+            "Crystal: Your task list is all clear, well done!",
             "{{LINE}}"
           ]
         },
@@ -286,7 +286,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Your task list is all clear, bestie!",
+            "Crystal: Your task list is all clear, well done!",
             "{{LINE}}"
           ]
         },
@@ -553,7 +553,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
         " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|",
         "",
         "Hiii!!! I'm Crystal, your sparkly task bestie!",
-        "[Crystal's cute command guide:",
+        "[Crystal's command guide:",
         "- To add a todo, enter 'todo [description]'",
         "- To add a deadline, enter 'deadline [description] /by [deadline]'",
         "- To add an event, enter 'event [description] /from [start] /to [end]'",
@@ -574,7 +574,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "list",
           "expected_output": [
             "{{LINE}}",
-            "Crystal: Your task list is all clear, bestie!",
+            "Crystal: Your task list is all clear, well done!",
             "{{LINE}}"
           ]
         },
@@ -981,7 +981,7 @@ Each test case below specifies its aim, command inputs, and expected output. An 
           "input": "help",
           "expected_output": [
             "{{LINE}}",
-            "[Crystal's cute command guide:",
+            "[Crystal's command guide:",
             "- To add a todo, enter 'todo [description]'",
             "- To add a deadline, enter 'deadline [description] /by [deadline]'",
             "- To add an event, enter 'event [description] /from [start] /to [end]'",

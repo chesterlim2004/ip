@@ -167,7 +167,7 @@ public class CrystalTest {
         String response = crystal.getResponse("list");
 
         assertEquals("Crystal: Oopsies!!! Your saved task data is invalid.\n"
-                + "Crystal: Your task list is all clear, bestie!", response);
+                + "Crystal: Your task list is all clear, well done!", response);
     }
 
     /**

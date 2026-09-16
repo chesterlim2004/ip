@@ -11,7 +11,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -67,7 +67,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -94,7 +94,7 @@ Crystal: Yayyy!!! You finished this task:
 ____________________________________________________________
 You: mark 1
 ____________________________________________________________
-Crystal: This task is already done, superstar!
+Crystal: This task is already done, good job!
          [T][X] read book
 ____________________________________________________________
 You: unmark 1
@@ -124,7 +124,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -144,7 +144,7 @@ Crystal: Oopsies!!! I don't know what that means :-(
 ____________________________________________________________
 You: list
 ____________________________________________________________
-Crystal: Your task list is all clear, bestie!
+Crystal: Your task list is all clear, well done!
 ____________________________________________________________
 You: bye
 ____________________________________________________________
@@ -163,7 +163,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -235,7 +235,7 @@ Crystal: Oopsies!!! That task number does not exist!
 ____________________________________________________________
 You: list
 ____________________________________________________________
-Crystal: Your task list is all clear, bestie!
+Crystal: Your task list is all clear, well done!
 ____________________________________________________________
 You: bye
 ____________________________________________________________
@@ -254,7 +254,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -315,7 +315,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -381,7 +381,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -448,7 +448,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -465,7 +465,7 @@ ____________________________________________________________
 Crystal: Oopsies!!! Your saved task data is invalid.
 You: list
 ____________________________________________________________
-Crystal: Your task list is all clear, bestie!
+Crystal: Your task list is all clear, well done!
 ____________________________________________________________
 You: bye
 ____________________________________________________________
@@ -484,7 +484,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -554,7 +554,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -609,7 +609,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -664,7 +664,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -732,7 +732,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -784,7 +784,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -800,7 +800,7 @@ Hiii!!! I'm Crystal, your sparkly task bestie!
 ____________________________________________________________
 You: help
 ____________________________________________________________
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
@@ -831,7 +831,7 @@ ____________________________________________________________
  \____|_| \_\|_| |____/ |_/_/   \_\_____|
 
 Hiii!!! I'm Crystal, your sparkly task bestie!
-[Crystal's cute command guide:
+[Crystal's command guide:
 - To add a todo, enter 'todo [description]'
 - To add a deadline, enter 'deadline [description] /by [deadline]'
 - To add an event, enter 'event [description] /from [start] /to [end]'
