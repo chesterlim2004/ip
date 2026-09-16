@@ -24,7 +24,7 @@ public class Ui {
             + " \\____|_| \\_\\|_| |____/ |_/_/   \\_\\_____|\n";
 
     /** Command guide shown when Crystal starts. */
-    private static final String COMMAND_GUIDE = "[Crystal's cute command guide:\n"
+    private static final String COMMAND_GUIDE = "[Crystal's command guide:\n"
             + "- To add a todo, enter 'todo [description]'\n"
             + "- To add a deadline, enter 'deadline [description] /by [deadline]'\n"
             + "- To add an event, enter 'event [description] /from [start] /to [end]'\n"
@@ -131,7 +131,7 @@ public class Ui {
      */
     public void showTaskList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            output.println("Crystal: Your task list is all clear, bestie!");
+            output.println("Crystal: Your task list is all clear, well done!");
             return;
         }
 
@@ -183,7 +183,7 @@ public class Ui {
      * @param task task whose status was unchanged.
      */
     public void showTaskAlreadyDone(Task task) {
-        showTaskWithHeading("Crystal: This task is already done, superstar!", task);
+        showTaskWithHeading("Crystal: This task is already done, good job!", task);
     }
 
     /**

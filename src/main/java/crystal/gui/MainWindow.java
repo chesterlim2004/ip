@@ -21,9 +21,9 @@ import javafx.util.Duration;
 public final class MainWindow {
     /** Introductory message displayed when the window opens. */
     private static final String WELCOME_MESSAGE = "Hiii!!! I'm Crystal, your sparkly task bestie! "
-            + "Send me a command and we'll make your list shine.\n\n"
-            + "Try: todo hw, list, find book, or bye (closes window).\n"
-            + "Enter 'help' whenever you need my cute command guide!";
+            + "Send me a command to get started!!\n\n"
+            + "You can try: todo hw, list, find book, or bye (closes window).\n"
+            + "Enter 'help' whenever you need my command guide!";
 
     /** Prefix included in console-oriented Crystal responses. */
     private static final String CRYSTAL_PREFIX = "Crystal: ";
